@@ -1,4 +1,4 @@
-name: cidc_pipeline_template
+name: cidc_wes2
 channels:
 - conda-forge
 - bioconda
