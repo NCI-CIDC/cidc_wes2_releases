@@ -142,7 +142,7 @@ DOARCHIVE = len(ARCHIVE) != 0
 # Set up logging to log file
 LOG_FILE  = config["log_file"]
 _logging.basicConfig(level=_logging.INFO,
-                    format='[pipeline_template] %(asctime)s - %(levelname)s - %(message)s',
+                    format='[cidc_wes2] %(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p',
                     handlers=[_logging.FileHandler(LOG_FILE)])
 
