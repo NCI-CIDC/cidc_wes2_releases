@@ -1,4 +1,4 @@
-# cidc_pipeline_template
+# cidc_wes2
 
 *Example workflow framework to assist with developing pipelines in Snakemake. This framework is currently set up to perform the following across sample files: read pre-processing (adapter trimming and quality filtering), assessment of sample contamination, read QC, reference genome alignment, and obtainment of alignment metrics.*
 
@@ -67,11 +67,11 @@ conda config --set channel_priority strict
 ## Pipeline setup and execution:
 Clone git repository to the location where you want to run your analysis and create the conda environment that will be used to run the pipeline.
 ```
-git clone https://github.com/NCI-CIDC/cidc_pipeline_template.git
-cd cidc_pipeline_template
+git clone https://github.com/NCI-CIDC/cidc_wes2.git
+cd cidc_wes2
 ## Creates environment and installs dependencies automatically
 conda env create -f=environment.yaml
-conda activate cidc_pipeline_template
+conda activate cidc_wes2
 ```
 Pipeline configuration (config.yaml)
 * This is where important workflow info is set / stored, This includes paths to reference genomes and sample metadata (sample info and gcloud location of input fastq files), as well as workflow output and source directories and options.
