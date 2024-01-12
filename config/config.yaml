@@ -1,10 +1,10 @@
 ## workflow set up
 # working output dir
-predir: '/media/scratch/cherikhsr/pipeline_template_output'
+predir: '/media/analysis/wes2_test_output'
 # source dir for supporting scripts
-srcdir: '/media/scratch/cherikhsr/cidc_pipeline_template/source'
+srcdir: '/home/trivittge_nih_gov/cidc_wes2/source'
 # file to write running log
-log_file: '/media/scratch/cherikhsr/pipeline_template_output/pipeline.log'
+log_file: '/media/analysis/wes2_test_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
 ncores: 16
 

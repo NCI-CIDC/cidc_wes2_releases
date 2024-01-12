@@ -19,8 +19,8 @@ rule run_bwa:
     threads: max(1,min(8,NCORES))
     shell:
         '''
-          echo "bwa mem -t {threads} {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output}" | tee {log}
-          bwa mem -t {threads} {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output} 2>> {log}
+          echo "bwa mem -t {threads} -M -R '@RG\\tID:{params.sample}\\tSM:{params.sample}\\tPL:ILLUMINA' -K 10000000 {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output}" | tee {log}
+          bwa mem -t {threads} -M -R '@RG\\tID:{params.sample}\\tSM:{params.sample}\\tPL:ILLUMINA' -K 10000000 {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output} 2>> {log}
         '''
 
 ## Index BAM
