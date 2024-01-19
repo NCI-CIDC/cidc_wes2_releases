@@ -60,8 +60,8 @@ try:
     import utils
     import time
 except:
-    print("The srcdir value in the config file has not been properly configured. \
-           Please configure the config/config.yaml file and try again.")
+    print("####\nThe srcdir value in the config file has not been properly configured. \n \
+           Please configure the config/config.yaml file and try again.\n####")
 
 #added back in for to_log and to_benchmark functions
 include: "./rules/common.smk"
@@ -71,20 +71,25 @@ include: "./rules/common.smk"
 paths = create_path_accessor()
 
 ## read in reference genome locations file
-reference_df = pd.read_table(config["reference"], sep=",")
+reference_df = pd.read_table(config["reference"],
+	     sep=",",
+	     comment = "#")
 print(reference_df)
 ## read in sample metadata file
-sample_metadata_df = pd.read_table(config["sample_metadata"], sep=",", keep_default_na=False)
+sample_metadata_df = pd.read_table(config["sample_metadata"],
+		   sep=",",
+		   keep_default_na=False,
+		   comment = "#")
 
 
 # Reference genome gcloud URI locations
 GENOME_FA_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_fa", "google_bucket_URI"].item()
-GENOME_GTF_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_gtf", "google_bucket_URI"].item()
+#GENOME_GTF_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_gtf", "google_bucket_URI"].item()
 GENOME_BWA_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_bwa_index", "google_bucket_URI"].item()
 GENOME_BLACKLIST_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_blacklist", "google_bucket_URI"].item()
-GENOME_DHS_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_dhs", "google_bucket_URI"].item()
-GENOME_CONSERVATION_URI = reference_df.loc[reference_df["ref_file_name"]=="conservation", "google_bucket_URI"].item()
-CFUG_REF = reference_df.loc[reference_df["ref_file_name"]=="centrifuge", "google_bucket_URI"].item()
+#GENOME_DHS_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_dhs", "google_bucket_URI"].item()
+#GENOME_CONSERVATION_URI = reference_df.loc[reference_df["ref_file_name"]=="conservation", "google_bucket_URI"].item()
+#CFUG_REF = reference_df.loc[reference_df["ref_file_name"]=="centrifuge", "google_bucket_URI"].item()
 
 # Sample info
 ## List of samples to process
@@ -151,10 +156,10 @@ _logging.basicConfig(level=_logging.INFO,
 ################################
 #     DEFINE TARGET OUTPUT     #
 ################################
-OUTPUT = [expand(paths.centrifuge.classification, sample=SAMID),
-          expand(paths.rseqc.bamqc_txt, sample=SAMID),
+OUTPUT = [expand(paths.rseqc.bamqc_txt, sample=SAMID),
           expand(paths.rseqc.bamgc_txt, sample=SAMID),
-          expand(paths.fastqc.targz, sample=SAMID)]
+          expand(paths.fastqc.targz, sample=SAMID),]
+#	  expand(paths.centrifuge.classification, sample=SAMID),]
 
 
 
@@ -197,5 +202,5 @@ rule all:
 ################################
 include: "./rules/initialization.smk"
 include: "./rules/ingest.smk"
-include: "./rules/contamination.smk"
+#include: "./rules/contamination.smk"
 include: "./rules/mapping.smk"

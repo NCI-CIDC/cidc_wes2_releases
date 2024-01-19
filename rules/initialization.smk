@@ -18,24 +18,24 @@ rule retrieve_reference_genome:
         rules.directory_setup.output
     output:
         fa=paths.genome.fa,
-        gtf=paths.annot.gtf
+#        gtf=paths.annot.gtf
     benchmark:
         'benchmark/retrieve_reference_genome.tab'
     log:
         'log/retrieve_reference_genome.log'
     params:
         fa_uri=GENOME_FA_URI,
-        gtf_uri=GENOME_GTF_URI
+#        gtf_uri=GENOME_GTF_URI
     priority: 1000
     threads: 1
     shell:
         '''
           echo "downloading Genome to map reads to GRCh38 or hg38..." | tee {log}
           gsutil cp {params.fa_uri} {output.fa}
-          
-          echo "downloading supporting GTF annotations..." | tee -a {log}
-          gsutil cp {params.gtf_uri} {output.gtf}
-        '''
+        '''         
+#          echo "downloading supporting GTF annotations..." | tee -a {log}
+#          gsutil cp {params.gtf_uri} {output.gtf}
+
 
 ## Download built bwa_index files for the specified genome
 ## If using different genome, need to edit rule to build using 'bwa index'
@@ -116,14 +116,14 @@ rule retrieve_hg38_blacklist:
         blacklist_uri=GENOME_BLACKLIST_URI
     threads: 1
     shell:
-        '''
+       '''
           gsutil cp {params.blacklist_uri} {output}.gz
           gunzip {output}.gz
         '''
-
+unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.
 ## If file location changes, the shell directive needs to be updated.
-rule retrieve_hg38_dhs:
+#rule retrieve_hg38_dhs:
     output:
         paths.genome.dhs
     benchmark:
@@ -147,3 +147,4 @@ rule retrieve_conservation_bw:
     shell:
         "gsutil cp {params.dhs_uri} {output}"
 
+"""
