@@ -1,0 +1,14 @@
+##type: either "TN" or "TO" for "tumor normal", "tumor only"
+##
+##run_name: identical to tumor cimac_id
+##
+##normal: cimac_id for the corresponding normal_sample.
+##        if sample is tumor-only, this field is left blank.
+##        Pipeline will confirm with the "type" field that
+##        this is appropriately a tumor only sample. for
+##        TO samples, this field is left blank.
+##
+##tumor:  cimac_id for the tumor sample. This field will always
+##        be filled out.
+##
+type,runName,normal,tumor

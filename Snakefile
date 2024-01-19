@@ -74,13 +74,19 @@ paths = create_path_accessor()
 reference_df = pd.read_table(config["reference"],
 	     sep=",",
 	     comment = "#")
-print(reference_df)
+
 ## read in sample metadata file
 sample_metadata_df = pd.read_table(config["sample_metadata"],
 		   sep=",",
 		   keep_default_na=False,
 		   comment = "#")
 
+pairings_df = pd.read_table(config["pairings"],
+	     sep=",",
+	     comment = "#").set_index("run_name", drop = False)
+
+tumor_only_df = pairings_df.query("type == 'TO'")
+tumor_normal_df = pairings_df.query("type == 'TN'")
 
 # Reference genome gcloud URI locations
 GENOME_FA_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_fa", "google_bucket_URI"].item()
