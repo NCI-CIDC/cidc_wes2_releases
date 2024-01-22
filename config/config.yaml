@@ -37,3 +37,4 @@ archive_bucket: ''
 ## for now this step will be written using sentieon, but might be re-written
 ## using something like DeepVariant.
 sentieon_path: "/media/storage/sentieon/sentieon-genomics-202112.06/bin/"
+
