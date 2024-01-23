@@ -21,6 +21,10 @@ reference: 'config/reference_dev.csv'
 ## sample metadata file
 sample_metadata: 'config/sample_metadata_dev.csv'
 
+## sample pairing data
+## to be used in the future once we're building the tumor normal vs tumor only bits.
+pairings: "config/pairings.csv"
+
 
 ## preprocess options
 quality_trim: '20'

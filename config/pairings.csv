@@ -11,4 +11,4 @@
 ##tumor:  cimac_id for the tumor sample. This field will always
 ##        be filled out.
 ##
-type,runName,normal,tumor
+type,run_name,normal,tumor
