@@ -204,8 +204,13 @@ onsuccess:
 rule all:
     input:
         OUTPUT
-    
 
+#just for testing ingestion of reference files
+rule references:
+    input:
+        [
+        paths.genome.mills,
+        ]
 
 ################################
 #        PIPELINE RULES        #
