@@ -38,12 +38,15 @@ rule retrieve_ref_indel_sets:
         mills = paths.genome.mills,
         g1000 = paths.genome.g1000,
         mills_index = paths.genome.mills_index,
-        g1000_index = paths.genome.g1000_index	
+        g1000_index = paths.genome.g1000_index,
+        dbsnp = paths.genome.dbsnp
     params:
         mills_gcp_uri = GENOME_MILLS_URI,
         g1000_gcp_uri = GENOME_G1000_URI,
         mills_index_gcp_url = GENOME_MILLS_INDEX_URI,
-        g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,	
+        g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
+        dbsnp = GENOME_DBSNP_URI,
+        dbsnp_index = GENOME_DBSNP_INDEX_URI
     shell:
         '''
         echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}

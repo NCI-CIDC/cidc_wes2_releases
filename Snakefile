@@ -98,6 +98,8 @@ GENOME_MILLS_URI =reference_df.loc[reference_df["ref_file_name"]=="mills_ref", "
 GENOME_G1000_URI =reference_df.loc[reference_df["ref_file_name"]=="g1000_ref", "google_bucket_URI"].item()
 GENOME_MILLS_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="mills_index", "google_bucket_URI"].item()
 GENOME_G1000_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="g1000_index", "google_bucket_URI"].item()
+GENOME_DBSNP_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp", "google_bucket_URI"].item()
+GENOME_DBSNP_INDEX_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp_index", "google_bucket_URI"].item()
 
 # Sample info
 ## List of samples to process
@@ -169,6 +171,7 @@ OUTPUT = [
           expand(paths.rseqc.bamgc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
           expand(paths.bam.realigned_bam, sample=SAMID),
+          expand(paths.bqsr.recal_table, sample = SAMID),
 	  ]
 
 
