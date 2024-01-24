@@ -18,25 +18,41 @@ rule retrieve_reference_genome:
         rules.directory_setup.output
     output:
         fa=paths.genome.fa,
-        gtf=paths.annot.gtf
     benchmark:
         'benchmark/retrieve_reference_genome.tab'
     log:
         'log/retrieve_reference_genome.log'
     params:
         fa_uri=GENOME_FA_URI,
-        gtf_uri=GENOME_GTF_URI
     priority: 1000
     threads: 1
     shell:
         '''
           echo "downloading Genome to map reads to GRCh38 or hg38..." | tee {log}
           gsutil cp {params.fa_uri} {output.fa}
-          
-          echo "downloading supporting GTF annotations..." | tee -a {log}
-          gsutil cp {params.gtf_uri} {output.gtf}
-        '''
+        '''         
 
+
+rule retrieve_ref_indel_sets:
+    output:
+        mills = paths.genome.mills,
+        g1000 = paths.genome.g1000,
+        mills_index = paths.genome.mills_index,
+        g1000_index = paths.genome.g1000_index,
+        dbsnp = paths.genome.dbsnp
+    params:
+        mills_gcp_uri = GENOME_MILLS_URI,
+        g1000_gcp_uri = GENOME_G1000_URI,
+        mills_index_gcp_url = GENOME_MILLS_INDEX_URI,
+        g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
+        dbsnp = GENOME_DBSNP_URI,
+        dbsnp_index = GENOME_DBSNP_INDEX_URI
+    shell:
+        '''
+        echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}
+        gsutil -m cp {params} genome
+        '''
+          
 ## Download built bwa_index files for the specified genome
 ## If using different genome, need to edit rule to build using 'bwa index'
 rule build_bwa_index:
@@ -58,9 +74,9 @@ rule build_bwa_index:
     shell:
         '''
           echo "Downloading bwa_index files from ncbi ftp associated with genome for mapping reads to GRCh38 or hg38..." | tee {log}
-          gsutil cp {params.bwa_uri}/* genome
-          touch {output} 
-          
+          gsutil cp {params.bwa_uri}/* genome &&
+          touch {output}
+	  
           ## export rule env details
           conda env export --no-builds > info/bwa.info
         '''
@@ -116,14 +132,14 @@ rule retrieve_hg38_blacklist:
         blacklist_uri=GENOME_BLACKLIST_URI
     threads: 1
     shell:
-        '''
+       '''
           gsutil cp {params.blacklist_uri} {output}.gz
           gunzip {output}.gz
         '''
-
+unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.
 ## If file location changes, the shell directive needs to be updated.
-rule retrieve_hg38_dhs:
+#rule retrieve_hg38_dhs:
     output:
         paths.genome.dhs
     benchmark:
@@ -147,3 +163,4 @@ rule retrieve_conservation_bw:
     shell:
         "gsutil cp {params.dhs_uri} {output}"
 
+"""

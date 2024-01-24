@@ -1,14 +1,20 @@
 ## INITIALIZE
 genome:
-    fa: "GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
-    bwt: "GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bwt"
+    fa: "GCA_000001405.15_GRCh38_full_analysis_set.fna" 
+    bwt: "GCA_000001405.15_GRCh38_full_analysis_set.fna.bwt" 
     size: "genome.size"
-    fai: "GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.fai"
+    fai: "GCA_000001405.15_GRCh38_full_analysis_set.fna.fai"
     blacklist: "hg38-blacklist.v2.bed"
     filtered_fai: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.fna.fai"
     bed: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.bed"
     dhs: "DHS_hg38.bed"
-
+    mills: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+    g1000: "1000G_phase1.snps.high_confidence.hg38.vcf.gz"
+    mills_index: "Mills_and_1000G_gold_standard.indels.hg38.vcf.gz.tbi"
+    g1000_index: "1000G_phase1.snps.high_confidence.hg38.vcf.gz.tbi"
+    dbsnp: "00-All.vcf.gz"
+    dbsnp_index: "00-All.vcf.gz.tbi"
+    
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
     bed: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.bed"
@@ -41,6 +47,8 @@ bam:
     fixmate_bam: "{sample}_fixmate.bam"
     filtered_bam: "{sample}_filtered.bam"
     filtered_index: "{sample}_filtered.bam.bai"
+    realigned_bam: "{sample}_realigned.bam"
+    realigned_index: "{sample}_realigned.bam.bai"
     metrics: "{sample}_marked_duplicates_metrics.txt"
     sampled_bam: "{sample}_sampled.bam"
     sampled_index: "{sample}_sampled.bam.bai"
@@ -53,3 +61,9 @@ rseqc:
 fastqc:
     targz: "{sample}_filtered_fastqc.tar.gz"
 
+bqsr:
+    prerecaltable: "{sample}_prerecal_data.table"
+    postrecaltable: "{sample}_postrecal_data.table"    
+    recal_bam: "{sample}_recalibrated.bam"
+    recal_index: "{sample}_recalibrated.bam.bai"
+    recal_table: "{sample}_recal.csv"

@@ -1,10 +1,11 @@
 ## workflow set up
 # working output dir
-predir: '/media/scratch/cherikhsr/pipeline_template_output'
+#predir: '/media/scratch/cherikhsr/pipeline_template_output'
+predir: "/home/pendletonmr_nih_gov/p/cidc_wes2/results"
 # source dir for supporting scripts
-srcdir: '/media/scratch/cherikhsr/cidc_pipeline_template/source'
+srcdir: '/home/pendletonmr_nih_gov/p/cidc_wes2/source'
 # file to write running log
-log_file: '/media/scratch/cherikhsr/pipeline_template_output/pipeline.log'
+log_file: '/home/pendletonmr_nih_gov/p/cidc_wes2/results/pipeline.log'
 # number of CPU cores dedicated to entire workflow
 ncores: 16
 
@@ -20,6 +21,10 @@ reference: 'config/reference_dev.csv'
 ## sample metadata file
 sample_metadata: 'config/sample_metadata_dev.csv'
 
+## sample pairing data
+## to be used in the future once we're building the tumor normal vs tumor only bits.
+pairings: "config/pairings.csv"
+
 
 ## preprocess options
 quality_trim: '20'
@@ -28,3 +33,12 @@ quality_trim: '20'
 ## cloud program [gsutil, aws] and bucket location
 cloud_prog: 'gsutil'
 archive_bucket: ''
+
+## sentieon path
+## The realigner and recalibration tools in old wes are from `sentieon driver`
+## and the documentation isn't immediately clear about the identity
+## of the underlying algorithms. Algos in re-alignment vary in accuracy, so
+## for now this step will be written using sentieon, but might be re-written
+## using something like DeepVariant.
+sentieon_path: "/media/storage/sentieon/sentieon-genomics-202112.06/bin/"
+
