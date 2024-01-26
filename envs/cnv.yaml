@@ -1,4 +1,4 @@
-name: cnv_analysis
+name: cnv
 channels:
     - conda-forge
     - bioconda
