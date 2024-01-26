@@ -73,3 +73,8 @@ coverage:
     depth: "{sample}_exome_coverage_depth.txt"
     bdg: "{sample}_exome_coverage.bdg"
     bw: "{sample}_exome_coverage.bw"
+
+cnv:
+    bed: "{sample}_cnv_segmented.bed"
+    igv: "{sample}_cnv_segmented.igv"
+    csv: "{sample}_cnv_annot.csv"
