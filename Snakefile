@@ -174,7 +174,8 @@ OUTPUT = [
           expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.recal_table, sample = SAMID),
           expand(paths.coverage.depth, sample = SAMID),
-          expand(paths.coverage.bw, sample = SAMID)
+          expand(paths.coverage.bw, sample = SAMID),
+          expand(paths.cnv.csv, sample=SAMID)
 	  ]
 
 
@@ -226,3 +227,4 @@ include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
 include: "./rules/realignment_recalibration.smk"
 include: "./rules/coverage.smk"
+include: "./rules/cnv.smk"
