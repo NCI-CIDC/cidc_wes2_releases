@@ -100,6 +100,7 @@ GENOME_MILLS_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="mills_i
 GENOME_G1000_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="g1000_index", "google_bucket_URI"].item()
 GENOME_DBSNP_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp", "google_bucket_URI"].item()
 GENOME_DBSNP_INDEX_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp_index", "google_bucket_URI"].item()
+HLA_BED_URI = reference_df.loc[reference_df["ref_file_name"]=="hla_bed", "google_bucket_URI"].item()
 
 # Sample info
 ## List of samples to process
@@ -170,9 +171,9 @@ OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
           expand(paths.rseqc.bamgc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
-          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.recal_table, sample = SAMID),
-	  ]
+#          expand(paths.xhla.report, sample = SAMID),
+]
 
 
 
@@ -221,4 +222,5 @@ rule references:
 include: "./rules/initialization.smk"
 include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
-include: "./rules/realignment_recalibration.smk"
+include: "./rules/realignment_recalibration_gatk.smk"
+include: "./rules/xHLA.smk"

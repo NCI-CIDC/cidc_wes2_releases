@@ -39,14 +39,16 @@ rule retrieve_ref_indel_sets:
         g1000 = paths.genome.g1000,
         mills_index = paths.genome.mills_index,
         g1000_index = paths.genome.g1000_index,
-        dbsnp = paths.genome.dbsnp
+        dbsnp = paths.genome.dbsnp,
+        hla = paths.genome.hla
     params:
         mills_gcp_uri = GENOME_MILLS_URI,
         g1000_gcp_uri = GENOME_G1000_URI,
         mills_index_gcp_url = GENOME_MILLS_INDEX_URI,
         g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
         dbsnp = GENOME_DBSNP_URI,
-        dbsnp_index = GENOME_DBSNP_INDEX_URI
+        dbsnp_index = GENOME_DBSNP_INDEX_URI,
+        hla_bed = HLA_BED_URI,
     shell:
         '''
         echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}
@@ -136,6 +138,19 @@ rule retrieve_hg38_blacklist:
           gsutil cp {params.blacklist_uri} {output}.gz
           gunzip {output}.gz
         '''
+
+##makes a picard reference dictionary for use by picard re-aligner
+rule picard_dictionary:
+    input:
+        paths.genome.fa
+    output:
+        paths.genome.picard_dict
+    conda:
+        "../envs/picard.yaml"
+    shell:
+        "picard CreateSequenceDictionary -R {input} -O {output}"
+
+
 unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.
 ## If file location changes, the shell directive needs to be updated.
