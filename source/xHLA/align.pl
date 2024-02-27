@@ -12,6 +12,7 @@ die "usage: $0 fastq output\n" unless $#ARGV >= 1;
 my $doDNA = 1 if $#ARGV > 1;
 my $fastq_file = shift;
 my $out_file = shift;
+my $hla_path = shift;
 
 print STDERR "processing FASTQ file\n";
 my %qseq;
@@ -42,7 +43,9 @@ my %suf;
 my %type;
 my %gene;
 my %is_gene;
-open(IN, "$root/data/hla.tsv") or die $!;
+#open(IN, "$root/data/hla.tsv") or die $!; #old
+
+open(IN, "$hla_path/hla.tsv") or die $!;
 while(<IN>)
 {
 	chomp;
@@ -89,7 +92,7 @@ print STDERR "\t", scalar(keys %nonspec), " reads matched to HLA types not in th
 
 my %dna;
 my %dna_name;
-open(IN, "$root/data/hla.fna") or die $!;
+open(IN, "$hla_path/hla.fna") or die $!;
 while(<IN>)
 {
 	my @a = split(/\t/, $_);

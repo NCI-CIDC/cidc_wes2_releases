@@ -9,9 +9,11 @@ set -eu -o pipefail
 
 ##THIS line specifies the directory for locating the xHLA scripts
 BIN="`dirname \"$0\"`"
+##echo "BIN VALUE:",$BIN
 
 S3=$1
 ID=$2
+HLA_REF=$3
 OUT=hla-$ID
 DELETE=false
 FULL=false
@@ -33,14 +35,17 @@ mkdir -p $OUT
 TEMP=temp-$RANDOM-$RANDOM-$RANDOM
 
 echo "Extracting reads from S3"
-samtools view -u $S3 chr6:29886751-33090696 | samtools view -L $BIN/../data/hla.bed - > ${TEMP}.sam
+echo "**"
+samtools --help
+echo "**"
+samtools view -u $S3 chr6:29886751-33090696 | samtools view -L $HLA_REF/hla.bed - > ${TEMP}.sam
 $BIN/preprocess.pl ${TEMP}.sam | gzip > $OUT/$ID.fq.gz
 rm ${TEMP}.sam
 echo "Aligning reads to IMGT database"
 if [ "$FULL" = true ]; then
-    $BIN/align.pl $OUT/${ID}.fq.gz $OUT/${ID}.tsv full
+    $BIN/align.pl $OUT/${ID}.fq.gz $OUT/${ID}.tsv $HLA_REF full
 else
-    $BIN/align.pl $OUT/${ID}.fq.gz $OUT/${ID}.tsv
+    $BIN/align.pl $OUT/${ID}.fq.gz $OUT/${ID}.tsv $HLA_REF
 fi
 
 echo "Typing"

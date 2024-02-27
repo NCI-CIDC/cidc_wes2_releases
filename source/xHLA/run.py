@@ -44,8 +44,11 @@ if __name__ == '__main__':
     logger.info('Xie Chao\'s HLA typing algorithm')
     parser = argparse.ArgumentParser(description='HLA typing')
     parser.add_argument('--sample_id', type=str, required = True, help='Sample ID/Name')
+    parser.add_argument('--exec_path', type=str, required = True, help='the path where xHLA executables live.')
     parser.add_argument('--input_bam_path', type=str, required = True, help='Input file')
     parser.add_argument('--output_path', type=str, required = True, help='Output directory')
+    parser.add_argument('--temp_path', type=str, required = True, help='Location for storing temp data.')
+    parser.add_argument('--ref_data', type=str, required = True, help='path to folder containing hla reference data (from xHLA repository)')    
     parser.add_argument('--delete', action="store_true",
                         help='Delete all intermediate files')
     parser.add_argument('--full', action="store_true",
@@ -53,17 +56,20 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
 
     logger.info('Sample_id: {} Input file: {}'.format(args.sample_id, args.input_bam_path))
-    out_local_path = join('hla-' + args.sample_id, args.sample_id + '.json')
+    out_local_path = join(args.temp_path + 'hla-' + args.sample_id, args.sample_id + '.json')
 
 
     ###this next line specifies where the xHLA executables live
-    bin_path = join(dirname(abspath(__file__)), 'typer.sh')
-    bin_args = [bin_path, args.input_bam_path, args.sample_id]
+    bin_path = join(abspath(args.exec_path), 'typer.sh')
+#    print(args.exec_path, bin_path)
+    bin_args = [bin_path, args.input_bam_path, args.sample_id, args.hla_bed]
     if args.delete:
         bin_args += ['delete']
     if args.full:
         bin_args += ['full']
 
+    print("running command:" ,bin_args)
+    
     check_call(bin_args)
 
     out_final_path = join(args.output_path, 'report-'+args.sample_id+'-hla.json')

@@ -5,10 +5,11 @@ channels:
 - biobuilds
 - defaults
 dependencies:
-- samtools
 - bwa
+- samtools
 - sambamba
 - bedtools
+- r-base
 - r-data.table
 - r-lpsolve
 - bioconductor-iranges

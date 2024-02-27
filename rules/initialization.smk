@@ -37,10 +37,10 @@ rule retrieve_ref_indel_sets:
     output:
         mills = paths.genome.mills,
         g1000 = paths.genome.g1000,
+        dbsnp = paths.genome.dbsnp,
         mills_index = paths.genome.mills_index,
         g1000_index = paths.genome.g1000_index,
-        dbsnp = paths.genome.dbsnp,
-        hla = paths.genome.hla
+	dbsnp_index = paths.genome.dbsnp_index
     params:
         mills_gcp_uri = GENOME_MILLS_URI,
         g1000_gcp_uri = GENOME_G1000_URI,
@@ -48,13 +48,29 @@ rule retrieve_ref_indel_sets:
         g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
         dbsnp = GENOME_DBSNP_URI,
         dbsnp_index = GENOME_DBSNP_INDEX_URI,
-        hla_bed = HLA_BED_URI,
+	output_path = Path(PREDIR) / Path(paths.genome.dbsnp).parent
     shell:
         '''
         echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}
-        gsutil -m cp {params} genome
+        gsutil -m cp {params} 
         '''
-          
+
+rule retrieve_xHLA_ref_Data:
+    output:
+        hla_tsv = paths.genome.hla_tsv,
+        hla_bed = paths.genome.hla_bed,
+        hla_fna = paths.genome.hla_fna
+    params:
+        hla_bed = HLA_BED_URI,
+        hla_tsv = HLA_TSV_URI,
+        hla_fna = HLA_FNA_URI,
+	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent
+    shell:
+        '''
+        echo "Downloading reference data for xHLA..." | tee {log}
+        gsutil -m cp {params} 
+        '''
+
 ## Download built bwa_index files for the specified genome
 ## If using different genome, need to edit rule to build using 'bwa index'
 rule build_bwa_index:
@@ -70,7 +86,8 @@ rule build_bwa_index:
     conda:
         SOURCEDIR+"/../envs/bwa.yaml"
     params:
-        bwa_uri=GENOME_BWA_URI
+        bwa_uri=GENOME_BWA_URI,
+
     priority: 1000
     threads: 1
     shell:
