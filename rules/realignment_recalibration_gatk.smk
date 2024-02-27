@@ -67,8 +67,7 @@ rule applyBQSR_gatk:
         --emit-original-quals \
         --reference {input.ref_fa} \
         --add-output-sam-program-record \
-        && samtools index {input.bam}
-
+        && samtools index {output.bam}
         """
 
 
@@ -99,7 +98,7 @@ rule Base_recalibration_round2_gatk:
            --known-sites {input.dbsnp} \
            --known-sites {input.mills} \
            --known-sites {input.g1000} \
-           --output {output.prerecaltable} \
+           --output {output.postrecaltable} \
            --reference {input.fa} \
            --add-output-sam-program-record \
            --create-output-bam-index
@@ -109,8 +108,8 @@ rule Base_recalibration_round2_gatk:
 rule Analyze_covariates_gatk:
     """ recalibration for realigned files"""
     input:
-        postrecaltable= paths.bqsr.postrecaltable,
-        prerecaltable=paths.bqsr.prerecaltable,
+        round2_table = paths.bqsr.postrecaltable,
+        round1_table = paths.bqsr.prerecaltable,
         index = paths.genome.fa,
     output:
         recalfile=paths.bqsr.recal_table,
@@ -127,8 +126,8 @@ rule Analyze_covariates_gatk:
     shell:
         """
         gatk AnalyzeCovariates \
-        --after-report-file {input.postrecaltable} \
-        --before-report-file {input.prerecaltable} \
+        --after-report-file {input.round2_table} \
+        --before-report-file {input.round1_table} \
         --plots-report-file {output.report} \
         --intermediate-csv-file {output.recalfile}
         """
