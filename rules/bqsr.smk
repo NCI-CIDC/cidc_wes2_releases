@@ -120,7 +120,7 @@ rule Analyze_covariates_gatk:
         sentieon_path=config['sentieon_path'],
     threads: 1 #_realigner_threads
     group: "recalibration"
-    conda: "../envs/gatk.yaml"    
+    conda: "../envs/bqsr_analyze_covariates.yml"
     benchmark:
         "benchmarks/recalibration/{sample}/{sample}.Base_recalibration_sentieon.txt"
     shell:

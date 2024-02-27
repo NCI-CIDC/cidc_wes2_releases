@@ -222,5 +222,5 @@ rule references:
 include: "./rules/initialization.smk"
 include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
-include: "./rules/realignment_recalibration_gatk.smk"
+include: "./rules/bqsr.smk"
 include: "./rules/xHLA.smk"
