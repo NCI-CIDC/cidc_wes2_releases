@@ -107,8 +107,10 @@ GENOME_DBSNP_INDEX_URI = grab_ref_URI("dbsnp_index")
 #reference data for xHLA
 HLA_BED_URI = grab_ref_URI("hla_bed")
 HLA_TSV_URI = grab_ref_URI("hla_tsv")
-print(HLA_TSV_URI)
 HLA_FNA_URI = grab_ref_URI("hla_fna")
+HLA_DMND_URI = grab_ref_URI("hla_dmnd")
+HLA_FAA_URI = grab_ref_URI("hla_faa")
+HLA_SHIFT_URI = grab_ref_URI("hla_shift")
 
 # Sample info
 ## List of samples to process
