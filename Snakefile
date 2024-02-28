@@ -89,6 +89,7 @@ tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
 
 # Reference genome gcloud URI locations
+
 #todo: wrap these in a function in rules/common.smk
 GENOME_FA_URI = grab_ref_URI("genome_fa")
 GENOME_GTF_URI = grab_ref_URI("genome_gtf")
@@ -111,6 +112,11 @@ HLA_FNA_URI = grab_ref_URI("hla_fna")
 HLA_DMND_URI = grab_ref_URI("hla_dmnd")
 HLA_FAA_URI = grab_ref_URI("hla_faa")
 HLA_SHIFT_URI = grab_ref_URI("hla_shift")
+<<<<<<< HEAD
+=======
+GENOME_COVERAGE_TARGETS = grab_ref_URI("coverage_targets")
+
+>>>>>>> 2ddfe17d878d0293abca5052c83b9fa507c4898c
 
 # Sample info
 ## List of samples to process
@@ -179,11 +185,15 @@ _logging.basicConfig(level=_logging.INFO,
 ################################
 OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
-          expand(paths.rseqc.bamgc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
+          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.report, sample = SAMID),
           expand(paths.xhla.report, sample = SAMID),
-]
+          expand(paths.coverage.depth, sample = SAMID),
+          expand(paths.coverage.bw, sample = SAMID),
+          expand(paths.cnv.csv, sample=SAMID)
+	  ]
+
 
 
 
@@ -234,3 +244,6 @@ include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
 include: "./rules/bqsr.smk"
 include: "./rules/xHLA.smk"
+include: "./rules/realignment_recalibration.smk"
+include: "./rules/coverage.smk"
+include: "./rules/cnv.smk"

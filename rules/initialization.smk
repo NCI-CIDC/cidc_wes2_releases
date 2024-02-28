@@ -30,7 +30,7 @@ rule retrieve_reference_genome:
         '''
           echo "downloading Genome to map reads to GRCh38 or hg38..." | tee {log}
           gsutil cp {params.fa_uri} {output.fa}
-        '''         
+        '''
 
 
 rule retrieve_ref_indel_sets:
@@ -55,11 +55,15 @@ rule retrieve_ref_indel_sets:
         gsutil -m cp {params} 
         '''
 
+
 rule retrieve_xHLA_ref_Data:
     output:
         hla_tsv = paths.genome.hla_tsv,
         hla_bed = paths.genome.hla_bed,
-        hla_fna = paths.genome.hla_fna
+        hla_fna = paths.genome.hla_fna,
+        hla_shift = paths.genome.hla_shift,
+        hla_dmnd = paths.genome.hla_dmnd,
+        hla_faa = paths.genome.hla_faa
     params:
         hla_bed = HLA_BED_URI,
         hla_tsv = HLA_TSV_URI,
@@ -129,7 +133,7 @@ rule genome_size:
           conda env export --no-builds > info/samtools.info
         '''
 
-# Filter the hg38 genome index and convert from fai to bed format 
+# Filter the hg38 genome index and convert from fai to bed format
 rule create_bed:
     input:
         paths.genome.fai
@@ -142,7 +146,7 @@ rule create_bed:
         '''
           ## Remove the entries from chrM, chrUN, _random, chrEBV in the hg38 genome index and convert fai format to bed
           grep -v -E 'chrUn|_random|chrEBV|chrM' {input} | awk -F'\t' '{{ print $1,\"0\",$2 }}' > {output}
-        '''  
+        '''
 
 ## Retrieve hg38 blacklist from https://github.com/Boyle-Lab/Blacklist
 rule retrieve_hg38_blacklist:
@@ -159,6 +163,7 @@ rule retrieve_hg38_blacklist:
           gunzip {output}.gz
         '''
 
+
 ##makes a picard reference dictionary for use by picard re-aligner
 rule picard_dictionary:
     input:
@@ -169,6 +174,21 @@ rule picard_dictionary:
         "../envs/picard.yaml"
     shell:
         "picard CreateSequenceDictionary -R {input} -O {output}"
+
+
+## Retrieve coverage target regions
+rule retrieve_coverage_targets_bed:
+    output:
+        paths.genome.coverage_targets
+    benchmark:
+        'benchmark/retrieve_coverage_targets_bed.tab'
+    params:
+        file_uri=GENOME_COVERAGE_TARGETS
+    threads: 1
+    shell:
+       '''
+          gsutil cp {params.file_uri} {output}
+        '''
 
 
 unused = """
