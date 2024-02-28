@@ -25,7 +25,9 @@ rule xhla:
 	hla_bed = paths.genome.hla_bed,
 	hla_tsv = paths.genome.hla_tsv,
 	hla_fna = paths.genome.hla_fna,	
-	
+	hla_faa = paths.genome.hla_faa,
+	hla_shift = paths.genome.hla_shift,
+	hla_freq = paths.genome.hla_freq,	
     output:
         paths.xhla.report
     threads: 4 #_xhla_threads
@@ -39,8 +41,11 @@ rule xhla:
     benchmark:
         "benchmarks/{sample}_xhla.tab"
     log:
-        "log/{sample}_getfile.log"
+        "log/{sample}_xHLA.log"
     shell:
         """
+	echo  {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}-{params.sample} --ref_data {params.ref_data} > {log};
+
         {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}-{params.sample} --ref_data {params.ref_data}
+
         """
