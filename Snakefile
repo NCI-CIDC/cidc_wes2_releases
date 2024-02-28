@@ -112,7 +112,7 @@ HLA_FNA_URI = grab_ref_URI("hla_fna")
 HLA_DMND_URI = grab_ref_URI("hla_dmnd")
 HLA_FAA_URI = grab_ref_URI("hla_faa")
 HLA_SHIFT_URI = grab_ref_URI("hla_shift")
-GENOME_COVERAGE_TARGETS = reference_df.loc[reference_df["ref_file_name"]=="coverage_targets", "google_bucket_URI"].item()
+GENOME_COVERAGE_TARGETS = grab_ref_URI("coverage_targets")
 
 
 # Sample info
