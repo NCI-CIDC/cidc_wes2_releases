@@ -64,6 +64,9 @@ rule retrieve_xHLA_ref_Data:
         hla_bed = HLA_BED_URI,
         hla_tsv = HLA_TSV_URI,
         hla_fna = HLA_FNA_URI,
+        hla_shift = HLA_SHIFT_URI,
+        hla_dmnd = HLA_DMND_URI,
+        hla_faa = HLA_FAA_URI,
 	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent
     shell:
         '''

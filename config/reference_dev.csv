@@ -13,3 +13,6 @@ dbsnp_index,gs://cidc-wes2-reference-v1/00-All_fixed.vcf.bgz.tbi, https://ftp.nc
 hla_bed,gs://cidc-wes2-reference-v1/hla.bed,"xHLA package",
 hla_tsv,gs://cidc-wes2-reference-v1/hla.tsv,"xHLA package",
 hla_fna,gs://cidc-wes2-reference-v1/hla.fna,"xHLA package",
+hla_faa,gs://cidc-wes2-reference-v1/hla.faa,"xHLA package",
+hla_shift,gs://cidc-wes2-reference-v1/hla.shift,"xHLA package",
+hla_dmnd,gs://cidc-wes2-reference-v1/hla.dmnd,"xHLA package",
