@@ -1,0 +1,19 @@
+name: xHLA
+channels:
+- conda-forge
+- bioconda
+- biobuilds
+- defaults
+dependencies:
+- bwa
+- samtools
+- sambamba
+- bedtools
+- r-base
+- r-data.table
+- r-lpsolve
+- bioconductor-iranges
+- boto3
+- diamond=2.1.9 #used to be 0.8.22
+- pip:
+  - logger

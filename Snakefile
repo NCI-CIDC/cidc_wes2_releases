@@ -89,18 +89,31 @@ tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
 
 # Reference genome gcloud URI locations
-GENOME_FA_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_fa", "google_bucket_URI"].item()
-GENOME_GTF_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_gtf", "google_bucket_URI"].item()
-GENOME_BWA_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_bwa_index", "google_bucket_URI"].item()
-GENOME_BLACKLIST_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_blacklist", "google_bucket_URI"].item()
-GENOME_DHS_URI = reference_df.loc[reference_df["ref_file_name"]=="genome_dhs", "google_bucket_URI"].item()
-GENOME_MILLS_URI =reference_df.loc[reference_df["ref_file_name"]=="mills_ref", "google_bucket_URI"].item()
-GENOME_G1000_URI =reference_df.loc[reference_df["ref_file_name"]=="g1000_ref", "google_bucket_URI"].item()
-GENOME_MILLS_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="mills_index", "google_bucket_URI"].item()
-GENOME_G1000_INDEX_URI =reference_df.loc[reference_df["ref_file_name"]=="g1000_index", "google_bucket_URI"].item()
-GENOME_DBSNP_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp", "google_bucket_URI"].item()
-GENOME_DBSNP_INDEX_URI = reference_df.loc[reference_df["ref_file_name"]=="dbsnp_index", "google_bucket_URI"].item()
-GENOME_COVERAGE_TARGETS = reference_df.loc[reference_df["ref_file_name"]=="coverage_targets", "google_bucket_URI"].item()
+
+#todo: wrap these in a function in rules/common.smk
+GENOME_FA_URI = grab_ref_URI("genome_fa")
+GENOME_GTF_URI = grab_ref_URI("genome_gtf")
+GENOME_BWA_URI = grab_ref_URI("genome_bwa_index")
+GENOME_BLACKLIST_URI = grab_ref_URI("genome_blacklist")
+GENOME_DHS_URI = grab_ref_URI("genome_dhs")
+
+#reference SNVs for BQSR
+GENOME_MILLS_URI = grab_ref_URI("mills_ref")
+GENOME_G1000_URI = grab_ref_URI("g1000_ref")
+GENOME_MILLS_INDEX_URI = grab_ref_URI("mills_index")
+GENOME_G1000_INDEX_URI = grab_ref_URI("g1000_index")
+GENOME_DBSNP_URI = grab_ref_URI("dbsnp")
+GENOME_DBSNP_INDEX_URI = grab_ref_URI("dbsnp_index")
+
+#reference data for xHLA
+HLA_BED_URI = grab_ref_URI("hla_bed")
+HLA_TSV_URI = grab_ref_URI("hla_tsv")
+HLA_FNA_URI = grab_ref_URI("hla_fna")
+HLA_DMND_URI = grab_ref_URI("hla_dmnd")
+HLA_FAA_URI = grab_ref_URI("hla_faa")
+HLA_SHIFT_URI = grab_ref_URI("hla_shift")
+GENOME_COVERAGE_TARGETS = grab_ref_URI("coverage_targets")
+
 
 # Sample info
 ## List of samples to process
@@ -169,14 +182,15 @@ _logging.basicConfig(level=_logging.INFO,
 ################################
 OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
-          expand(paths.rseqc.bamgc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
           expand(paths.bam.realigned_bam, sample=SAMID),
-          expand(paths.bqsr.recal_table, sample = SAMID),
+          expand(paths.bqsr.report, sample = SAMID),
+          expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
           expand(paths.cnv.csv, sample=SAMID)
 	  ]
+
 
 
 
@@ -225,6 +239,8 @@ rule references:
 include: "./rules/initialization.smk"
 include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
+include: "./rules/bqsr.smk"
+include: "./rules/xHLA.smk"
 include: "./rules/realignment_recalibration.smk"
 include: "./rules/coverage.smk"
 include: "./rules/cnv.smk"

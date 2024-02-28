@@ -37,20 +37,45 @@ rule retrieve_ref_indel_sets:
     output:
         mills = paths.genome.mills,
         g1000 = paths.genome.g1000,
+        dbsnp = paths.genome.dbsnp,
         mills_index = paths.genome.mills_index,
         g1000_index = paths.genome.g1000_index,
-        dbsnp = paths.genome.dbsnp
+	dbsnp_index = paths.genome.dbsnp_index
     params:
         mills_gcp_uri = GENOME_MILLS_URI,
         g1000_gcp_uri = GENOME_G1000_URI,
         mills_index_gcp_url = GENOME_MILLS_INDEX_URI,
         g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
         dbsnp = GENOME_DBSNP_URI,
-        dbsnp_index = GENOME_DBSNP_INDEX_URI
+        dbsnp_index = GENOME_DBSNP_INDEX_URI,
+	output_path = Path(PREDIR) / Path(paths.genome.dbsnp).parent
     shell:
         '''
         echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}
-        gsutil -m cp {params} genome
+        gsutil -m cp {params} 
+        '''
+
+
+rule retrieve_xHLA_ref_Data:
+    output:
+        hla_tsv = paths.genome.hla_tsv,
+        hla_bed = paths.genome.hla_bed,
+        hla_fna = paths.genome.hla_fna,
+        hla_shift = paths.genome.hla_shift,
+        hla_dmnd = paths.genome.hla_dmnd,
+        hla_faa = paths.genome.hla_faa
+    params:
+        hla_bed = HLA_BED_URI,
+        hla_tsv = HLA_TSV_URI,
+        hla_fna = HLA_FNA_URI,
+        hla_shift = HLA_SHIFT_URI,
+        hla_dmnd = HLA_DMND_URI,
+        hla_faa = HLA_FAA_URI,
+	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent
+    shell:
+        '''
+        echo "Downloading reference data for xHLA..." | tee {log}
+        gsutil -m cp {params} 
         '''
 
 ## Download built bwa_index files for the specified genome
@@ -66,9 +91,10 @@ rule build_bwa_index:
     log:
         'log/build_bwa_index.log'
     conda:
-        SOURCEDIR+"/../envs/bwa.yaml"
+        "../envs/bwa.yaml"
     params:
-        bwa_uri=GENOME_BWA_URI
+        bwa_uri=GENOME_BWA_URI,
+
     priority: 1000
     threads: 1
     shell:
@@ -137,6 +163,19 @@ rule retrieve_hg38_blacklist:
           gunzip {output}.gz
         '''
 
+
+##makes a picard reference dictionary for use by picard re-aligner
+rule picard_dictionary:
+    input:
+        paths.genome.fa
+    output:
+        paths.genome.picard_dict
+    conda:
+        "../envs/picard.yaml"
+    shell:
+        "picard CreateSequenceDictionary -R {input} -O {output}"
+
+
 ## Retrieve coverage target regions
 rule retrieve_coverage_targets_bed:
     output:
@@ -150,6 +189,7 @@ rule retrieve_coverage_targets_bed:
        '''
           gsutil cp {params.file_uri} {output}
         '''
+
 
 unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.

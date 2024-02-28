@@ -4,6 +4,9 @@ WRAPPER_PREFIX = f"file:{workflow.basedir}/wrappers"
 
 OUTDIR = Path(config["predir"])
 
+def grab_ref_URI(key_string: str) -> str:
+    return reference_df.loc[reference_df["ref_file_name"]== key_string, "google_bucket_URI"].item()
+
 #TODO: move df instantiation to a function here like this instead of cluttering up the Snakefile
 def create_config_dataframes():
     # one row per reference genome
