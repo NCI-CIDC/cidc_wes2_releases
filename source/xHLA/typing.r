@@ -36,7 +36,7 @@ print(nrow(all))
 print(length(unique(all[,q])))
 
 # for HLA alleles with frame shift variants, we require reads span over the frame shift site
-frame.shift <- fread(sprintf('%s/../data/hla.shift', data.dir))
+frame.shift <- fread(sprintf('%s/../../results/genome/hla.shift', data.dir))
 setnames(frame.shift, c('t', 'EXON', 'shift'))
 frame.shift[, type := sub('-E.+', '', t)]
 frame.shift[, MSA := sub('\\*.+', '', t)]
@@ -53,7 +53,7 @@ spanned <- all[ts < shift-1 & te > shift+1]
 all <- all[type %in% spanned$type | !(type %in% frame.shift$type)]
 
 # exon data avalability in IMGT
-exons <- data.table(read.delim(sprintf('%s/../data/hla.tsv', data.dir), h = F, stringsAsFactor = F)[, c('V2', 'V3')])
+exons <- data.table(read.delim(sprintf('%s/../../results/genome/hla.tsv', data.dir), h = F, stringsAsFactor = F)[, c('V2', 'V3')])
 setnames(exons, c('type', 'EXON'))
 
 # filter non-specific matching
@@ -390,7 +390,7 @@ more[, heter.reads := 0]
 more[, importance := 0]
 
 # detect ambigous calls
-freq <- fread(sprintf('%s/../data/hla.freq', data.dir))
+freq <- fread(sprintf('%s/../../results/genome/hla.freq', data.dir))
 sols <- more[rank == 1, unique(solution)]
 pop <- freq[allele %in% sols, .(r = median(rank)), by = population][r == min(r), population]
 freq <- freq[population %in% pop][, .(rank = median(rank)), by = allele]

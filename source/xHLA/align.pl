@@ -63,7 +63,9 @@ while(<IN>)
 print STDERR "\tfound ", scalar(keys %tseq), " HLA exons\n";
 
 print STDERR "processing FASTQ file\n";
-open(IN, "diamond blastx -t . -C 20000 --index-mode 1 --seg no --min-score 10 --top 20 -c 1 -d $root/data/hla -q $fastq_file -f tab --quiet -o /dev/stdout |") or die $!;
+my $dmd_cmd = "diamond blastx --query $fastq_file -d $hla_path/hla.dmnd --min-score 10 --top 20 -c 1 -f tab --quiet -t . -o /dev/stdout | "; 
+print STDERR "running command: " + $dmd_cmd;
+open(IN, $dmd_cmd) or die $!;
 my %mLEN;
 my %mlen;
 my %match;
@@ -71,6 +73,7 @@ my %matched;
 my %nonspec;
 while(<IN>)
 {
+
 	my ($qu, $target, $identity, $len, $mis, $gap, $qs, $qe, $ts, $te, $e, $score) = split(/\t/, $_);
 	next unless $identity == 100;
 	my $q = "$qu==$qs-$qe";

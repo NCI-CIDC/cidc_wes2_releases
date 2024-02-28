@@ -84,7 +84,7 @@ rule build_bwa_index:
     log:
         'log/build_bwa_index.log'
     conda:
-        SOURCEDIR+"/../envs/bwa.yaml"
+        "../envs/bwa.yaml"
     params:
         bwa_uri=GENOME_BWA_URI,
 
