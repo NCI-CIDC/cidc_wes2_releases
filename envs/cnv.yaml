@@ -1,0 +1,10 @@
+name: cnv
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - r-base==4.3.1
+    - r-remotes==2.4.2.1
+    - bioconductor-qdnaseq==1.36.0
+    - bioconductor-genomicranges==1.52.0
+    - bioconductor-rtracklayer==1.60.0
