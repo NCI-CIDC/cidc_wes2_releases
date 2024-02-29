@@ -8,7 +8,6 @@ genome:
     filtered_fai: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.fna.fai"
     bed: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.bed"
     dhs: "DHS_hg38.bed"
-
     mills: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz"
     mills_index: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz.tbi"
     g1000: "1000G_phase1.snps.high_confidence.hg38.vcf.bgz"
@@ -20,10 +19,15 @@ genome:
     hla_fna: "hla.fna"
     hla_dmnd: "hla.dmnd"
     hla_faa: "hla.faa"
-    hla_shift: "hla.shift"        
+    hla_shift: "hla.shift"
+    hla_freq: "hla.freq"
     picard_dict": "GCA_000001405.15_GRCh38_full_analysis_set.dict"
     coverage_targets: "gencode27.canonical.bed"
 
+hlahd_references:
+    dict_done: "dictionary.done" 
+    freq_done: "freq.done" 
+    split: "HLA_gene.split.3.32.0.txt"
     
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -34,8 +38,10 @@ annot:
 input:
     input_fastq: "{{sample}}_{read}.fastq.gz"
     input_bam: "{sample}_input.bam"
+
 cutadapt:
     cutadapt_fastq: "{{sample}}_{read}"
+
 rqual_filter:
     qfilter_fastq_single: "{{sample}}_{read}_qual.fastq.gz"
     qfilter_fastq_paired: "{{sample}}_{read}{paired}_qual.fastq.gz"
@@ -78,6 +84,8 @@ bqsr:
     postrecaltable: "{sample}_postrecal_data.table"    
     recal_bam: "{sample}_recalibrated.bam"
     recal_index: "{sample}_recalibrated.bam.bai"
+    recal_bam_round2: "{sample}_recalibrated_r2.bam"
+    recal_index_round2: "{sample}_recalibrated_r2.bam.bai"
     recal_table: "{sample}_recal.csv"
 
     report: "{sample}_recal.pdf"
