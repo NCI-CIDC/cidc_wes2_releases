@@ -32,6 +32,27 @@ rule retrieve_reference_genome:
           gsutil cp {params.fa_uri} {output.fa}
         '''
 
+rule retrieve_hlahd_reference_data:
+    output:
+        dict_done = paths.hlahd_references.dict_done,
+        freq_done = paths.hlahd_references.freq_done,
+	split = paths.hlahd_references.split
+    params:
+        dest_folder = Path(paths.hlahd_references.dict_done).parent,
+        HLAHD_DICT_URI = HLAHD_DICT_URI,
+        HLAHD_FREQ_URI = HLAHD_FREQ_URI,
+        HLAHD_SPLIT_URI = HLAHD_SPLIT_URI	
+    benchmark: "benchmark/retrieve_hlahd_refs.tab"
+    log: "log/retrieve_hlahd_refs.log"
+    shell:
+       "gsutil cp {params.dest_folder} {params.HLAHD_DICT_URI} && "
+       "gsutil cp {params.dest_folder} {params.HLAHD_FREQ_URI} && "
+       "gsutil cp {params.dest_folder} {params.HLAHD_SPLIT_URI} && "       
+       "tar zxvf {params.dest_folder}/hlahd_1.7.0_dictionary.tar.gz && "
+       "tar zxvf {params.dest_folder}/hlahd_1.7.0_freq_data.tar.gz && "
+       "touch {output.dict_done} && "
+       "touch {output.freq_done} &&"
+
 
 rule retrieve_ref_indel_sets:
     output:

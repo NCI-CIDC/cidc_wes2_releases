@@ -1,4 +1,4 @@
-rule optitype_extract_chr6:
+rule extract_chr6:
     """Extract chr6"""
     input:
         in_bam = paths.bam.filtered_bam,
@@ -27,7 +27,7 @@ rule xhla:
 	hla_fna = paths.genome.hla_fna,	
 	hla_faa = paths.genome.hla_faa,
 	hla_shift = paths.genome.hla_shift,
-	hla_freq = paths.genome.hla_freq,	
+#	hla_freq = paths.genome.hla_freq,	
     output:
         paths.xhla.report
     threads: 4 #_xhla_threads
