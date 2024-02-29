@@ -1,8 +1,8 @@
 ## Run CNV analysis with QDNAseq
 rule cnv_analysis:
    input:
-       bam=rules.Base_recalibration_precal_sentieon.output.recalibratedbam,
-       idx=rules.Base_recalibration_precal_sentieon.output.recalibratedbai
+       bam=paths.bqsr.recal_bam,
+       idx=paths.bqsr.recal_index
    output:
        bed=paths.cnv.bed,
        igv=paths.cnv.igv,

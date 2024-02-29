@@ -42,3 +42,10 @@ archive_bucket: ''
 ## using something like DeepVariant.
 sentieon_path: "/media/storage/sentieon/sentieon-genomics-202112.06/bin/"
 
+##HLAHD SETTINGS
+hlahd:
+  min_lengh: 50, #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
+  cut_perc: 0.95, #hla-hd param -c, if mistmatch how much to cut back
+  freq_data: 
+  split_file:
+  dictionary: 

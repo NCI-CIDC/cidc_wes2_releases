@@ -114,6 +114,10 @@ HLA_FAA_URI = grab_ref_URI("hla_faa")
 HLA_SHIFT_URI = grab_ref_URI("hla_shift")
 GENOME_COVERAGE_TARGETS = grab_ref_URI("coverage_targets")
 
+#reference data for HLAHD
+HLAHD_DICT_URI = grab_ref_URI("hlahd_dict")
+HLAHD_FREQ_URI = grab_ref_URI("hlahd_freq")
+HLAHD_SPLIT_URI = grab_ref_URI("hlahd_split")
 
 # Sample info
 ## List of samples to process
@@ -183,12 +187,14 @@ _logging.basicConfig(level=_logging.INFO,
 OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
-          expand(paths.bam.realigned_bam, sample=SAMID),
+#          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.report, sample = SAMID),
+          expand(paths.bqsr.recal_bam_round2, sample = SAMID),
           expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
-          expand(paths.cnv.csv, sample=SAMID)
+          expand(paths.cnv.csv, sample=SAMID),
+#	  paths.hlahd_references.dict_done
 	  ]
 
 
@@ -241,6 +247,5 @@ include: "./rules/ingest.smk"
 include: "./rules/mapping.smk"
 include: "./rules/bqsr.smk"
 include: "./rules/xHLA.smk"
-include: "./rules/realignment_recalibration.smk"
 include: "./rules/coverage.smk"
 include: "./rules/cnv.smk"
