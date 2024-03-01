@@ -1,7 +1,7 @@
 rule optitype_extract_chr6:
     """Extract chr6"""
     input:
-        in_bam = paths.bam.filtered_bam,
+        in_bam = paths.bqsr.recal_round2_bam
     output:
         bam = paths.bam.filtered_chr6_bam,
         bai = paths.bam.filtered_chr6_bam_index

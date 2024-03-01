@@ -42,17 +42,11 @@ rule applyBQSR_gatk:
         bam=paths.bam.filtered_bam,
         precaltable=paths.bqsr.prerecaltable,
         ref_fa= paths.genome.fa,
-#        dbsnp= paths.genome.dbsnp,
-#        mills= paths.genome.mills,
-#        g1000= paths.genome.g1000        
     output:
-#        postrecaltable=paths.bqsr.postrecaltable,
         bam=paths.bqsr.recal_bam,
         bai=paths.bqsr.recal_index
     message:
         "POST BASE RECALIBRATION: post base recalibration for  realigned files"
-    params:
-        sentieon_path=config['sentieon_path'],
     threads: 16 #_realigner_threads
     group: "recalibration"
     conda: "../envs/gatk.yaml"    
@@ -102,6 +96,35 @@ rule Base_recalibration_round2_gatk:
            --reference {input.fa} \
            --add-output-sam-program-record \
            --create-output-bam-index
+        """
+
+
+rule applyBQSR_gatk_round2:
+    """post recalibration for realigned files"""
+    input:
+        bam=paths.bqsr.recal_bam,
+        precaltable=paths.bqsr.postrecaltable,
+        ref_fa= paths.genome.fa,
+    output:
+        bam=paths.bqsr.recal_round2_bam,
+        bai=paths.bqsr.recal_round2_index
+    message:
+        "POST BASE RECALIBRATION: post base recalibration for  realigned files"
+    threads: 16 #_realigner_threads
+    group: "recalibration"
+    conda: "../envs/gatk.yaml"
+    benchmark:
+        "benchmarks/recalibration/{sample}/{sample}.Base_recalibration_postcal_sentieon.txt"
+    shell:
+        """
+        gatk ApplyBQSR \
+        --bqsr-recal-file {input.precaltable} \
+        --input {input.bam} \
+        --output {output.bam} \
+        --emit-original-quals \
+        --reference {input.ref_fa} \
+        --add-output-sam-program-record \
+        && samtools index {output.bam}
         """
 
 

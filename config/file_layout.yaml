@@ -20,7 +20,8 @@ genome:
     hla_fna: "hla.fna"
     hla_dmnd: "hla.dmnd"
     hla_faa: "hla.faa"
-    hla_shift: "hla.shift"        
+    hla_shift: "hla.shift"
+    hla_freq: "hla.freq"
     picard_dict": "GCA_000001405.15_GRCh38_full_analysis_set.dict"
     coverage_targets: "gencode27.canonical.bed"
 
@@ -39,6 +40,9 @@ cutadapt:
 rqual_filter:
     qfilter_fastq_single: "{{sample}}_{read}_qual.fastq.gz"
     qfilter_fastq_paired: "{{sample}}_{read}{paired}_qual.fastq.gz"
+
+hlahd:
+    report: "{sample}.final_report.txt"
 
 ## CONTAMINATION
 centrifuge:
@@ -79,7 +83,8 @@ bqsr:
     recal_bam: "{sample}_recalibrated.bam"
     recal_index: "{sample}_recalibrated.bam.bai"
     recal_table: "{sample}_recal.csv"
-
+    recal_round2_bam: "{sample}_recal_round2.bam"
+    recal_round2_index: "{sample}_recal_round2.bam.bai"
     report: "{sample}_recal.pdf"
 
 xhla:
