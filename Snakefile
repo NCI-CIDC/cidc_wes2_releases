@@ -189,13 +189,13 @@ OUTPUT = [
           expand(paths.fastqc.targz, sample=SAMID),
 #          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.report, sample = SAMID),
-          expand(paths.bqsr.recal_bam_round2, sample = SAMID),
+          expand(paths.bqsr.recal_round2_bam, sample = SAMID),
           expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
           expand(paths.cnv.csv, sample=SAMID),
 	  paths.hlahd_references.dict_done,
-          expand(paths.hlahd.report, sample= SAMID),
+#          expand(paths.hlahd.report, sample= SAMID),
 	  ]
 
 
@@ -250,3 +250,4 @@ include: "./rules/bqsr.smk"
 include: "./rules/xHLA.smk"
 include: "./rules/coverage.smk"
 include: "./rules/cnv.smk"
+include: "./rules/hlahd.smk"
