@@ -46,6 +46,9 @@ rqual_filter:
     qfilter_fastq_single: "{{sample}}_{read}_qual.fastq.gz"
     qfilter_fastq_paired: "{{sample}}_{read}{paired}_qual.fastq.gz"
 
+hlahd:
+    report: "{sample}.final_report.txt"
+
 ## CONTAMINATION
 centrifuge:
     classification: "{sample}_classification.txt"
@@ -84,13 +87,14 @@ bqsr:
     postrecaltable: "{sample}_postrecal_data.table"    
     recal_bam: "{sample}_recalibrated.bam"
     recal_index: "{sample}_recalibrated.bam.bai"
-    recal_bam_round2: "{sample}_recalibrated_r2.bam"
-    recal_index_round2: "{sample}_recalibrated_r2.bam.bai"
     recal_table: "{sample}_recal.csv"
-    recal_chr6_bam: "{sample}_recalibrated_r2.chr6.bam"
-    recal_chr6_index: "{sample}_recalibrated_r2.chr6.bai"
-    recal_chr6_fq_r1: "{sample}_recalibrated_r2.chr6.r1.fq.gz"
-    recal_chr6_fq_r2: "{sample}_recalibrated_r2.chr6.r2.fq.gz"
+    recal_round2_bam: "{sample}_recal_round2.bam"
+    recal_round2_index: "{sample}_recal_round2.bam.bai"
+    recal_chr6_bam: "{sample}_recalibrated_round2.chr6.bam"
+    recal_chr6_index: "{sample}_recalibrated_round2.chr6.bai"
+    recal_chr6_fq_r1: "{sample}_recalibrated_round2.chr6.r1.fq.gz"
+    recal_chr6_fq_r2: "{sample}_recalibrated_round2.chr6.r2.fq.gz"
+
     report: "{sample}_recal.pdf"
 
 xhla:
