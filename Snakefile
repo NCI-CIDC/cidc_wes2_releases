@@ -194,7 +194,8 @@ OUTPUT = [
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
           expand(paths.cnv.csv, sample=SAMID),
-	  paths.hlahd_references.dict_done
+	  paths.hlahd_references.dict_done,
+          expand(paths.hlahd.report, sample= SAMID),
 	  ]
 
 
