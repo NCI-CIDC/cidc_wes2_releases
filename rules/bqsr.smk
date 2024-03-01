@@ -157,3 +157,34 @@ rule Analyze_covariates_gatk:
         --plots-report-file {output.report} \
         --intermediate-csv-file {output.recalfile}
         """
+
+
+rule extract_chr6:
+    """Extract chr6"""
+    input:
+        in_bam = paths.bqsr.recal_bam_round2,
+    output:
+        bam = paths.bam.filtered_chr6_bam,
+        bai = paths.bam.filtered_chr6_bam_index
+    threads: 16
+    group: "optitype"
+    conda: "../envs/samtools.yaml"
+    log:
+        "log/{sample}_extract_chr6.log"
+    benchmark:
+        "benchmark/{sample}_extract_chr6.tab"
+    shell:
+        """samtools view -@ {threads} {input.in_bam} chr6 -b -o {output.bam} &&
+           samtools index -@ {threads} {output.bam}
+        """
+
+rule make_chr6_fastqs:
+    input: bam = paths.bam.filtered_chr6_bam
+    output:
+        r1 = paths.bqsr.recal_chr6_fq_r1,
+        r2 = paths.bqsr.recal_chr6_fq_r2
+    params:
+    conda:
+        "../envs/samtools.yml"
+    shell:
+        "samtools fastq -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n"
