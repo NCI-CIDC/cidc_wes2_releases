@@ -1,21 +1,3 @@
-rule optitype_extract_chr6:
-    """Extract chr6"""
-    input:
-        in_bam = paths.bqsr.recal_round2_bam
-    output:
-        bam = paths.bam.filtered_chr6_bam,
-        bai = paths.bam.filtered_chr6_bam_index
-    threads: 16
-    group: "optitype"
-    conda: "../envs/samtools.yaml"
-    log:
-        "log/{sample}_extract_chr6.log"
-    benchmark:
-        "benchmark/{sample}_extract_chr6.tab"
-    shell:
-        """samtools view -@ {threads} {input.in_bam} chr6 -b -o {output.bam} &&
-           samtools index -@ {threads} {output.bam}
-        """
 
 rule xhla:
     """calculate hlatyping by xhla"""
@@ -27,7 +9,7 @@ rule xhla:
 	hla_fna = paths.genome.hla_fna,	
 	hla_faa = paths.genome.hla_faa,
 	hla_shift = paths.genome.hla_shift,
-	hla_freq = paths.genome.hla_freq,	
+#	hla_freq = paths.genome.hla_freq,	
     output:
         paths.xhla.report
     threads: 4 #_xhla_threads
