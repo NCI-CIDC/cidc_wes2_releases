@@ -25,11 +25,16 @@ genome:
     picard_dict": "GCA_000001405.15_GRCh38_full_analysis_set.dict"
     coverage_targets: "gencode27.canonical.bed"
 
-    
+
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
     bed: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.bed"
     bw: "hg38.phastCons100way.bw"
+
+hlahd_references:
+    dict_done: "dict.done"
+    freq_done: "freq.done"
+    split: "HLA_gene.split.3.32.0.txt"
     
 ## INGEST
 input:
@@ -83,22 +88,12 @@ bqsr:
     recal_bam: "{sample}_recalibrated.bam"
     recal_index: "{sample}_recalibrated.bam.bai"
     recal_table: "{sample}_recal.csv"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 0e3d4df36f6c61d18617be1af077116ee5453cef
     recal_round2_bam: "{sample}_recal_round2.bam"
     recal_round2_index: "{sample}_recal_round2.bam.bai"
     recal_chr6_bam: "{sample}_recalibrated_round2.chr6.bam"
     recal_chr6_index: "{sample}_recalibrated_round2.chr6.bai"
     recal_chr6_fq_r1: "{sample}_recalibrated_round2.chr6.r1.fq.gz"
     recal_chr6_fq_r2: "{sample}_recalibrated_round2.chr6.r2.fq.gz"
-<<<<<<< HEAD
->>>>>>> 0e3d4df36f6c61d18617be1af077116ee5453cef
-=======
->>>>>>> 0e3d4df36f6c61d18617be1af077116ee5453cef
-
     report: "{sample}_recal.pdf"
 
 xhla:
