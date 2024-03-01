@@ -87,7 +87,10 @@ bqsr:
     recal_bam_round2: "{sample}_recalibrated_r2.bam"
     recal_index_round2: "{sample}_recalibrated_r2.bam.bai"
     recal_table: "{sample}_recal.csv"
-
+    recal_chr6_bam: "{sample}_recalibrated_r2.chr6.bam"
+    recal_chr6_index: "{sample}_recalibrated_r2.chr6.bai"
+    recal_chr6_fq_r1: "{sample}_recalibrated_r2.chr6.r1.fq.gz"
+    recal_chr6_fq_r2: "{sample}_recalibrated_r2.chr6.r2.fq.gz"
     report: "{sample}_recal.pdf"
 
 xhla:
@@ -103,3 +106,5 @@ cnv:
     igv: "{sample}_cnv_segmented.igv"
     csv: "{sample}_cnv_annot.csv"
 
+hlahd:
+    results: "{sample}_final.result.txt"

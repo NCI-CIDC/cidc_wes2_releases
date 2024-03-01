@@ -143,7 +143,7 @@ workdir: PREDIR
 ## number of cores dedicated to run
 NCORES  = int(config["ncores"])
 ## initial sub folders
-SUBDIRS  = 'benchmark log info progress genome annot input analysis analysis/data analysis/report'
+SUBDIRS  = 'benchmark log info progress genome annot input analysis analysis/data analysis/report hlahd_references'
 
 ## Set single or paired end
 if (FASTQ_2[0] != '' or BAM[0] != ''):
@@ -194,7 +194,7 @@ OUTPUT = [
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
           expand(paths.cnv.csv, sample=SAMID),
-#	  paths.hlahd_references.dict_done
+	  paths.hlahd_references.dict_done
 	  ]
 
 
