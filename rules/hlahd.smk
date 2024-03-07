@@ -26,5 +26,5 @@ rule hlahd:
     benchmark:
         "benchmark/{sample}_run_hlahd.tab"
     shell:
-        """{params.PREDIR}/{params.hlahd_path}/hlahd.sh -m {params.min_lengh} -c {params.cut_percent} -t {threads} -f {params.freq_data} {input.chr6fastqfile1} {input.chr6fastqfile2} {params.split_file} {params.dictionary} {params.sample} {params.output_dir} 2> {log}"""
+        """{params.PREDIR}/{params.hlahd_path}/hlahd.sh -m {params.min_length} -c {params.cut_percent} -t {threads} -f {params.freq_data} {input.chr6fastqfile1} {input.chr6fastqfile2} {params.split_file} {params.dictionary} {params.sample} {params.output_dir} 2> {log}"""
 
