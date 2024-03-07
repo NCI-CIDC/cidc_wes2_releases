@@ -1,4 +1,3 @@
-
 ##########################################
 ###basecall quality score recalibration###
 ##########################################
@@ -142,7 +141,7 @@ rule Analyze_covariates_gatk:
         sentieon_path=config['sentieon_path'],
     threads: 1 #_realigner_threads
     group: "recalibration"
-    conda: "../envs/bqsr_analyze_covariates.yml"
+    conda: "../envs/gatk.yaml"
     benchmark:
         "benchmarks/recalibration/{sample}/{sample}.Base_recalibration_sentieon.txt"
     shell:
@@ -171,8 +170,7 @@ rule extract_chr6:
     benchmark:
         "benchmark/{sample}_extract_chr6.tab"
     shell:
-        """samtools view -@ {threads} {input.in_bam} chr6 -b -o {output.bam} &&
-           samtools index -@ {threads} {output.bam}
+        """samtools view -@ {threads} {input.in_bam} chr6 -b -o {output.bam} &&samtools index -@ {threads} {output.bam}
         """
 
 rule make_chr6_fastqs:
@@ -180,8 +178,7 @@ rule make_chr6_fastqs:
     output:
         r1 = paths.bqsr.recal_chr6_fq_r1,
         r2 = paths.bqsr.recal_chr6_fq_r2
-    params:
     conda:
-        "../envs/samtools.yml"
+        "../envs/samtools.yaml"
     shell:
-        "samtools fastq -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n"
+        "samtools fastq {input} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n"
