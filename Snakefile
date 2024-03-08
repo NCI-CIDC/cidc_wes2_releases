@@ -70,10 +70,8 @@ include: "./rules/common.smk"
 ## create file accessor
 paths = create_path_accessor()
 
-## read in reference genome locations file
-reference_df = pd.read_table(config["reference"],
-	     sep=",",
-	     comment = "#")
+### read in reference genome locations file
+ref_df = load_reference_data()
 
 ## read in sample metadata file
 sample_metadata_df = pd.read_table(config["sample_metadata"],
@@ -88,36 +86,34 @@ pairings_df = pd.read_table(config["pairings"],
 tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
 
-# Reference genome gcloud URI locations
-
 #todo: wrap these in a function in rules/common.smk
-GENOME_FA_URI = grab_ref_URI("genome_fa")
-GENOME_GTF_URI = grab_ref_URI("genome_gtf")
-GENOME_BWA_URI = grab_ref_URI("genome_bwa_index")
-GENOME_BLACKLIST_URI = grab_ref_URI("genome_blacklist")
-GENOME_DHS_URI = grab_ref_URI("genome_dhs")
+GENOME_FA_URI = grab_ref_URI(ref_df, "genome_fa")
+GENOME_GTF_URI = grab_ref_URI(ref_df,"genome_gtf")
+GENOME_BWA_URI = grab_ref_URI(ref_df,"genome_bwa_index")
+GENOME_BLACKLIST_URI = grab_ref_URI(ref_df,"genome_blacklist")
+GENOME_DHS_URI = grab_ref_URI(ref_df,"genome_dhs")
 
 #reference SNVs for BQSR
-GENOME_MILLS_URI = grab_ref_URI("mills_ref")
-GENOME_G1000_URI = grab_ref_URI("g1000_ref")
-GENOME_MILLS_INDEX_URI = grab_ref_URI("mills_index")
-GENOME_G1000_INDEX_URI = grab_ref_URI("g1000_index")
-GENOME_DBSNP_URI = grab_ref_URI("dbsnp")
-GENOME_DBSNP_INDEX_URI = grab_ref_URI("dbsnp_index")
+GENOME_MILLS_URI = grab_ref_URI(ref_df,"mills_ref")
+GENOME_G1000_URI = grab_ref_URI(ref_df,"g1000_ref")
+GENOME_MILLS_INDEX_URI = grab_ref_URI(ref_df,"mills_index")
+GENOME_G1000_INDEX_URI = grab_ref_URI(ref_df,"g1000_index")
+GENOME_DBSNP_URI = grab_ref_URI(ref_df,"dbsnp")
+GENOME_DBSNP_INDEX_URI = grab_ref_URI(ref_df,"dbsnp_index")
 
 #reference data for xHLA
-HLA_BED_URI = grab_ref_URI("hla_bed")
-HLA_TSV_URI = grab_ref_URI("hla_tsv")
-HLA_FNA_URI = grab_ref_URI("hla_fna")
-HLA_DMND_URI = grab_ref_URI("hla_dmnd")
-HLA_FAA_URI = grab_ref_URI("hla_faa")
-HLA_SHIFT_URI = grab_ref_URI("hla_shift")
-GENOME_COVERAGE_TARGETS = grab_ref_URI("coverage_targets")
+HLA_BED_URI = grab_ref_URI(ref_df,"hla_bed")
+HLA_TSV_URI = grab_ref_URI(ref_df,"hla_tsv")
+HLA_FNA_URI = grab_ref_URI(ref_df,"hla_fna")
+HLA_DMND_URI = grab_ref_URI(ref_df,"hla_dmnd")
+HLA_FAA_URI = grab_ref_URI(ref_df,"hla_faa")
+HLA_SHIFT_URI = grab_ref_URI(ref_df,"hla_shift")
+GENOME_COVERAGE_TARGETS = grab_ref_URI(ref_df,"coverage_targets")
 
 #reference data for HLAHD
-HLAHD_DICT_URI = grab_ref_URI("hlahd_dict")
-HLAHD_FREQ_URI = grab_ref_URI("hlahd_freq")
-HLAHD_SPLIT_URI = grab_ref_URI("hlahd_split")
+HLAHD_DICT_URI = grab_ref_URI(ref_df,"hlahd_dict")
+HLAHD_FREQ_URI = grab_ref_URI(ref_df,"hlahd_freq")
+HLAHD_SPLIT_URI = grab_ref_URI(ref_df,"hlahd_split")
 
 # Sample info
 ## List of samples to process

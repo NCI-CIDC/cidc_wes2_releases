@@ -4,8 +4,15 @@ WRAPPER_PREFIX = f"file:{workflow.basedir}/wrappers"
 
 OUTDIR = Path(config["predir"])
 
-def grab_ref_URI(key_string: str) -> str:
-    return reference_df.loc[reference_df["ref_file_name"]== key_string, "google_bucket_URI"].item()
+def load_reference_data():
+    ref_df = pd.read_table(config["reference"], comment = "#", sep = ",").set_index("ref_file_name",drop = False)
+    return ref_df
+
+def grab_field(df: pd.DataFrame , key_string : str, field_string :str ) -> str:
+    return df.loc[df["ref_file_name"] == key_string, field_string].item()
+
+def grab_ref_URI(df: pd.DataFrame, key_string: str) -> str:
+    return grab_field(df, key_string,"google_bucket_URI")
 
 #TODO: move df instantiation to a function here like this instead of cluttering up the Snakefile
 def create_config_dataframes():
