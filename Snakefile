@@ -186,6 +186,7 @@ OUTPUT = [
 #          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.report, sample = SAMID),
           expand(paths.bqsr.recal_round2_bam, sample = SAMID),
+          expand(paths.optitype.tsv, sample=SAMID),
           expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample = SAMID),
           expand(paths.coverage.bw, sample = SAMID),
@@ -247,3 +248,4 @@ include: "./rules/xHLA.smk"
 include: "./rules/coverage.smk"
 include: "./rules/cnv.smk"
 include: "./rules/hlahd.smk"
+include: "./rules/optitype.smk"

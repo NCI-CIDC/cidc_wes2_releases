@@ -220,6 +220,23 @@ rule retrieve_coverage_targets_bed:
           gsutil cp {params.file_uri} {output}
         '''
 
+## Set OptiType config.init to not delete intermediate bam files produced by RazerS3
+rule optitype_config:
+    output:
+        tch='progress/optitype_config.done'
+    benchmark:
+        'benchmark/retrieve_coverage_targets_bed.tab'
+    log:
+        'log/optitype_config.log' 
+    conda:
+        "../envs/optitype.yaml"
+    shell:
+        '''
+          script_path=$(conda info --envs | grep -E '\*' | awk '{{print $NF}}')
+
+          echo "sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch}" | tee {log}
+          sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch} 2>> {log}
+        '''
 
 unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.
