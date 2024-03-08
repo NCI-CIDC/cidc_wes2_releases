@@ -42,7 +42,8 @@ rule retrieve_hlahd_reference_data:
         HLAHD_DICT_URI = HLAHD_DICT_URI,
         HLAHD_FREQ_URI = HLAHD_FREQ_URI,
         HLAHD_SPLIT_URI = HLAHD_SPLIT_URI,
-        dict_filename = Path(grab_field(ref_df, "hlahd_dict","google_bucket_URI")).name
+        dict_filename = Path(grab_field(ref_df, "hlahd_dict","google_bucket_URI")).name,
+        freq_filename = Path(grab_field(ref_df, "hlahd_freq","google_bucket_URI")).name
     benchmark: "benchmark/retrieve_hlahd_refs.tab"
     log: "log/retrieve_hlahd_refs.log"
     shell:
@@ -52,7 +53,7 @@ rule retrieve_hlahd_reference_data:
        "gsutil cp {params.HLAHD_SPLIT_URI} hlahd_references && "
        "echo 'done copying files\n';"
        "tar zxvf {params.dest_folder}/{params.dict_filename} --directory {params.dest_folder} &&"
-       "tar zxvf {params.dest_folder}/{params.dict_filename} --directory {params.dest_folder}  && "
+       "tar zxvf {params.dest_folder}/{params.freq_filename} --directory {params.dest_folder}  && "
        "touch {output.dict_done} && "
        "touch {output.freq_done} "
 
