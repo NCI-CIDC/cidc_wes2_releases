@@ -8,3 +8,4 @@ dependencies:
   - r-base
   - r-ggplot2
   - r-gplots
+  - r-gsalib
