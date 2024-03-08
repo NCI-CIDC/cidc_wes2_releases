@@ -2,7 +2,8 @@
 rule cnv_analysis:
    input:
        bam=paths.bqsr.recal_bam,
-       idx=paths.bqsr.recal_index
+       idx=paths.bqsr.recal_index,
+       gtf=rules.retrieve_reference_genome.output.gtf
    output:
        bed=paths.cnv.bed,
        igv=paths.cnv.igv,
@@ -16,12 +17,11 @@ rule cnv_analysis:
    params:
        sample='{sample}',
        srcdir=SOURCEDIR,
-       predir=PREDIR,
-       annot_gtf=paths.annot.gtf
+       predir=PREDIR
    priority: 1
    threads: 1
    shell:
        '''
-         echo "Rscript --vanilla {params.srcdir}/r/init-qdnaseq-cnv-analysis.r {params.predir} {params.sample} {input.bam} {params.annot_gtf}" | tee {log}
-         Rscript --vanilla {params.srcdir}/r/init-qdnaseq-cnv-analysis.r {params.predir} {params.sample} {input.bam} {params.annot_gtf} 2>> {log}
+         echo "Rscript --vanilla {params.srcdir}/r/init-qdnaseq-cnv-analysis.r {params.predir} {params.sample} {input.bam} {input.gtf}" | tee {log}
+         Rscript --vanilla {params.srcdir}/r/init-qdnaseq-cnv-analysis.r {params.predir} {params.sample} {input.bam} {input.gtf} 2>> {log}
        '''

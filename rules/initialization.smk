@@ -18,18 +18,23 @@ rule retrieve_reference_genome:
         rules.directory_setup.output
     output:
         fa=paths.genome.fa,
+        gtf=paths.annot.gtf
     benchmark:
         'benchmark/retrieve_reference_genome.tab'
     log:
         'log/retrieve_reference_genome.log'
     params:
         fa_uri=GENOME_FA_URI,
+        gtf_uri=GENOME_GTF_URI
     priority: 1000
     threads: 1
     shell:
         '''
-          echo "downloading Genome to map reads to GRCh38 or hg38..." | tee {log}
-          gsutil cp {params.fa_uri} {output.fa}
+          echo " gsutil cp {params.fa_uri} {output.fa}" | tee {log}
+          gsutil cp {params.fa_uri} {output.fa} 2>> {log}
+
+          echo "gsutil cp {params.gtf_uri} {output.gtf}" | tee {log}
+          gsutil cp {params.gtf_uri} {output.gtf} 2>> {log}
         '''
 
 rule retrieve_hlahd_reference_data:
@@ -49,7 +54,7 @@ rule retrieve_hlahd_reference_data:
        "gsutil cp {params.HLAHD_FREQ_URI} hlahd_references && "
        "gsutil cp {params.HLAHD_SPLIT_URI} hlahd_references && "
        "echo 'done copying files\n';"
-       "tar zxvf {params.dest_folder}/hlahd_1.7.0_dictionary.tar.gz --directory {params.dest_folder} &&"
+       "tar zxvf {params.dest_folder}/dictionary_1.7.0_20240301.tar.gz --directory {params.dest_folder} &&"
        "tar zxvf {params.dest_folder}/hlahd_1.7.0_freq_data.tar.gz --directory {params.dest_folder}  && "
        "touch {output.dict_done} && "
        "touch {output.freq_done} "
