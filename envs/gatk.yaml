@@ -7,4 +7,4 @@ dependencies:
   - samtools
   - r-base
   - r-ggplot2
-  
+  - r-gplots
