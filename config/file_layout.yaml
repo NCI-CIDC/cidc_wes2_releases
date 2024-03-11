@@ -47,7 +47,8 @@ rqual_filter:
     qfilter_fastq_paired: "{{sample}}_{read}{paired}_qual.fastq.gz"
 
 hlahd:
-    report: "{sample}.final_report.txt"
+    done: "{sample}.done"
+#    report: "{sample}/result/{sample}.final_result.txt"
 
 ## CONTAMINATION
 centrifuge:

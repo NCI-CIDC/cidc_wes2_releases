@@ -1,4 +1,4 @@
-name: samtools
+name: hlahd_conda
 channels:
     - conda-forge
     - bioconda

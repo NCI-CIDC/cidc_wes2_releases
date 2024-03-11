@@ -12,6 +12,25 @@ rule directory_setup:
           touch {output}
         '''
 
+crap = """
+#construct the hla-hd environment
+rule make_hlahd_env:
+    output:
+        touch('hlahd_conda_env.done')
+    params:
+        yaml = "envs/hlahd.yaml",
+        hlahd_path = config["hlahd"]["path"],
+        SOURCEDIR = SOURCEDIR,
+        PREDIR = Path(PREDIR).parent
+    shell:
+        "mamba env create --file={params.PREDIR}/{params.yaml};"
+        "conda init bash;"
+        "conda activate hlahd_conda && "
+	"export PATH=$PATH:{params.SOURCEDIR}/{params.hlahd_path};"
+        "conda deactivate"
+"""
+
+
 ## Download reference genome fa and supporting gtf annotation from ncbi ftp site
 rule retrieve_reference_genome:
     input:
