@@ -1,3 +1,5 @@
 subid,samid,time,timel,timec,timeb,spct,spctl,spctc,factor,replicate,trt,trtl,trtc,fastq_file_1,fastq_file_2,bam_file,threep_adapter_seq,fivep_adapter_seq
 ,SAM02,,,,,,,,,,,,,,,gs://wes2-test-data/bam/SRR1509396.bam,,
+,DFCI-CIMAC-Control-1,,,,,,,,,,,,,,,gs://wes2-test-data/bam/DFCI-CIMAC-Control_1.bam,,
+,GM12386-01,,,,,,,,,,,,,,,gs://wes2-test-data/bam/DFCI-CIMAC-GM12386-01.bam,,
 #,FQ01,,,,,,,,,,,,,gs://wes2-test-data/fastq/SRR1509396_1.fastq.gz,gs://wes2-test-data/fastq/SRR1509396_2.fastq.gz,,,

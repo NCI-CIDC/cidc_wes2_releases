@@ -85,6 +85,10 @@ pairings_df = pd.read_table(config["pairings"],
 
 tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
+echo "TUMOR ONLY DF\n"
+print(tumor_only_df)
+echo "TUMOR NORMAL DF\n"
+print(tumor_normal_df)
 
 #todo: wrap these in a function in rules/common.smk
 GENOME_FA_URI = grab_ref_URI(ref_df, "genome_fa")
