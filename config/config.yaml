@@ -1,11 +1,11 @@
 ## workflow set up
 # working output dir
 #predir: '/media/scratch/cherikhsr/pipeline_template_output'
-predir: "/home/pendletonmr_nih_gov/p/cidc_wes2/results"
+predir: '/media/analysis/wes2_test_output'
 # source dir for supporting scripts
-srcdir: '/home/pendletonmr_nih_gov/p/cidc_wes2/source'
+srcdir: '/home/trivittge_nih_gov/cidc_wes2/source'
 # file to write running log
-log_file: '/home/pendletonmr_nih_gov/p/cidc_wes2/results/pipeline.log'
+log_file: '/media/analysis/wes2_test_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
 ncores: 16
 
@@ -44,6 +44,12 @@ sentieon_path: "/media/storage/sentieon/sentieon-genomics-202112.06/bin/"
 
 ##HLAHD SETTINGS
 hlahd:
+<<<<<<< HEAD
   path: "hlahd.1.7.0/bin/"
   min_length: 50 #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
   cut_percent: 0.95 #hla-hd param -c, if mistmatch how much to cut back
+=======
+  path: "source/bin"
+  min_length: 50, #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
+  cut_percent: 0.95, #hla-hd param -c, if mistmatch how much to cut back
+>>>>>>> 6cd355de45de52630a14780495fb6b6a21af7662

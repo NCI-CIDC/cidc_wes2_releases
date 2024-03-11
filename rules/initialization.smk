@@ -37,18 +37,23 @@ rule retrieve_reference_genome:
         rules.directory_setup.output
     output:
         fa=paths.genome.fa,
+        gtf=paths.annot.gtf
     benchmark:
         'benchmark/retrieve_reference_genome.tab'
     log:
         'log/retrieve_reference_genome.log'
     params:
         fa_uri=GENOME_FA_URI,
+        gtf_uri=GENOME_GTF_URI
     priority: 1000
     threads: 1
     shell:
         '''
-          echo "downloading Genome to map reads to GRCh38 or hg38..." | tee {log}
-          gsutil cp {params.fa_uri} {output.fa}
+          echo " gsutil cp {params.fa_uri} {output.fa}" | tee {log}
+          gsutil cp {params.fa_uri} {output.fa} 2>> {log}
+
+          echo "gsutil cp {params.gtf_uri} {output.gtf}" | tee {log}
+          gsutil cp {params.gtf_uri} {output.gtf} 2>> {log}
         '''
 
 rule retrieve_hlahd_reference_data:
@@ -234,6 +239,23 @@ rule retrieve_coverage_targets_bed:
           gsutil cp {params.file_uri} {output}
         '''
 
+## Set OptiType config.init to not delete intermediate bam files produced by RazerS3
+rule optitype_config:
+    output:
+        tch='progress/optitype_config.done'
+    benchmark:
+        'benchmark/retrieve_coverage_targets_bed.tab'
+    log:
+        'log/optitype_config.log' 
+    conda:
+        "../envs/optitype.yaml"
+    shell:
+        '''
+          script_path=$(conda info --envs | grep -E '\*' | awk '{{print $NF}}')
+
+          echo "sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch}" | tee {log}
+          sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch} 2>> {log}
+        '''
 
 unused = """
 ## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.

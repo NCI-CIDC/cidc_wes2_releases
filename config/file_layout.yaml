@@ -93,12 +93,16 @@ bqsr:
     recal_round2_index: "{sample}_recal_round2.bam.bai"
     recal_chr6_bam: "{sample}_recalibrated_round2.chr6.bam"
     recal_chr6_index: "{sample}_recalibrated_round2.chr6.bai"
-    recal_chr6_fq_r1: "{sample}_recalibrated_round2.chr6.r1.fq.gz"
-    recal_chr6_fq_r2: "{sample}_recalibrated_round2.chr6.r2.fq.gz"
+    recal_chr6_fq_r1: "{sample}_recalibrated_round2.chr6.r1.fq"
+    recal_chr6_fq_r2: "{sample}_recalibrated_round2.chr6.r2.fq"
     report: "{sample}_recal.pdf"
 
 xhla:
     report: "{sample}_hla.json"
+
+optitype:
+    tsv: "{sample}_result.tsv"
+    pdf: "{sample}_coverage_plot.pdf"
 
 coverage:
     depth: "{sample}_exome_coverage_depth.txt"
