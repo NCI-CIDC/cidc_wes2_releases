@@ -1,6 +1,6 @@
 ##type: either "TN" or "TO" for "tumor normal", "tumor only"
 ##
-##run_name: identical to tumor cimac_id
+##run: identical to tumor cimac_id
 ##
 ##normal: cimac_id for the corresponding normal_sample.
 ##        if sample is tumor-only, this field is left blank.
@@ -11,6 +11,6 @@
 ##tumor:  cimac_id for the tumor sample. This field will always
 ##        be filled out.
 ##
-type,run_name,normal,tumor
-TO,SAM02,SAM02,
+type,run,normal,tumor
+TO,SAM02,,SAM02
 TN,DFCI-CIMAC-Control-1,GM12386-01,DFCI-CIMAC-Control-1

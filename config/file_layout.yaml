@@ -24,7 +24,7 @@ genome:
     hla_freq: "hla.freq"
     picard_dict": "GCA_000001405.15_GRCh38_full_analysis_set.dict"
     coverage_targets: "gencode27.canonical.bed"
-
+    models: "models_hg38"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -114,3 +114,7 @@ cnv:
     igv: "{sample}_cnv_segmented.igv"
     csv: "{sample}_cnv_annot.csv"
 
+msisensor2:
+    output: "{sample}_msisensor2"
+    dis: "{sample}_msisensor2_dis"
+    somatic: "{sample}_msisensor2_somatic"

@@ -20,3 +20,4 @@ coverage_targets,gs://cidc-wes2-reference-v1/gencode27.canonical.bed,DFCI,
 hlahd_dict,gs://cidc-wes2-reference-v1/dictionary_1.7.0_20240301.tar.gz,"HLAHD_v1.7.0_20240301",
 hlahd_freq,gs://cidc-wes2-reference-v1/hlahd_1.7.0_freq_data.tar.gz,"HLAHD_v1.7.0",
 hlahd_split,gs://cidc-wes2-reference-v1/HLA_gene.split.3.32.0.txt,"HLAHD_v1.7.0",
+msisensor2_ref,gs://cidc-wes2-reference-v1/models_hg38,https://github.com/niu-lab/msisensor2/tree/master/models_hg38,"Commit for models_hg38 directory was e0798c7"

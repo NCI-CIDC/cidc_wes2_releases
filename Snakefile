@@ -81,14 +81,14 @@ sample_metadata_df = pd.read_table(config["sample_metadata"],
 
 pairings_df = pd.read_table(config["pairings"],
 	     sep=",",
-	     comment = "#").set_index("run_name", drop = False)
+	     comment = "#").set_index("run", drop = False)
 
 tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
-echo "TUMOR ONLY DF\n"
-print(tumor_only_df)
-echo "TUMOR NORMAL DF\n"
-print(tumor_normal_df)
+print(pairings_df)
+
+print(pairings_df.at["DFCI-CIMAC-Control-1", "normal"])
+
 
 #todo: wrap these in a function in rules/common.smk
 GENOME_FA_URI = grab_ref_URI(ref_df, "genome_fa")
@@ -119,6 +119,9 @@ HLAHD_DICT_URI = grab_ref_URI(ref_df,"hlahd_dict")
 HLAHD_FREQ_URI = grab_ref_URI(ref_df,"hlahd_freq")
 HLAHD_SPLIT_URI = grab_ref_URI(ref_df,"hlahd_split")
 
+# Reference data for MSIsensor2
+MSISENSOR2_MODELS_URI = grab_ref_URI(ref_df,"msisensor2_ref")
+
 # Sample info
 ## List of samples to process
 SAMID = utils.toList(sample_metadata_df['samid'])
@@ -129,8 +132,10 @@ BAM = utils.toList(sample_metadata_df['bam_file'])
 ## Adapter sequences
 FP_ADAPTERS   = [x.strip() for x in utils.toList(sample_metadata_df['fivep_adapter_seq'])]
 TP_ADAPTERS   = [x.strip() for x in utils.toList(sample_metadata_df['threep_adapter_seq'])]
-
-
+## List of the run names for each pairing or entry (tumor normal or tumor only)
+RUN = utils.toList(pairings_df['run'])
+gg = expand(paths.msisensor2.output, sample=RUN)
+print(gg)
 # Set workflow working (output) dir
 workdir: PREDIR
 
@@ -197,6 +202,7 @@ OUTPUT = [
           expand(paths.cnv.csv, sample=SAMID),
 	  paths.hlahd_references.dict_done,
           expand(paths.hlahd.done, sample= SAMID),
+          expand(paths.msisensor2.output, sample=RUN)
 	  ]
 
 
@@ -253,3 +259,4 @@ include: "./rules/coverage.smk"
 include: "./rules/cnv.smk"
 include: "./rules/hlahd.smk"
 include: "./rules/optitype.smk"
+include: "./rules/msisensor2.smk"
