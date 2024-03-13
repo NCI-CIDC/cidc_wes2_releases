@@ -88,7 +88,7 @@ def logHandler(x):
 def logging_call(popenargs, **kwargs):
     
     ## Log command
-    logging.debug(popenargs)
+    #logging.debug(popenargs)
     
     ## Start process, get pid
     start_time = time.time()
