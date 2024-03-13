@@ -182,6 +182,7 @@ _logging.basicConfig(level=_logging.INFO,
 ################################
 OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
+          expand(paths.rseqc.bamgc_txt, sample=SAMID),	  
           expand(paths.fastqc.targz, sample=SAMID),
 #          expand(paths.bam.realigned_bam, sample=SAMID),
           expand(paths.bqsr.report, sample = SAMID),
