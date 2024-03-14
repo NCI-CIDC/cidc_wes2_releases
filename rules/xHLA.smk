@@ -21,7 +21,7 @@ rule xhla:
         ref_data = Path(paths.genome.hla_fna).parent
     conda: "../envs/xHLA.yaml"
     benchmark:
-        "benchmarks/{sample}_xhla.tab"
+        "benchmark/{sample}_xhla.tab"
     log:
         "log/{sample}_xHLA.log"
     shell:
