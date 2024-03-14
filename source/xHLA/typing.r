@@ -3,7 +3,8 @@
 
 args <- commandArgs()
 code.source <- sub('--file=', '', args[4])
-if(length(args) != 7) {
+#if(length(args) != 7) {
+if(length(args) != 8) {
 	cat("usage:", code.source, "input.tsv output.tsv\n")
 	q()
 }
@@ -11,6 +12,7 @@ set.seed(131)
 data.dir <- dirname(code.source)
 align.path <- args[6]
 out.path <- args[7]
+ref.dir <- args[8]
 library(parallel)
 options(mc.cores = detectCores())
 library(data.table)
@@ -36,7 +38,8 @@ print(nrow(all))
 print(length(unique(all[,q])))
 
 # for HLA alleles with frame shift variants, we require reads span over the frame shift site
-frame.shift <- fread(sprintf('%s/../../results/genome/hla.shift', data.dir))
+#frame.shift <- fread(sprintf('%s/../../results/genome/hla.shift', data.dir))
+frame.shift <- fread(sprintf('%s/hla.shift', ref.dir))
 setnames(frame.shift, c('t', 'EXON', 'shift'))
 frame.shift[, type := sub('-E.+', '', t)]
 frame.shift[, MSA := sub('\\*.+', '', t)]
@@ -53,7 +56,8 @@ spanned <- all[ts < shift-1 & te > shift+1]
 all <- all[type %in% spanned$type | !(type %in% frame.shift$type)]
 
 # exon data avalability in IMGT
-exons <- data.table(read.delim(sprintf('%s/../../results/genome/hla.tsv', data.dir), h = F, stringsAsFactor = F)[, c('V2', 'V3')])
+#exons <- data.table(read.delim(sprintf('%s/../../results/genome/hla.tsv', data.dir), h = F, stringsAsFactor = F)[, c('V2', 'V3')])
+exons <- data.table(read.delim(sprintf('%s/hla.tsv', ref.dir), h = F, stringsAsFactor = F)[, c('V2', 'V3')])
 setnames(exons, c('type', 'EXON'))
 
 # filter non-specific matching
@@ -390,7 +394,8 @@ more[, heter.reads := 0]
 more[, importance := 0]
 
 # detect ambigous calls
-freq <- fread(sprintf('%s/../../results/genome/hla.freq', data.dir))
+#freq <- fread(sprintf('%s/../../results/genome/hla.freq', data.dir))
+freq <- fread(sprintf('%s/hla.freq', ref.dir))
 sols <- more[rank == 1, unique(solution)]
 pop <- freq[allele %in% sols, .(r = median(rank)), by = population][r == min(r), population]
 freq <- freq[population %in% pop][, .(rank = median(rank)), by = allele]
