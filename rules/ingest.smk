@@ -53,11 +53,13 @@ rule bam2fastq:
         'log/{sample}_bam2fastq.log'
     conda:
         SOURCEDIR+"/../envs/samtools.yaml"
+    params:
+        tmp=PREDIR+"/input/{sample}"
     priority: 3
     threads: max(1,min(8,NCORES))
     shell:
         '''
-          samtools collate -@ {threads} -u -O {input.bam} | \
+          samtools collate -@ {threads} -u -O {input.bam} -T {params.tmp} | \
           samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n
         '''
 
