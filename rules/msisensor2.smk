@@ -4,8 +4,10 @@ rule msisensor2:
     input:
         models=rules.retrieve_msisensor2_models.output.models,
         tch=rules.retrieve_msisensor2_models.output.tch,
-        tumor=paths.bam.bam,
-        normal=lambda wildcards: PREDIR+"/bam/{normal}.bam".format(normal=pairings_df.at[wildcards.sample, 'normal']) if pairings_df.at[wildcards.sample,'type'] == "TN" else []
+        tumor=rules.run_bwa.output,
+        tumor_bai=rules.index_bam.output,
+        normal=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}.bam" if pairings_df.at[wildcards.sample,'type'] == "TN" else [],
+        normal_bai=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}.bam.bai" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
     output:
         output=paths.msisensor2.output,
         dis=paths.msisensor2.dis,
@@ -19,7 +21,7 @@ rule msisensor2:
     threads: max(1,min(8,NCORES))
     params:
         prefix='msisensor2/{sample}_msisensor2',
-        file=lambda wildcards, input: "-t %s" % input.tumor if pairings_df.at[wildcards.sample, 'type'] == "TO" else "-t %s -n %s" % (input.tumor, input.normal)
+        file=lambda wildcards, input: "-t %s" % input.tumor if pairings_df.at[wildcards.sample,'type'] == "TO" else "-t %s -n %s" % (input.tumor, input.normal)
     shell:
         '''
            echo "msisensor2 msi -M {input.models} {params.file} -o {params.prefix} -b {threads}" | tee {log}
