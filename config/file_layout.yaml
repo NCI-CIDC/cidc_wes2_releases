@@ -61,6 +61,10 @@ centrifuge:
 bam:
     bam: "{sample}.bam"
     index: "{sample}.bam.bai"
+    dedup_bam: "{sample}_dedup.bam"
+    dedup_bai: "{sample}_dedup.bam.bai"
+    dedup_metrics: "{sample}_marked_duplicates_metrics.txt"
+
     dup_bam: "{sample}_dup.bam"
     flags_bam: "{sample}_flags.bam"
     blacklist_bam: "{sample}_blacklist.bam"
@@ -118,3 +122,4 @@ msisensor2:
     output: "{sample}_msisensor2"
     dis: "{sample}_msisensor2_dis"
     somatic: "{sample}_msisensor2_somatic"
+    germline: "{sample}_msisensor2_germline"

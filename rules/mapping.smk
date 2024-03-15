@@ -46,6 +46,35 @@ rule index_bam:
           samtools index -@ {threads} {input.bam} 2>> {log}
         '''
 
+## Mark and remove duplicates in the sorted bam using a Spark implementation of Picard from GATK
+rule dedup_bam:
+    input:
+        bam=rules.run_bwa.output,
+        bai=rules.index_bam.output
+    output:
+        dedup=paths.bam.dedup_bam,
+        bai=paths.bam.dedup_bai,
+        metrics=paths.bam.dedup_metrics
+    benchmark:
+        'benchmark/{sample}_dedup_bam.tab'
+    log:
+        'log/{sample}_dedup_bam.log'
+    conda:
+        "../envs/gatk.yaml"
+    params:
+        tmp=Path(PREDIR) / "bam"
+    resources:
+        mem_mb=config["mem"]
+    threads: max(1,min(16,NCORES))
+    shell:
+        '''
+          echo "gatk MarkDuplicatesSpark -I {input.bam} -O {output.dedup} -M {output.metrics} --remove-all-duplicates true --tmp-dir {params.tmp} --conf 'spark.executor.cores={threads}'" | tee {log}
+          gatk MarkDuplicatesSpark -I {input.bam} -O {output.dedup} -M {output.metrics} --remove-all-duplicates true --tmp-dir {params.tmp} --conf 'spark.executor.cores={threads}' 2>> {log}
+
+          ## Export rule env details
+          conda env export --no-builds > info/gatk.info
+        '''
+
 ## Perform post-alignment filtering on the sorted bam
 rule filter_bam:
     input:

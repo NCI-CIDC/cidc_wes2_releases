@@ -4,10 +4,10 @@ rule msisensor2:
     input:
         models=rules.retrieve_msisensor2_models.output.models,
         tch=rules.retrieve_msisensor2_models.output.tch,
-        tumor=rules.run_bwa.output,
-        tumor_bai=rules.index_bam.output,
-        normal=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}.bam" if pairings_df.at[wildcards.sample,'type'] == "TN" else [],
-        normal_bai=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}.bam.bai" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
+        tumor=rules.dedup_bam.output.dedup,
+        tumor_bai=rules.dedup_bam.output.bai,
+        normal=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}_dedup.bam" if pairings_df.at[wildcards.sample,'type'] == "TN" else [],
+        normal_bai=lambda wildcards: Path(PREDIR) / "bam" / f"{pairings_df.at[wildcards.sample,'normal']}_dedup.bam.bai" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
     output:
         output=paths.msisensor2.output,
         dis=paths.msisensor2.dis,
