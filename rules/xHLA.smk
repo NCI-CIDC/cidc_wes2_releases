@@ -16,12 +16,12 @@ rule xhla:
     group: "xhla"
     params:
         sample = "{sample}",
-        output_dir=Path(paths.xhla.report).parent,
+        output_dir= Path(PREDIR) / "xhla",
         srcdir=SOURCEDIR,
-        ref_data = Path(paths.genome.hla_fna).parent
+        ref_data = Path(PREDIR) / "genome"
     conda: "../envs/xHLA.yaml"
     benchmark:
-        "benchmarks/{sample}_xhla.tab"
+        "benchmark/{sample}_xhla.tab"
     log:
         "log/{sample}_xHLA.log"
     shell:
