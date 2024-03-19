@@ -2,7 +2,8 @@
 rule exome_coverage:
     input:
         genome_size=rules.genome_size.output.size,
-        bam=rules.filter_bam.output.filtered_bam,
+        bam=rules.dedup_bam.output.dedup,
+        bai=rules.dedup_bam.output.bai,
         targets_bed=rules.retrieve_coverage_targets_bed.output
     output:
         depth=paths.coverage.depth,

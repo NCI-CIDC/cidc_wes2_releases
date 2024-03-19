@@ -52,13 +52,18 @@ rule bam2fastq:
     log:
         'log/{sample}_bam2fastq.log'
     conda:
-        SOURCEDIR+"/../envs/samtools.yaml"
+        "../envs/samtools.yaml"
+    params:
+        tmp=Path(PREDIR) / "input" / "{sample}"
     priority: 3
     threads: max(1,min(8,NCORES))
     shell:
         '''
-          samtools collate -@ {threads} -u -O {input.bam} | \
-          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n
+          echo "samtools collate -@ {threads} -u -O {input.bam} -T {params.tmp} | \
+          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n " | tee {log}
+
+          samtools collate -@ {threads} -u -O {input.bam} -T {params.tmp} | \
+          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n 2> {log}
         '''
 
 ### Optionally trim adapters with cutadapt

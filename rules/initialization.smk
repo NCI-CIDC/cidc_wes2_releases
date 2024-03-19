@@ -164,38 +164,7 @@ rule genome_size:
           conda env export --no-builds > info/samtools.info
         '''
 
-# Filter the hg38 genome index and convert from fai to bed format
-rule create_bed:
-    input:
-        paths.genome.fai
-    output:
-        paths.genome.bed
-    benchmark:
-        'benchmark/create_bed.tab'
-    threads: 1
-    shell:
-        '''
-          ## Remove the entries from chrM, chrUN, _random, chrEBV in the hg38 genome index and convert fai format to bed
-          grep -v -E 'chrUn|_random|chrEBV|chrM' {input} | awk -F'\t' '{{ print $1,\"0\",$2 }}' > {output}
-        '''
-
-## Retrieve hg38 blacklist from https://github.com/Boyle-Lab/Blacklist
-rule retrieve_hg38_blacklist:
-    output:
-        paths.genome.blacklist
-    benchmark:
-        'benchmark/retrieve_hg38_blacklist.tab'
-    params:
-        blacklist_uri=GENOME_BLACKLIST_URI
-    threads: 1
-    shell:
-       '''
-          gsutil cp {params.blacklist_uri} {output}.gz
-          gunzip {output}.gz
-        '''
-
-
-##makes a picard reference dictionary for use by picard re-aligner
+## Makes a Picard reference dictionary for use by picard re-aligner
 rule picard_dictionary:
     input:
         paths.genome.fa
@@ -221,6 +190,23 @@ rule retrieve_coverage_targets_bed:
           gsutil cp {params.file_uri} {output}
         '''
 
+## Retrieve MSIsensor2 models:
+rule retrieve_msisensor2_models:
+    output:
+        models=directory(paths.genome.models),
+        tch='progress/msisensor2_models_downloaded.done'
+    benchmark:
+        'benchmark/retrieve_msisensor2_models.tab'
+    log:
+        'log/retrieve_msisensor2_models.log'
+    params:
+        uri=MSISENSOR2_MODELS_URI
+    shell:
+        '''
+          echo "gsutil -m cp -R {params.uri} genome && touch {output.tch}" | tee {log}
+          gsutil -m cp -R {params.uri} genome && touch {output.tch} 2>> {log}
+        '''
+
 ## Set OptiType config.init to not delete intermediate bam files produced by RazerS3
 rule optitype_config:
     output:
@@ -238,32 +224,3 @@ rule optitype_config:
           echo "sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch}" | tee {log}
           sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch} 2>> {log}
         '''
-
-unused = """
-## Retrieve DHS regions list from dev GCP bucket. This might not be final location of the file.
-## If file location changes, the shell directive needs to be updated.
-#rule retrieve_hg38_dhs:
-    output:
-        paths.genome.dhs
-    benchmark:
-        'benchmark/retrieve_hg38_dhs.tab'
-    params:
-        dhs_uri=GENOME_DHS_URI
-    threads: 1
-    shell:
-        "gsutil cp {params.dhs_uri} {output}"
-
-## Retrieve evolutionary bigwig file dev GCP bucket. This might not be final location of the file.
-## If file location changes, the shell directive needs to be updated.
-rule retrieve_conservation_bw:
-    output:
-        paths.annot.bw
-    benchmark:
-        to_benchmark(paths.annot.bw)
-    params:
-        dhs_uri=GENOME_CONSERVATION_URI
-    threads: 1
-    shell:
-        "gsutil cp {params.dhs_uri} {output}"
-
-"""
