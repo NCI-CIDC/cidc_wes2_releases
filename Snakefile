@@ -94,8 +94,6 @@ print(pairings_df.at["DFCI-CIMAC-Control-1", "normal"])
 GENOME_FA_URI = grab_ref_URI(ref_df, "genome_fa")
 GENOME_GTF_URI = grab_ref_URI(ref_df,"genome_gtf")
 GENOME_BWA_URI = grab_ref_URI(ref_df,"genome_bwa_index")
-GENOME_BLACKLIST_URI = grab_ref_URI(ref_df,"genome_blacklist")
-GENOME_DHS_URI = grab_ref_URI(ref_df,"genome_dhs")
 
 #reference SNVs for BQSR
 GENOME_MILLS_URI = grab_ref_URI(ref_df,"mills_ref")
@@ -192,16 +190,14 @@ _logging.basicConfig(level=_logging.INFO,
 OUTPUT = [
           expand(paths.rseqc.bamqc_txt, sample=SAMID),
           expand(paths.fastqc.targz, sample=SAMID),
-#          expand(paths.bam.realigned_bam, sample=SAMID),
-          expand(paths.bqsr.report, sample = SAMID),
-          expand(paths.bqsr.recal_round2_bam, sample = SAMID),
-          expand(paths.optitype.tsv, sample=SAMID),
-          expand(paths.xhla.report, sample = SAMID),
-          expand(paths.coverage.depth, sample = SAMID),
-          expand(paths.coverage.bw, sample = SAMID),
+          expand(paths.bqsr.report, sample=SAMID),
+#          expand(paths.optitype.tsv, sample=SAMID),
+#          expand(paths.xhla.report, sample = SAMID),
+          expand(paths.coverage.depth, sample=SAMID),
+          expand(paths.coverage.bw, sample=SAMID),
           expand(paths.cnv.csv, sample=SAMID),
 	  paths.hlahd_references.dict_done,
-          expand(paths.hlahd.done, sample= SAMID),
+#          expand(paths.hlahd.done, sample= SAMID),
           expand(paths.msisensor2.output, sample=RUN)
 	  ]
 

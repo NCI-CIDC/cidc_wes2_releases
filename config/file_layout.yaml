@@ -4,10 +4,7 @@ genome:
     bwt: "GCA_000001405.15_GRCh38_full_analysis_set.fna.bwt" 
     size: "genome.size"
     fai: "GCA_000001405.15_GRCh38_full_analysis_set.fna.fai"
-    blacklist: "hg38-blacklist.v2.bed"
-    filtered_fai: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.fna.fai"
     bed: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.bed"
-    dhs: "DHS_hg38.bed"
 
     mills: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz"
     mills_index: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz.tbi"
@@ -64,20 +61,8 @@ bam:
     dedup_bam: "{sample}_dedup.bam"
     dedup_bai: "{sample}_dedup.bam.bai"
     dedup_metrics: "{sample}_marked_duplicates_metrics.txt"
-
-    dup_bam: "{sample}_dup.bam"
-    flags_bam: "{sample}_flags.bam"
-    blacklist_bam: "{sample}_blacklist.bam"
-    fixmate_bam: "{sample}_fixmate.bam"
-    filtered_bam: "{sample}_filtered.bam"
-    filtered_index: "{sample}_filtered.bam.bai"
     filtered_chr6_bam: "{sample}_filtered.chr6.bam"
     filtered_chr6_bam_index: "{sample}_filtered.chr6.bam.bai"    
-    realigned_bam: "{sample}_realigned.bam"
-    realigned_index: "{sample}_realigned.bam.bai"
-    metrics: "{sample}_marked_duplicates_metrics.txt"
-    sampled_bam: "{sample}_sampled.bam"
-    sampled_index: "{sample}_sampled.bam.bai"
 
 rseqc:
     bamqc_txt: "{sample}_bam_qc.txt"
@@ -85,20 +70,18 @@ rseqc:
     bamgc_r: "{sample}.GC_plot.r"
 
 fastqc:
-    targz: "{sample}_filtered_fastqc.tar.gz"
+    targz: "{sample}_dedup_fastqc.tar.gz"
 
 bqsr:
     prerecaltable: "{sample}_prerecal_data.table"
     postrecaltable: "{sample}_postrecal_data.table"    
     recal_bam: "{sample}_recalibrated.bam"
-    recal_index: "{sample}_recalibrated.bam.bai"
+    recal_index: "{sample}_recalibrated.bai"
     recal_table: "{sample}_recal.csv"
-    recal_round2_bam: "{sample}_recal_round2.bam"
-    recal_round2_index: "{sample}_recal_round2.bam.bai"
-    recal_chr6_bam: "{sample}_recalibrated_round2.chr6.bam"
-    recal_chr6_index: "{sample}_recalibrated_round2.chr6.bai"
-    recal_chr6_fq_r1: "{sample}_recalibrated_round2.chr6.r1.fq"
-    recal_chr6_fq_r2: "{sample}_recalibrated_round2.chr6.r2.fq"
+    recal_chr6_bam: "{sample}_recalibrated.chr6.bam"
+    recal_chr6_index: "{sample}_recalibrated.chr6.bai"
+    recal_chr6_fq_r1: "{sample}_recalibrated.chr6.r1.fq"
+    recal_chr6_fq_r2: "{sample}_recalibrated.chr6.r2.fq"
     report: "{sample}_recal.pdf"
 
 xhla:
