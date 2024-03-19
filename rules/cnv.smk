@@ -1,8 +1,8 @@
 ## Run CNV analysis with QDNAseq
 rule cnv_analysis:
    input:
-       bam=paths.bqsr.recal_bam,
-       idx=paths.bqsr.recal_index,
+       bam=rules.apply_bqsr.output.bam,
+       idx=rules.apply_bqsr.output.bai,
        gtf=rules.retrieve_reference_genome.output.gtf
    output:
        bed=paths.cnv.bed,
