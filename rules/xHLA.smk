@@ -26,8 +26,8 @@ rule xhla:
         "log/{sample}_xHLA.log"
     shell:
         """
-	echo  {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}-{params.sample} --ref_data {params.ref_data} > {log};
+	echo  {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}/xhla-{params.sample} --ref_data {params.ref_data} > {log};
 
-        {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}-{params.sample} --ref_data {params.ref_data}
+        {params.srcdir}/xHLA/run.py --sample_id {params.sample} --input_bam_path {input.bam} --output_path  {params.output_dir} --exec_path "{params.srcdir}/xHLA/" --temp_path {params.output_dir}/xhla-{params.sample} --ref_data {params.ref_data}
 
         """
