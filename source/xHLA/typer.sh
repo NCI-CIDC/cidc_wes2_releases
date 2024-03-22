@@ -14,9 +14,13 @@ BIN="`dirname \"$0\"`"
 S3=$1
 ID=$2
 HLA_REF=$3
-OUT=xhla-$ID
+#OUT needs to be an absolute path
+OUT=xhla-$ID #old command as relative path
+OUTPATH=$4
 DELETE=false
 FULL=false
+
+echo $OUT
 
 while test $# -gt 0
 do
@@ -31,36 +35,39 @@ done
 
 echo "typer.sh parameters: DELETE=$DELETE FULL=$FULL"
 
-mkdir -p $OUT
+mkdir -p $OUTPATH/$OUT
 TEMP=temp-$RANDOM-$RANDOM-$RANDOM
 
 echo "Extracting reads from S3"
 
 samtools view -u $S3 chr6:29886751-33090696 | samtools view -L $HLA_REF/hla.bed - > ${TEMP}.sam
-$BIN/preprocess.pl ${TEMP}.sam | gzip > $OUT/$ID.fq.gz
+$BIN/preprocess.pl ${TEMP}.sam | gzip > $OUTPATH/$OUT/$ID.fq.gz
 rm ${TEMP}.sam
-echo "Aligning reads to IMGT database"
+echo "Aligning "$OUTPATH/$OUT/$ID.fq.gz " reads to IMGT database"
+
 if [ "$FULL" = true ]; then
-    $BIN/align.pl $PWD/$OUT/${ID}.fq.gz $OUT/${ID}.tsv $HLA_REF full
+    $BIN/align.pl $OUTPATH/$OUT/${ID}.fq.gz $OUTPATH/$OUT/${ID}.tsv $HLA_REF full
 else
-    $BIN/align.pl $PWD/$OUT/${ID}.fq.gz $OUT/${ID}.tsv $HLA_REF
+    $BIN/align.pl $OUTPATH/$OUT/${ID}.fq.gz $OUTPATH/$OUT/${ID}.tsv $HLA_REF
 fi
 
 echo "Typing"
-echo "running command: " $BIN/typing.r $OUT/${ID}.tsv $OUT/${ID}.hla
-$BIN/typing.r $OUT/${ID}.tsv $OUT/${ID}.hla
+echo "running typing command: " $BIN/typing.r $OUTPATH/$OUT/${ID}.tsv $OUTPATH/$OUT/${ID}.hla.tsv $HLA_REF
+$BIN/typing.r $OUTPATH/$OUT/${ID}.tsv $OUTPATH/$OUT/${ID}.hla.tsv $HLA_REF
 
 echo "Reporting"
-$BIN/report.py -in $OUT/${ID}.hla -out $OUT/${ID}.json -subject $ID -sample $ID
+echo "running reporting command:" $BIN/report.py -in $OUTPATH/$OUT/${ID}.hla.tsv -out $OUTPATH/$OUT/${ID}.json -subject $ID -sample $ID
+$BIN/report.py -in $OUTPATH/$OUT/${ID}.hla.tsv -out $OUTPATH/$OUT/${ID}.json -subject $ID -sample $ID
 
 if [ "$FULL" = true ]; then
-    $BIN/full.r $OUT/${ID}.tsv.dna $OUT/${ID}.hla $OUT/${ID}.hla.full
+    echo "running command:" $BIN/full.r $OUTPATH/$OUT/${ID}.tsv.dna $OUTPATH/$OUT/${ID}.hla.tsv $OUTPATH/$OUT/${ID}.hla.full
+    $BIN/full.r $OUTPATH/$OUT/${ID}.tsv.dna $OUTPATH/$OUT/${ID}.hla.tsv $OUTPATH/$OUT/${ID}.hla.full
 fi
 
 # Clean up
 if [ "$DELETE" = true ]
 then
-	rm $OUT/${ID}.tsv
-	rm $OUT/${ID}.fq.gz
-	rm $OUT/${ID}.hla
+	rm $OUTPATH/$OUT/${ID}.tsv
+	rm $OUTPATH/$OUT/${ID}.fq.gz
+	rm $OUTPATH/$OUT/${ID}.hla
 fi

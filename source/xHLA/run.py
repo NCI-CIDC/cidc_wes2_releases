@@ -57,24 +57,26 @@ if __name__ == '__main__':
     
     args, _ = parser.parse_known_args()
     logger.info('Sample_id: {} Input file: {}'.format(args.sample_id, args.input_bam_path))
-    out_local_path = args.temp_path / f'{args.sample_id}.json'
+    out_local_path =  args.temp_path / f'{args.sample_id}.json'
 
     ###this next line specifies where the xHLA executables live
     bin_path = args.exec_path.absolute() /'typer.sh'
-    print(args.exec_path, bin_path)
-    bin_args = [bin_path, args.input_bam_path, args.sample_id, args.ref_data]
+    logger.info(f"output path variable: {args.output_path}")
+    bin_args = [bin_path, args.input_bam_path, args.sample_id, args.ref_data, args.output_path]
+#    bin_args = [bin_path, args.input_bam_path, args.output_path, args.ref_data]    
     if args.delete:
         bin_args += ['delete']
     if args.full:
         bin_args += ['full']
 
-    print("running command:" ,bin_args)
+    logger.info("running typer command: {}".format(" ".join([str(x) for x in bin_args]) ))
     
     check_call(bin_args)
 
     out_final_path = args.output_path / f'{args.sample_id}_hla.json'
+    print("out final path:",out_final_path)
     output_file(out_local_path, out_final_path)
-    done_path = args.output_path / f'hla-{args.sample_id}_SUCCESS'
+    done_path = args.output_path / f'xhla-{args.sample_id}_SUCCESS'
     open(done_path, 'a').close()
     done_final_path = args.output_path / '_SUCCESS'
     output_file(done_path, done_final_path)
