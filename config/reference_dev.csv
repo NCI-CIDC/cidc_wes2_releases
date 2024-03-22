@@ -19,3 +19,8 @@ hlahd_dict,gs://cidc-wes2-reference-v1/dictionary_1.7.0_20240301.tar.gz,"HLAHD_v
 hlahd_freq,gs://cidc-wes2-reference-v1/hlahd_1.7.0_freq_data.tar.gz,"HLAHD_v1.7.0",
 hlahd_split,gs://cidc-wes2-reference-v1/HLA_gene.split.3.32.0.txt,"HLAHD_v1.7.0",
 msisensor2_ref,gs://cidc-wes2-reference-v1/models_hg38,https://github.com/niu-lab/msisensor2/tree/master/models_hg38,"Commit for models_hg38 directory was e0798c7"
+germline_dbsnp,gs://cidc-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf,"GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)"
+germline_index,gs://cidc-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf.idx,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf.idx,"GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)"
+targets_mocha,gs://cidc-wes2-reference-v1/germline_vcf/mocha.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/mocha.liftover.hg38.noContigs.bed,"DFCI reference files"
+targets_mda,gs://cidc-wes2-reference-v1/germline_vcf/MDA.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/MDA.liftover.hg38.noContigs.bed,"DFCI reference files"
+targets_broad,gs://cidc-wes2-reference-v1/germline_vcf/broad.liftover.hg38.bed,dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/broad.liftover.hg38.bed,"DFCI reference files"
