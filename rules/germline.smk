@@ -140,11 +140,10 @@ rule bcftools_plot_vcfstats:
         'log/{sample}_bcftools_plot_vcfstats.log'
     conda:
         "../envs/bcftools.yaml"
-    threads: max(1,min(8,NCORES))
     params: 
-        dir=Path(PREDIR) / "germline" / "{sample}_plot_vcfstats"
+        dir=PREDIR+"/germline/{sample}_plot_vcfstats"
     shell:
         '''
-          echo "plot-vcfstats --threads {threads} {input.stats} -p {params.dir}" | tee {log}
-          plot-vcfstats --threads {threads} {input.stats} -p {params.dir} 2>> {log}
+          echo "plot-vcfstats {input.stats} -p {params.dir}" | tee {log}
+          plot-vcfstats {input.stats} -p {params.dir} 2>> {log}
         '''
