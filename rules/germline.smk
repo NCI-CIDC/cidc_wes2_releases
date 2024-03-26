@@ -128,7 +128,7 @@ rule bcftools_stats:
           bcftools stats --threads {threads} {input.tumor} {input.normal} > {output.stats} 2>> {log}
         '''
 
-## Processes output of bcftools stats by generating plots and a summary PDF
+## Processes output of BCFtools stats by generating plots and a summary PDF
 rule bcftools_plot_vcfstats:
     input:
         stats=rules.bcftools_stats.output.stats
