@@ -245,7 +245,7 @@ rule retrieve_dbsnp_vcf:
           gsutil cp {params.vcf_uri} {params.idx_uri} genome 2>> {log}
         '''
 
-## Retrieve the specific CIMAC Center's targets BED for usse in the Germline module
+## Retrieve the specific CIMAC Center's targets BED for use in the Germline module
 rule retrieve_targets_bed:
     output:
         bed=paths.genome.mocha if config["cimac"]=='mocha' else paths.genome.mda if config["cimac"]=='mda' else paths.genome.broad
