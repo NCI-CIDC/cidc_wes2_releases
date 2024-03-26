@@ -1,0 +1,8 @@
+name: bcftools
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - bcftools==1.19
+    - matplotlib==3.8.3
+    - tectonic==0.15.0

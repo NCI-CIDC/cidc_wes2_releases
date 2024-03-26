@@ -86,8 +86,7 @@ pairings_df = pd.read_table(config["pairings"],
 tumor_only_df = pairings_df.query("type == 'TO'")
 tumor_normal_df = pairings_df.query("type == 'TN'")
 print(pairings_df)
-
-print(pairings_df.at["DFCI-CIMAC-Control-1", "normal"])
+print(tumor_normal_df)
 
 
 #todo: wrap these in a function in rules/common.smk
@@ -121,6 +120,19 @@ HLAHD_SPLIT_URI = grab_ref_URI(ref_df,"hlahd_split")
 # Reference data for MSIsensor2
 MSISENSOR2_MODELS_URI = grab_ref_URI(ref_df,"msisensor2_ref")
 
+# Reference data for HaplotypeCaller (Germline module)
+GERMLINE_DBSNP_URI = grab_ref_URI(ref_df,"germline_dbsnp")
+GERMLINE_INDEX_URI = grab_ref_URI(ref_df,"germline_index")
+
+# CIMAC Center variants BED used in the Germline and Somatic modules
+if config["cimac"] == "mocha":
+    TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_mocha")
+elif config["cimac"] == "mda":
+    TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_mda")
+else:
+    TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_broad")
+
+
 # Sample info
 ## List of samples to process
 SAMID = utils.toList(sample_metadata_df['samid'])
@@ -133,8 +145,9 @@ FP_ADAPTERS   = [x.strip() for x in utils.toList(sample_metadata_df['fivep_adapt
 TP_ADAPTERS   = [x.strip() for x in utils.toList(sample_metadata_df['threep_adapter_seq'])]
 ## List of the run names for each pairing or entry (tumor normal or tumor only)
 RUN = utils.toList(pairings_df['run'])
-gg = expand(paths.msisensor2.output, sample=RUN)
-print(gg)
+## List of run names for each tumor normal pairing
+TN = utils.toList(tumor_normal_df['run'])
+
 # Set workflow working (output) dir
 workdir: PREDIR
 
@@ -200,7 +213,10 @@ OUTPUT = [
           expand(paths.cnv.csv, sample=SAMID),
 	  paths.hlahd_references.dict_done,
           expand(paths.hlahd.done, sample= SAMID),
-          expand(paths.msisensor2.output, sample=RUN)
+          expand(paths.msisensor2.output, sample=RUN),
+          expand(paths.germline.tbi, sample=SAMID),
+          expand(paths.germline.txt, sample=TN),
+          expand(paths.germline.pdf, sample=TN)
 	  ]
 
 
@@ -258,3 +274,4 @@ include: "./rules/cnv.smk"
 include: "./rules/hlahd.smk"
 include: "./rules/optitype.smk"
 include: "./rules/msisensor2.smk"
+include: "./rules/germline.smk"

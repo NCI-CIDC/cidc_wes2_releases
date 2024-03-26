@@ -49,3 +49,9 @@ hlahd:
   path: "hlahd.1.7.0/bin/"
   min_length: 50 #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
   cut_percent: 0.95 #hla-hd param -c, if mistmatch how much to cut back
+
+## CIMAC Center target variants BED. Options are 'mocha', 'mda', or 'broad' (default).
+## For the Germline module, the output VCF from HaplotypeCaller will be filtered based
+## on the specified CIMAC Center's target BED.
+cimac: 'broad'
+   

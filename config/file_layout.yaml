@@ -22,6 +22,11 @@ genome:
     picard_dict": "GCA_000001405.15_GRCh38_full_analysis_set.dict"
     coverage_targets: "gencode27.canonical.bed"
     models: "models_hg38"
+    dbsnp_vcf: "Homo_sapiens_assembly38.dbsnp138.vcf"
+    dbsnp_vcf_idx: "Homo_sapiens_assembly38.dbsnp138.vcf.idx"
+    mocha: "mocha.liftover.hg38.noContigs.bed"
+    mda: "MDA.liftover.hg38.noContigs.bed"
+    broad: "broad.liftover.hg38.bed"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -106,3 +111,14 @@ msisensor2:
     dis: "{sample}_msisensor2_dis"
     somatic: "{sample}_msisensor2_somatic"
     germline: "{sample}_msisensor2_germline"
+
+germline:
+    vcf: "{sample}_haplotypecaller.output.vcf"
+    idx: "{sample}_haplotypecaller.output.vcf.idx"
+    gz: "{sample}_haplotypecaller.output.vcf.gz"
+    gz_tbi: "{sample}_haplotypecaller.output.vcf.gz.tbi"
+    targets: "{sample}_haplotypecaller.targets.vcf.gz"
+    tbi: "{sample}_haplotypecaller.targets.vcf.gz.tbi"
+    txt: "{sample}_vcfcompare.txt"
+    stats: "{sample}_bcftools_stats.txt"
+    pdf: "{sample}_plot_vcfstats/summary.pdf"

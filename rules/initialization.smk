@@ -226,3 +226,37 @@ rule optitype_config:
           echo "sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch}" | tee {log}
           sed -i 's/deletebam=true/deletebam=false/' ${{script_path}}/bin/config.ini && touch {output.tch} 2>> {log}
         '''
+
+## Retrieve dbSNP VCF from the GATK resource bundle for use in the Germline module (HaplotypeCaller)
+rule retrieve_dbsnp_vcf:
+    output:
+        vcf=paths.genome.dbsnp_vcf,
+        idx=paths.genome.dbsnp_vcf_idx
+    benchmark:
+        'benchmark/retrieve_dbsnp_vcf.tab'
+    log:
+        'log/retrieve_dbsnp_vcf.log'
+    params:
+        vcf_uri=GERMLINE_DBSNP_URI,
+        idx_uri=GERMLINE_INDEX_URI
+    shell:
+        '''
+          echo "gsutil cp {params.vcf_uri} {params.idx_uri} genome" | tee {log}
+          gsutil cp {params.vcf_uri} {params.idx_uri} genome 2>> {log}
+        '''
+
+## Retrieve the specific CIMAC Center's targets BED for use in the Germline module
+rule retrieve_targets_bed:
+    output:
+        bed=paths.genome.mocha if config["cimac"]=='mocha' else paths.genome.mda if config["cimac"]=='mda' else paths.genome.broad
+    benchmark:
+        'benchmark/retrieve_targets_bed.tab'
+    log:
+        'log/retrieve_targets_bed.log'
+    params:
+        bed_uri=TARGETS_BED_URI
+    shell:
+        '''
+          echo "gsutil cp {params.bed_uri} {output.bed}" | tee {log}
+          gsutil cp {params.bed_uri} {output.bed} 2>> {log}
+        ''' 
