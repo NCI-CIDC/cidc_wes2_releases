@@ -108,6 +108,7 @@ HLA_TSV_URI = grab_ref_URI(ref_df,"hla_tsv")
 HLA_FNA_URI = grab_ref_URI(ref_df,"hla_fna")
 HLA_DMND_URI = grab_ref_URI(ref_df,"hla_dmnd")
 HLA_FAA_URI = grab_ref_URI(ref_df,"hla_faa")
+HLA_FREQ_URI = grab_ref_URI(ref_df,"hla_freq")
 HLA_SHIFT_URI = grab_ref_URI(ref_df,"hla_shift")
 GENOME_COVERAGE_TARGETS = grab_ref_URI(ref_df,"coverage_targets")
 
@@ -208,12 +209,12 @@ OUTPUT = [
           expand(paths.fastqc.targz, sample=SAMID),
           expand(paths.bqsr.report, sample=SAMID),
 #          expand(paths.optitype.tsv, sample=SAMID),
-#          expand(paths.xhla.report, sample = SAMID),
+          expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample=SAMID),
           expand(paths.coverage.bw, sample=SAMID),
           expand(paths.cnv.csv, sample=SAMID),
 	  paths.hlahd_references.dict_done,
-#          expand(paths.hlahd.done, sample= SAMID),
+          expand(paths.hlahd.done, sample= SAMID),
           expand(paths.msisensor2.output, sample=RUN),
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),

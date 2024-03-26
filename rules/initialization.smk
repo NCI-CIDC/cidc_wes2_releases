@@ -94,7 +94,8 @@ rule retrieve_xHLA_ref_Data:
         hla_fna = paths.genome.hla_fna,
         hla_shift = paths.genome.hla_shift,
         hla_dmnd = paths.genome.hla_dmnd,
-        hla_faa = paths.genome.hla_faa
+        hla_faa = paths.genome.hla_faa,
+        hla_freq = paths.genome.hla_freq	
     params:
         hla_bed = HLA_BED_URI,
         hla_tsv = HLA_TSV_URI,
@@ -102,6 +103,7 @@ rule retrieve_xHLA_ref_Data:
         hla_shift = HLA_SHIFT_URI,
         hla_dmnd = HLA_DMND_URI,
         hla_faa = HLA_FAA_URI,
+        hla_freq = HLA_FREQ_URI,	
 	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent
     shell:
         '''

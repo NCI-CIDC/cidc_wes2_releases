@@ -5,7 +5,7 @@ args <- commandArgs()
 code.source <- sub('--file=', '', args[4])
 #if(length(args) != 7) {
 if(length(args) != 8) {
-	cat("usage:", code.source, "input.tsv output.tsv\n")
+	cat("usage:", code.source, "input.tsv output.tsv refdir\n")
 	q()
 }
 set.seed(131)
