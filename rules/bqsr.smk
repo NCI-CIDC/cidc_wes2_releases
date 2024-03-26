@@ -12,9 +12,10 @@ rule base_recalibrator:
         prerecaltable=paths.bqsr.prerecaltable,
     benchmark:
         'benchmark/{sample}_base_recalibrator.tab'
-    conda: "../envs/gatk.yaml"
     log:
         'log/{sample}_base_recalibrator.log'
+    conda:
+        "../envs/gatk.yaml"
     threads: max(1,min(4,NCORES))
     shell:
         '''
@@ -25,7 +26,7 @@ rule base_recalibrator:
           --known-sites {input.g1000} \
           --output {output.prerecaltable} \
           --reference {input.fa} \
-          --add-output-sam-program-record " | tee {log}
+          --add-output-sam-program-record" | tee {log}
 
           gatk BaseRecalibrator \
           --input {input.bam} \
@@ -34,7 +35,7 @@ rule base_recalibrator:
           --known-sites {input.g1000} \
           --output {output.prerecaltable} \
           --reference {input.fa} \
-          --add-output-sam-program-record 2> {log}
+          --add-output-sam-program-record 2>> {log}
         '''
 
 ## Performs the second pass of the BQSR process and recalibrates the base qualities of the input reads based on the recalibration table produced by the BaseRecalibrator tool and outputs a recalibrated BAM or CRAM file
@@ -51,7 +52,8 @@ rule apply_bqsr:
         'benchmark/{sample}_apply_bqsr.tab'
     log:
         'log/{sample}_apply_bqsr.log'
-    conda: "../envs/gatk.yaml"    
+    conda:
+        "../envs/gatk.yaml"    
     threads: max(1,min(16,NCORES))
     shell:
         '''
@@ -71,7 +73,7 @@ rule apply_bqsr:
           --emit-original-quals \
           --reference {input.ref_fa} \
           --add-output-sam-program-record \
-          --create-output-bam-index 2> {log}
+          --create-output-bam-index 2>> {log}
         '''
 
 ## Generates a recalibration table on the recalibrated bam based on various covariates
@@ -90,7 +92,8 @@ rule base_recalibrator_post:
         'benchmark/{sample}_base_recalibrator_post.tab'
     log:
         'log/{sample}_base_recalibrator_post.log'
-    conda: "../envs/gatk.yaml"
+    conda:
+        "../envs/gatk.yaml"
     threads: max(1,min(4,NCORES))
     shell:
         '''
@@ -110,7 +113,7 @@ rule base_recalibrator_post:
           --known-sites {input.g1000} \
           --output {output.postrecaltable} \
           --reference {input.fa} \
-          --add-output-sam-program-record 2> {log}
+          --add-output-sam-program-record 2>> {log}
         '''
 
 ## Evaluate and compare base quality score recalibration tables. Generates plots to assess the quality of a recalibration run as part of the BQSR procedure
@@ -140,7 +143,7 @@ rule analyze_covariates:
           --after-report-file {input.postrecal} \
           --before-report-file {input.prerecal} \
           --plots-report-file {output.report} \
-          --intermediate-csv-file {output.recalfile} 2> {log}
+          --intermediate-csv-file {output.recalfile} 2>> {log}
         '''
 
 ## Extract reads from chromosome 6 for HLA typing
@@ -155,12 +158,13 @@ rule extract_chr6:
         'benchmark/{sample}_extract_chr6.tab'
     log:
         'log/{sample}_extract_chr6.log'
-    conda: "../envs/samtools.yaml"
+    conda:
+        "../envs/samtools.yaml"
     threads: max(1,min(16,NCORES))
     shell:
         '''
           echo "samtools view -@ {threads} {input.bam} chr6 -b -o {output.bam} && samtools index -@ {threads} {output.bam}" | tee {log}
-          samtools view -@ {threads} {input.bam} chr6 -b -o {output.bam} && samtools index -@ {threads} {output.bam} 2> {log}
+          samtools view -@ {threads} {input.bam} chr6 -b -o {output.bam} && samtools index -@ {threads} {output.bam} 2>> {log}
         '''
 
 ## Convert chromosome 6 bam to paired-end fastqs for HLA typing input
@@ -181,5 +185,5 @@ rule make_chr6_fastqs:
     shell:
         '''
           echo "samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n" | tee {log}
-          samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n 2> {log}
+          samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n 2>> {log}
         '''
