@@ -132,8 +132,6 @@ elif config["cimac"] == "mda":
 else:
     TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_broad")
 
-print(TARGETS_BED_URI)
-
 
 # Sample info
 ## List of samples to process
