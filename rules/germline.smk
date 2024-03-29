@@ -90,8 +90,8 @@ rule vcf_compare:
     input:
         tumor=rules.bcftools_targets.output.targets,
         tumor_tbi=rules.tabix_targets.output.tbi,
-        normal=lambda wildcards: Path(PREDIR) / "germline" / f"{pairings_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz" if pairings_df.at[wildcards.sample,'type'] == "TN" else [],
-        normal_tbi=lambda wildcards: Path(PREDIR) / "germline" / f"{pairings_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz.tbi" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
+        normal=lambda wildcards: Path(PREDIR) / "germline" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz",
+        normal_tbi=lambda wildcards: Path(PREDIR) / "germline" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz.tbi"
     output:
         txt=paths.germline.txt
     benchmark:
@@ -104,6 +104,9 @@ rule vcf_compare:
         '''
           echo "vcf-compare {input.tumor} {input.normal} > {output.txt}" | tee {log}
           vcf-compare {input.tumor} {input.normal} > {output.txt} 2>> {log}
+
+          ## Export rule env details
+          conda env export --no-builds > info/vcftools.info
         '''
 
 ## Produces stats for the tumor and normal VCFs; the program generates separate stats for intersection and the complements
@@ -111,8 +114,8 @@ rule bcftools_stats:
     input:
         tumor=rules.bcftools_targets.output.targets,
         tumor_tbi=rules.tabix_targets.output.tbi,
-        normal=lambda wildcards: Path(PREDIR) / "germline" / f"{pairings_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz" if pairings_df.at[wildcards.sample,'type'] == "TN" else [],
-        normal_tbi=lambda wildcards: Path(PREDIR) / "germline" / f"{pairings_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz.tbi" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
+        normal=lambda wildcards: Path(PREDIR) / "germline" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz",
+        normal_tbi=lambda wildcards: Path(PREDIR) / "germline" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_haplotypecaller.targets.vcf.gz.tbi"
     output:
         stats=paths.germline.stats
     benchmark:
