@@ -259,4 +259,22 @@ rule retrieve_targets_bed:
         '''
           echo "gsutil cp {params.bed_uri} {output.bed}" | tee {log}
           gsutil cp {params.bed_uri} {output.bed} 2>> {log}
-        ''' 
+        '''
+
+## Retrieve the SNP VCF and its TBI for use with FACETS (Purity and Copy Number modules)
+rule retrieve_facets_vcf:
+    output:
+        vcf=paths.genome.facets_vcf,
+        tbi=paths.genome.facets_tbi
+    benchmark:
+        'benchmark/retrieve_facets_vcf.tab'
+    log:
+        'log/retrieve_facets_vcf.log'
+    params:
+        vcf_uri=FACETS_VCF_URI,
+        tbi_uri=FACETS_TBI_URI
+    shell:
+        '''
+          echo "gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome" | tee {log}
+          gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome 2>> {log}
+        '''

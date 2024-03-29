@@ -27,6 +27,8 @@ genome:
     mocha: "mocha.liftover.hg38.noContigs.bed"
     mda: "MDA.liftover.hg38.noContigs.bed"
     broad: "broad.liftover.hg38.bed"
+    facets_vcf: "00-common_all.vcf.gz"
+    facets_tbi: "00-common_all.vcf.gz.tbi"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -122,3 +124,10 @@ germline:
     txt: "{sample}_vcfcompare.txt"
     stats: "{sample}_bcftools_stats.txt"
     pdf: "{sample}_plot_vcfstats/summary.pdf"
+
+facets:
+    txt: "{sample}_purity_results.txt"
+    postprocessed: "{sample}_purity_postprocessed_results.txt"
+    cncf: "{sample}.cncf"
+    opt: "{sample}_optimalpurityvalue.txt"
+    iter: "{sample}_iterpurityvalues.txt"
