@@ -124,7 +124,7 @@ MSISENSOR2_MODELS_URI = grab_ref_URI(ref_df,"msisensor2_ref")
 GERMLINE_DBSNP_URI = grab_ref_URI(ref_df,"germline_dbsnp")
 GERMLINE_INDEX_URI = grab_ref_URI(ref_df,"germline_index")
 
-# CIMAC Center variants BED used in the Germline and Somatic modules
+# CIMAC Center variants BED used in the Germline module
 if config["cimac"] == "mocha":
     TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_mocha")
 elif config["cimac"] == "mda":
@@ -132,6 +132,9 @@ elif config["cimac"] == "mda":
 else:
     TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_broad")
 
+# Reference data for use in FACETS (Purity module)
+FACETS_VCF_URI = grab_ref_URI(ref_df,"facets_vcf") 
+FACETS_TBI_URI = grab_ref_URI(ref_df,"facets_tbi") 
 
 # Sample info
 ## List of samples to process
@@ -216,7 +219,8 @@ OUTPUT = [
           expand(paths.msisensor2.output, sample=RUN),
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),
-          expand(paths.germline.pdf, sample=TN)
+          expand(paths.germline.pdf, sample=TN),
+          expand(paths.facets.opt, sample=TN)
 	  ]
 
 
@@ -275,3 +279,4 @@ include: "./rules/hlahd.smk"
 include: "./rules/optitype.smk"
 include: "./rules/msisensor2.smk"
 include: "./rules/germline.smk"
+include: "./rules/facets.smk"

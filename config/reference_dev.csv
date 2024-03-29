@@ -25,3 +25,5 @@ germline_index,gs://cidc-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf.
 targets_mocha,gs://cidc-wes2-reference-v1/germline_vcf/mocha.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/mocha.liftover.hg38.noContigs.bed,"DFCI reference files"
 targets_mda,gs://cidc-wes2-reference-v1/germline_vcf/MDA.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/MDA.liftover.hg38.noContigs.bed,"DFCI reference files"
 targets_broad,gs://cidc-wes2-reference-v1/germline_vcf/broad.liftover.hg38.bed,dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/broad.liftover.hg38.bed,"DFCI reference files"
+facets_vcf,gs://cidc-wes2-reference-v1/00-common_all.vcf.gz,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz,
+facets_tbi,gs://cidc-wes2-reference-v1/00-common_all.vcf.gz.tbi,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz.tbi,
