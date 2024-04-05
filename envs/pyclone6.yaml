@@ -1,0 +1,6 @@
+name: pyclone6
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - pyclone-vi==0.1.3

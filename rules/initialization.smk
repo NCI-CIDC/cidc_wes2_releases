@@ -278,3 +278,19 @@ rule retrieve_facets_vcf:
           echo "gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome" | tee {log}
           gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome 2>> {log}
         '''
+
+## Retrieve the GC WIG for use with Sequenza (Clonality and Copy Number modules)
+rule retrieve_sequenza_wig:
+    output:
+        wig=paths.genome.wig
+    benchmark:
+        'benchmark/retrieve_sequenza_wig.tab'
+    log:
+        'log/retrieve_sequenza_wig.log'
+    params:
+        wig_uri=SEQUENZA_WIG_URI
+    shell:
+        '''
+          echo "gsutil cp {params.wig_uri} {output.wig}" | tee {log}
+          gsutil cp {params.wig_uri} {output.wig} 2>> {log}
+        '''

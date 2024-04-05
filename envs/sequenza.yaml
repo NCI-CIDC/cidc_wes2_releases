@@ -1,0 +1,7 @@
+name: sequenza
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - sequenza-utils==3.0.0
+    - r-sequenza==3.0.0

@@ -132,9 +132,12 @@ elif config["cimac"] == "mda":
 else:
     TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_broad")
 
-# Reference data for use in FACETS (Purity module)
+# Reference data for use in FACETS (Purity and Copy Number modules)
 FACETS_VCF_URI = grab_ref_URI(ref_df,"facets_vcf") 
 FACETS_TBI_URI = grab_ref_URI(ref_df,"facets_tbi") 
+
+## Reference data for use in Sequenza (Clonality and Copy Number modules)
+SEQUENZA_WIG_URI = grab_ref_URI(ref_df,"sequenza_wig")
 
 # Sample info
 ## List of samples to process
@@ -220,7 +223,9 @@ OUTPUT = [
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),
           expand(paths.germline.pdf, sample=TN),
-          expand(paths.facets.opt, sample=TN)
+          expand(paths.facets.opt, sample=TN),
+          expand(paths.sequenza.segments, sample=TN),
+          expand(paths.pyclone6.summary, sample=TN)
 	  ]
 
 
@@ -280,3 +285,5 @@ include: "./rules/optitype.smk"
 include: "./rules/msisensor2.smk"
 include: "./rules/germline.smk"
 include: "./rules/facets.smk"
+include: "./rules/sequenza.smk"
+include: "./rules/pyclone6.smk"

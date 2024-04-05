@@ -1,0 +1,10 @@
+name: iotools
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - sequenza-utils==3.0.0
+    - r-sequenza==3.0.0
+    - r-devtools
+    - r-iotools==0.3_2
+    - bioconductor-biocinstaller
