@@ -147,6 +147,6 @@ sequenza:
 
 pyclone6:
     tsv: "{sample}_pyclone6.input.tsv"
-    h5: "{sample}_pyclone6_fit.txt"
+    h5: "{sample}_pyclone6.h5"
     results: "{sample}_pyclone6.results.tsv"
     summary: "{sample}_pyclone6.results.summary.tsv"
