@@ -13,10 +13,13 @@ rule optitype:
        'log/{sample}_optitype.log'
    conda:
         "../envs/optitype.yaml"
+   threads: 60
    params:
-       predir=PREDIR+"/optitype"
+       basedir = BASEDIR,
+       optitype_predir=PREDIR+"/optitype",
+       config = config["optitype"]["config"]
    shell:
        '''
-         echo "OptiTypePipeline.py -i {input.fq1} {input.fq2} --dna -v -o {params.predir} -p {wildcards.sample}" | tee {log}
-         OptiTypePipeline.py -i {input.fq1} {input.fq2} --dna -v -o {params.predir} -p {wildcards.sample} 2>> {log}
+         echo "OptiTypePipeline.py -i {input.fq1} {input.fq2} --dna -v -o {params.optitype_predir} -p {wildcards.sample} --config {params.basedir}/{params.config}" | tee {log}
+         OptiTypePipeline.py -i {input.fq1} {input.fq2} --dna -v -o {params.optitype_predir} -p {wildcards.sample} --config {params.basedir}/{params.config} 2>> {log}
        '''

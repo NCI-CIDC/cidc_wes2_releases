@@ -6,7 +6,7 @@ srcdir: '/home/pendletonmr_nih_gov/p/cidc_wes2/source'
 # file to write running log
 log_file: '/media/storage//wes2_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
-ncores: 30
+ncores: 60
 
 
 ## output file paths layout file
@@ -49,3 +49,13 @@ hlahd:
   path: "hlahd.1.7.0/bin/"
   min_length: 50 #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
   cut_percent: 0.95 #hla-hd param -c, if mistmatch how much to cut back
+
+### optitype information
+optitype:
+  config: "config/optitype.config.ini"
+
+###VEP settings
+vep:
+  species: "Homo sapiens"
+  build: "GRCh38.p14"
+  release: "111"

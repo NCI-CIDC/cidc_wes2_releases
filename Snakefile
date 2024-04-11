@@ -46,6 +46,8 @@ configfile: "config/config.yaml"
 PREDIR     = config["predir"]
 # source dir for supporting scripts
 SOURCEDIR  = config["srcdir"]
+BASEDIR = Path(config["srcdir"]) / ".."
+
 # analysis data results and reporting within working dir
 DATADIR    = PREDIR+'/analysis/data'
 REPDIR     = PREDIR+'/analysis/report'
@@ -193,7 +195,7 @@ OUTPUT = [
           expand(paths.rseqc.bamgc_txt, sample=SAMID),	  
           expand(paths.fastqc.targz, sample=SAMID),
           expand(paths.bqsr.report, sample=SAMID),
-#          expand(paths.optitype.tsv, sample=SAMID),
+          expand(paths.optitype.tsv, sample=SAMID),
           expand(paths.xhla.report, sample = SAMID),
           expand(paths.coverage.depth, sample=SAMID),
           expand(paths.coverage.bw, sample=SAMID),
