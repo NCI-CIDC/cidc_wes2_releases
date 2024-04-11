@@ -97,6 +97,7 @@ rule seqz_header:
           echo "gunzip -c {input.bin50} | (echo "chromosome\tposition\tbase.ref\tdepth.normal\tdepth.tumor\tdepth.ratio\tAf\tBf\tzygosity.normal\tGC.percent\tgood.reads\tAB.normal\tAB.tumor\ttumor.strand"; cat) | gzip > {output.final}" | tee {log}
           gunzip -c {input.bin50} | (echo "chromosome\tposition\tbase.ref\tdepth.normal\tdepth.tumor\tdepth.ratio\tAf\tBf\tzygosity.normal\tGC.percent\tgood.reads\tAB.normal\tAB.tumor\ttumor.strand"; cat) | gzip > {output.final} 2>> {log}
         '''
+
 ## Runs Sequenza to extract the relevant information from the raw seqz file, fit the sequenza model to infer cellularity and ploidy,
 ## and apply the inferred parameters to estimate the copy number profile
 rule sequenza:
