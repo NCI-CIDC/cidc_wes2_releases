@@ -1,7 +1,7 @@
 ## Adapts the PyClone output genereated by the Sequenza function sequenza2PyClone for use with PyClone-VI 
 rule sequenza2pyclone6:
     input:
-        segments=rules.sequenza.output.segments
+        tsv=rules.sequenza.output.tsv
     output:
         tsv=paths.pyclone6.tsv
     benchmark:
@@ -13,8 +13,8 @@ rule sequenza2pyclone6:
         sample="{sample}"
     shell:
         '''
-          echo "{params.py} -f {input.segments} -n {params.sample} -o {output.tsv}" | tee {log}
-          {params.py} -f {input.segments} -n {params.sample} -o {output.tsv} 2>> {log}
+          echo "{params.py} -f {input.tsv} -n {params.sample} -o {output.tsv} 2" | tee {log}
+          {params.py} -f {input.tsv} -n {params.sample} -o {output.tsv} 2>> {log}
         '''
 
 ## Performs the inference step with PyClone-VI
