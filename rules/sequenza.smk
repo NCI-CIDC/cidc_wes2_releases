@@ -28,7 +28,7 @@ rule bam2seqz:
     log:
         'log/{sample}_bam2seqz.log'
     conda:
-        "../envs/sequenza.yaml"
+        "../envs/sequenza_utils.yaml"
     threads: max(1,min(18,NCORES))
     params:
         seqz=paths.sequenza.seqz
@@ -38,7 +38,7 @@ rule bam2seqz:
           sequenza-utils bam2seqz -n {input.normal} -t {input.tumor} -gc {input.wig} -F {input.fa} -o {params.seqz} --parallel {threads} -C chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 && touch {output.tch} 2>> {log}
 
           ## Export rule env details
-          conda env export --no-builds > info/sequenza.info
+          conda env export --no-builds > info/sequenza_utils.info
         '''
 
 ## Merge all seqz outputs from each chromosome into one seqz file
@@ -52,7 +52,7 @@ rule merge_seqz_chr:
     log:
         'log/{sample}_merge_chr.log'
     conda:
-        "../envs/sequenza.yaml"
+        "../envs/sequenza_utils.yaml"
     threads: max(1,min(8,NCORES))
     params:
         seqz=lambda wildcards: seqz_chr(wildcards.sample, file_type="seqz")
@@ -73,7 +73,7 @@ rule seqz_binning:
     log:
         'log/{sample}_seqz_binning.log'
     conda:
-        "../envs/sequenza.yaml"
+        "../envs/sequenza_utils.yaml"
     shell:
         '''
           echo "sequenza-utils seqz_binning --seqz {input.seqz} --window 50 -o {output.bin50}" | tee {log}
@@ -91,7 +91,7 @@ rule seqz_header:
     log:
         'log/{sample}_seqz_header.log'
     conda:
-        "../envs/sequenza.yaml"
+        "../envs/sequenza_utils.yaml"
     shell:
         '''
           echo "gunzip -c {input.bin50} | (echo "chromosome\tposition\tbase.ref\tdepth.normal\tdepth.tumor\tdepth.ratio\tAf\tBf\tzygosity.normal\tGC.percent\tgood.reads\tAB.normal\tAB.tumor\ttumor.strand"; cat) | gzip > {output.final}" | tee {log}
@@ -115,7 +115,7 @@ rule sequenza:
     log:
         'log/{sample}_sequenza.log'
     conda:
-        "../envs/iotools.yaml"
+        "../envs/sequenza.yaml"
     params:
         r=Path(SOURCEDIR) / "r" / "sequenza.r",
         dir=PREDIR+"/sequenza/{sample}",
@@ -126,5 +126,5 @@ rule sequenza:
           Rscript {params.r} {input.seqz} {params.dir} {params.sample} 2>> {log}
 
           ## Export rule env details
-          conda env export --no-builds > info/iotools.info
+          conda env export --no-builds > info/sequenza.info
         '''

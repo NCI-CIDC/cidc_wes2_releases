@@ -3,5 +3,7 @@ channels:
     - conda-forge
     - bioconda
 dependencies:
-    - sequenza-utils==3.0.0
-    - r-sequenza==3.0.0
+    - r-sequenza==2.1.2
+    - r-devtools==2.3.0
+    - r-iotools==0.3_1
+    - bioconductor-biocinstaller=1.32.1
