@@ -225,7 +225,8 @@ OUTPUT = [
           expand(paths.germline.pdf, sample=TN),
           expand(paths.facets.opt, sample=TN),
           expand(paths.sequenza.segments, sample=TN),
-          expand(paths.pyclone6.summary, sample=TN)
+          expand(paths.pyclone6.summary, sample=TN),
+          expand(paths.copynumber.seq_fac, sample=TN)
 	  ]
 
 
@@ -287,3 +288,4 @@ include: "./rules/germline.smk"
 include: "./rules/facets.smk"
 include: "./rules/sequenza.smk"
 include: "./rules/pyclone6.smk"
+include: "./rules/copynumber.smk"

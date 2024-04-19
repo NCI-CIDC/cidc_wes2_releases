@@ -150,3 +150,9 @@ pyclone6:
     h5: "{sample}_pyclone6.h5"
     results: "{sample}_pyclone6.results.tsv"
     summary: "{sample}_pyclone6.results.summary.tsv"
+
+copynumber:
+    sequenza: "{sample}_sequenza_gainLoss.bed"
+    facets: "{sample}_facets_gainLoss.bed"
+    cnvkit: "{sample}_cnvkit_gainLoss.bed"
+    seq_fac: "{sample}_sequenza_facets.consensus.bed"
