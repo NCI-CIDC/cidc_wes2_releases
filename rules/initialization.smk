@@ -278,3 +278,41 @@ rule retrieve_facets_vcf:
           echo "gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome" | tee {log}
           gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome 2>> {log}
         '''
+
+## Retrieve the GC WIG for use with Sequenza (Clonality and Copy Number modules)
+rule retrieve_sequenza_wig:
+    output:
+        wig=paths.genome.wig
+    benchmark:
+        'benchmark/retrieve_sequenza_wig.tab'
+    log:
+        'log/retrieve_sequenza_wig.log'
+    params:
+        wig_uri=SEQUENZA_WIG_URI
+    shell:
+        '''
+          echo "gsutil cp {params.wig_uri} {output.wig}" | tee {log}
+          gsutil cp {params.wig_uri} {output.wig} 2>> {log}
+        '''
+
+## Install copynumber module in the Sequenza conda environment
+rule install_copynumber:
+    output:
+        done='progress/install_copynumber.done'
+    benchmark:
+        'benchmark/install_copynumber.tab'
+    log:
+        'log/install_copynumber.log'
+    conda:
+        "../envs/sequenza.yaml"
+    params:
+        r=Path(SOURCEDIR) / "r" / "install-copynumber.r",
+        done=PREDIR+"/progress/install_copynumber.done"
+    shell:
+        '''
+          echo "Rscript {params.r} {params.done}" | tee {log}
+          Rscript {params.r} {params.done} 2>> {log}
+
+          ## Export rule env details
+          conda env export --no-builds > info/sequenza.info
+        '''
