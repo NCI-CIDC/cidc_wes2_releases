@@ -7,8 +7,6 @@ def seqz_chr(wildcards, file_type="seqz"):
         paths = " ".join([PREDIR+"/sequenza/%s/%s.seqz_%s.txt.gz" % (sample, sample, chr) for chr in chrs])
     elif file_type == "tbi":     
         paths = " ".join([PREDIR+"/sequenza/%s/%s.seqz_%s.txt.gz.tbi" % (sample, sample, chr) for chr in chrs])
-
-    print(paths) 
     return paths
 
 ## Process a paired set of BAM/pileup files (tumor and matching normal) and GC-content genome-wide
@@ -102,6 +100,7 @@ rule seqz_header:
 ## and apply the inferred parameters to estimate the copy number profile
 rule sequenza:
     input:
+        done=rules.install_copynumber.output.done,
         seqz=rules.seqz_header.output.final
     output:
         tsv=paths.sequenza.tsv,
@@ -124,7 +123,4 @@ rule sequenza:
         '''
           echo "Rscript {params.r} {input.seqz} {params.dir} {params.sample}" | tee {log}
           Rscript {params.r} {input.seqz} {params.dir} {params.sample} 2>> {log}
-
-          ## Export rule env details
-          conda env export --no-builds > info/sequenza.info
         '''

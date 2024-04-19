@@ -294,3 +294,25 @@ rule retrieve_sequenza_wig:
           echo "gsutil cp {params.wig_uri} {output.wig}" | tee {log}
           gsutil cp {params.wig_uri} {output.wig} 2>> {log}
         '''
+
+## Install copynumber module in the Sequenza conda environment
+rule install_copynumber:
+    output:
+        done='progress/install_copynumber.done'
+    benchmark:
+        'benchmark/install_copynumber.tab'
+    log:
+        'log/install_copynumber.log'
+    conda:
+        "../envs/sequenza.yaml"
+    params:
+        r=Path(SOURCEDIR) / "r" / "install-copynumber.r",
+        done=PREDIR+"/progress/install_copynumber.done"
+    shell:
+        '''
+          echo "Rscript {params.r} {params.done}" | tee {log}
+          Rscript {params.r} {params.done} 2>> {log}
+
+          ## Export rule env details
+          conda env export --no-builds > info/sequenza.info
+        '''

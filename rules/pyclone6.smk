@@ -13,7 +13,7 @@ rule sequenza2pyclone6:
         sample="{sample}"
     shell:
         '''
-          echo "{params.py} -f {input.tsv} -n {params.sample} -o {output.tsv} 2" | tee {log}
+          echo "{params.py} -f {input.tsv} -n {params.sample} -o {output.tsv}" | tee {log}
           {params.py} -f {input.tsv} -n {params.sample} -o {output.tsv} 2>> {log}
         '''
 
