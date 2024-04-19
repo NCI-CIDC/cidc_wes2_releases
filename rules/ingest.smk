@@ -54,7 +54,7 @@ rule bam2fastq:
     conda:
         "../envs/samtools.yaml"
     params:
-        tmp=Path(PREDIR) / "input" / "{sample}"
+        tmp = str(Path(PREDIR) / "input" / "{sample}")
     priority: 3
     threads: max(1,min(8,NCORES))
     shell:
