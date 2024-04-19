@@ -57,19 +57,3 @@ rule consensus_sequenza_facets:
           ## Export rule env details
           conda env export --no-builds > info/bedtools.info
         '''
-
-## Summarizes the results from PyClone-VI
-#rule pyclone6_summarize_results:
-#    input:
-#        results=rules.pyclone6_write_results_file.output.results
-#    output:
-#        summary=paths.pyclone6.summary
-#    benchmark:
-#        'benchmark/{sample}_pyclone6_summarize_results.tab'
-#    log:
-#        'log/{sample}_pyclone6_summarize_results.log'
-#    shell:
-#        '''
-#          echo "cut -f 3-5 {input.results} | uniq > {output.summary}" | tee {log}
-#          cut -f 3-5 {input.results} | uniq > {output.summary} 2>> {log}
-#        '''
