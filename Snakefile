@@ -50,7 +50,6 @@ SOURCEDIR  = config["srcdir"]
 DATADIR    = PREDIR+'/analysis/data'
 REPDIR     = PREDIR+'/analysis/report'
 
-
 # Use the source dir to import helper modules
 try:
     sys.path.append(SOURCEDIR+'/python')
@@ -220,7 +219,9 @@ OUTPUT = [
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),
           expand(paths.germline.pdf, sample=TN),
-          expand(paths.facets.opt, sample=TN)
+          expand(paths.facets.opt, sample=TN),
+          directory(Path(PREDIR) / "resources/vep/plugins"),
+          directory(Path(PREDIR) / "resources/vep/cache"),		  
 	  ]
 
 
@@ -265,6 +266,11 @@ rule references:
         paths.genome.mills,
         ]
 
+#rule vep_setup:
+    input:
+        [
+	]
+
 ################################
 #        PIPELINE RULES        #
 ################################
@@ -280,3 +286,5 @@ include: "./rules/optitype.smk"
 include: "./rules/msisensor2.smk"
 include: "./rules/germline.smk"
 include: "./rules/facets.smk"
+include: "./rules/vep_plugins.smk"
+include: "./rules/vep_cache.smk"

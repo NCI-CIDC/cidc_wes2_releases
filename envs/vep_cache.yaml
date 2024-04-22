@@ -1,0 +1,8 @@
+name: vep_cache
+channels:
+- conda-forge
+- bioconda
+- defaults
+dependencies:
+- python=3.12.2
+- ensembl-vep=111.0
