@@ -1,8 +1,8 @@
 rule annotate_variants:
     input:
         calls="variants.bcf",  # .vcf, .vcf.gz or .bcf
-        cache="resources/vep/cache",  # can be omitted if fasta and gff are specified
-        plugins="resources/vep/plugins",
+        cache=directory(Path(PREDIR) / "resources/vep/cache") 
+        plugins=directory(Path(PREDIR) / "resources/vep/pugins")
         # optionally add reference genome fasta
         # fasta="genome.fasta",
         # fai="genome.fasta.fai", # fasta index
