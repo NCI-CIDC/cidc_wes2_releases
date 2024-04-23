@@ -1,0 +1,6 @@
+name: sequenza_utils
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - sequenza-utils==3.0.0

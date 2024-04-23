@@ -131,9 +131,12 @@ elif config["cimac"] == "mda":
 else:
     TARGETS_BED_URI = grab_ref_URI(ref_df,"targets_broad")
 
-# Reference data for use in FACETS (Purity module)
+# Reference data for use in FACETS (Purity and Copy Number modules)
 FACETS_VCF_URI = grab_ref_URI(ref_df,"facets_vcf") 
 FACETS_TBI_URI = grab_ref_URI(ref_df,"facets_tbi") 
+
+## Reference data for use in Sequenza (Clonality and Copy Number modules)
+SEQUENZA_WIG_URI = grab_ref_URI(ref_df,"sequenza_wig")
 
 # Sample info
 ## List of samples to process
@@ -213,7 +216,7 @@ OUTPUT = [
           expand(paths.coverage.depth, sample=SAMID),
           expand(paths.coverage.bw, sample=SAMID),
           expand(paths.cnv.csv, sample=SAMID),
-	  paths.hlahd_references.dict_done,
+      	  paths.hlahd_references.dict_done,
           expand(paths.hlahd.done, sample= SAMID),
           expand(paths.msisensor2.output, sample=RUN),
           expand(paths.germline.tbi, sample=SAMID),
@@ -222,6 +225,10 @@ OUTPUT = [
           expand(paths.facets.opt, sample=TN),
           directory(Path(PREDIR) / "resources/vep/plugins"),
           directory(Path(PREDIR) / "resources/vep/cache"),		  
+          expand(paths.sequenza.segments, sample=TN),
+          expand(paths.pyclone6.summary, sample=TN),
+          expand(paths.copynumber.seq_fac, sample=TN)
+
 	  ]
 
 
@@ -288,3 +295,6 @@ include: "./rules/germline.smk"
 include: "./rules/facets.smk"
 include: "./rules/vep_plugins.smk"
 include: "./rules/vep_cache.smk"
+include: "./rules/sequenza.smk"
+include: "./rules/pyclone6.smk"
+include: "./rules/copynumber.smk"
