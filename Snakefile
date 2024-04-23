@@ -50,7 +50,6 @@ SOURCEDIR  = config["srcdir"]
 DATADIR    = PREDIR+'/analysis/data'
 REPDIR     = PREDIR+'/analysis/report'
 
-
 # Use the source dir to import helper modules
 try:
     sys.path.append(SOURCEDIR+'/python')
@@ -166,7 +165,7 @@ workdir: PREDIR
 ## number of cores dedicated to run
 NCORES  = int(config["ncores"])
 ## initial sub folders
-SUBDIRS  = 'benchmark log info progress genome annot input analysis analysis/data analysis/report hlahd_references'
+SUBDIRS  = 'benchmark log info progress genome annot input analysis analysis/data analysis/report hlahd_references resources/vep/cache'
 
 ## Set single or paired end
 if (FASTQ_2[0] != '' or BAM[0] != ''):
@@ -217,16 +216,19 @@ OUTPUT = [
           expand(paths.coverage.depth, sample=SAMID),
           expand(paths.coverage.bw, sample=SAMID),
           expand(paths.cnv.csv, sample=SAMID),
-	  paths.hlahd_references.dict_done,
+      	  paths.hlahd_references.dict_done,
           expand(paths.hlahd.done, sample= SAMID),
           expand(paths.msisensor2.output, sample=RUN),
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),
           expand(paths.germline.pdf, sample=TN),
           expand(paths.facets.opt, sample=TN),
+          directory(Path(PREDIR) / "resources/vep/plugins"),
+          directory(Path(PREDIR) / "resources/vep/cache"),		  
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN)
+
 	  ]
 
 
@@ -286,6 +288,8 @@ include: "./rules/optitype.smk"
 include: "./rules/msisensor2.smk"
 include: "./rules/germline.smk"
 include: "./rules/facets.smk"
+include: "./rules/vep_plugins.smk"
+include: "./rules/vep_cache.smk"
 include: "./rules/sequenza.smk"
 include: "./rules/pyclone6.smk"
 include: "./rules/copynumber.smk"

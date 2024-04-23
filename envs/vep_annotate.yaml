@@ -1,0 +1,10 @@
+name: vep_cache
+channels:
+- conda-forge
+- bioconda
+- defaults
+dependencies:
+- ensembl-vep=111.0
+- bcftools=1.19
+- perl-encode-locale=1.05
+- perl=5.32.1
