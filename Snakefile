@@ -273,11 +273,6 @@ rule references:
         paths.genome.mills,
         ]
 
-#rule vep_setup:
-    input:
-        [
-	]
-
 ################################
 #        PIPELINE RULES        #
 ################################
