@@ -30,6 +30,7 @@ genome:
     facets_vcf: "00-common_all.vcf.gz"
     facets_tbi: "00-common_all.vcf.gz.tbi"
     wig: "genome_gc50.wig.gz"
+    tcellextrect_bed: "twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -156,3 +157,7 @@ copynumber:
     facets: "{sample}_facets_gainLoss.bed"
     cnvkit: "{sample}_cnvkit_gainLoss.bed"
     seq_fac: "{sample}_sequenza_facets.consensus.bed"
+
+tcellextrect:
+    txt: "{sample}_tcellextrect.txt"
+    pdf: "{sample}_tcellplot.pdf"

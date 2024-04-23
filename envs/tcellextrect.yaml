@@ -1,0 +1,13 @@
+name: tcellextrect
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - r-devtools==2.4.5
+    - r-gratia==0.8.1
+    - r-dplyr==1.1.4
+    - r-readr==2.1.5
+    - r-zoo==1.8_12
+    - r-seqinr==4.2_36
+    - r-mgcv==1.9_1
+    - r-ggplot2==3.5.0

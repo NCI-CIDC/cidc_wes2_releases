@@ -136,9 +136,12 @@ else:
 FACETS_VCF_URI = grab_ref_URI(ref_df,"facets_vcf") 
 FACETS_TBI_URI = grab_ref_URI(ref_df,"facets_tbi") 
 
-## Reference data for use in Sequenza (Clonality and Copy Number modules)
+# Reference data for use in Sequenza (Clonality and Copy Number modules)
 SEQUENZA_WIG_URI = grab_ref_URI(ref_df,"sequenza_wig")
 
+# Reference data for use in TcellExTRECT module
+TCELLEXTRECT_BED_URI = grab_ref_URI(ref_df,"tcellextrect_bed")
+ 
 # Sample info
 ## List of samples to process
 SAMID = utils.toList(sample_metadata_df['samid'])
@@ -226,7 +229,8 @@ OUTPUT = [
           expand(paths.facets.opt, sample=TN),
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
-          expand(paths.copynumber.seq_fac, sample=TN)
+          expand(paths.copynumber.seq_fac, sample=TN),
+          expand(paths.tcellextrect.pdf, sample=RUN)
 	  ]
 
 
@@ -289,3 +293,4 @@ include: "./rules/facets.smk"
 include: "./rules/sequenza.smk"
 include: "./rules/pyclone6.smk"
 include: "./rules/copynumber.smk"
+include: "./rules/tcellextrect.smk"
