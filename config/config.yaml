@@ -55,9 +55,6 @@ hlahd:
 ## on the specified CIMAC Center's target BED.
 cimac: 'broad'
 
-## Specified commit used for resetting the TcellExTRECT repository to a particular state 
-commit: 'b5e8b27'
-
 vep:
   release: 111
   species: "homo_sapiens"
