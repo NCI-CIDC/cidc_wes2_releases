@@ -13,7 +13,7 @@ rule tcellextrect:
     log:
         'log/{sample}_tcellextrect.log'
     params:
-        r=Path(SOURCEDIR) / "r" / "tcellextrect.r",
+        r=Path(SOURCEDIR) / "r/tcellextrect.r",
         output_dir=PREDIR+"/tcellextrect",
         sample="{sample}"
     conda:
@@ -22,7 +22,4 @@ rule tcellextrect:
         '''
           echo "Rscript --vanilla {params.r} {input.dedup} {input.bed} {params.output_dir} {params.sample}" | tee {log}
           Rscript --vanilla {params.r} {input.dedup} {input.bed} {params.output_dir} {params.sample} 2>> {log}
-
-          ## Export rule env details
-          conda env export --no-builds > info/tcellextrect_rule.info
         '''

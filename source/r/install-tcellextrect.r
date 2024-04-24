@@ -1,8 +1,9 @@
-library(devtools)
-install.packages('/home/trivittge_nih_gov/TcellExTRECT/', repos=NULL, type ='source')
-#install_github("McGranahanLab/TcellExTRECT", ref="b5e8b27")
+# This script installs TcellExTRECT in the conda environment for future use in rule tcellextrect.
 
 args <- commandArgs(trailingOnly = TRUE)
-output_file = args[1]
+repo_path = args[1]
+output_file = args[2]
+
+install.packages(repo_path, repos=NULL, type ='source')
 
 file.create(output_file)

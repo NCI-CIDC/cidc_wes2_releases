@@ -54,4 +54,6 @@ hlahd:
 ## For the Germline module, the output VCF from HaplotypeCaller will be filtered based
 ## on the specified CIMAC Center's target BED.
 cimac: 'broad'
-   
+
+## Specified commit used for resetting the TcellExTRECT repository to a particular state 
+commit: 'b5e8b27'
