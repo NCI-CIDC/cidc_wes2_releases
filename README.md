@@ -80,7 +80,7 @@ Pipeline configuration (config.yaml)
 Test the pipeline and print jobs by performing a dryrun:
 ```
 ## Print workflow jobs from start to finish (<ncores> the number of cores for entire workflow):
-snakemake --use-conda --cores <ncores> --rerun-incomplete --forceall --dryrun
+snakemake --use-conda --cores <ncores> --dryrun
 
 ## Print workflow jobs resuming to finish incomplete rules (<ncores> the number of cores for entire workflow):
 snakemake --use-conda --cores <ncores> --rerun-incomplete --dryrun
@@ -89,10 +89,22 @@ snakemake --use-conda --cores <ncores> --rerun-incomplete --dryrun
 Execute the pipeline:
 ```
 ## Execute workflow start to finish (<ncores> the number of cores for entire workflow):
-snakemake --use-conda --cores <ncores> --rerun-incomplete --forceall
+snakemake --use-conda --cores <ncores>
+
+## Execute workflow with stdout and stderr logs generated (<ncores> the number of cores for entire workflow):
+snakemake --use-conda --cores <ncores> 2> /path/to/output/directory/run.stderr 1> /path/to/output/directory/run.stdout
+
+## Force execution of all rules regardless of output present (<ncores> the number of cores for entire workflow):
+snakemake --use-conda --cores <ncores> --forceall
 
 ## Execute workflow resuming to finish incomplete rules (<ncores> the number of cores for entire workflow):
 snakemake --use-conda --cores <ncores> --rerun-incomplete
 ```
 
+For low coverage samples, an alternative workflow (lowcov) can be used.
+This workflow skips the following modules: HLA-HD, xHLA, and TcellExTRECT
+```
+## Execute lowcov workflow (<ncores> the number of cores for entire workflow):
+snakemake --use-conda --cores <ncores> lowcov
+```
 ## Please reach out to Sami Cherikh (cherikhsr@nih.gov) with any questions or to report any issues concerning this framework.

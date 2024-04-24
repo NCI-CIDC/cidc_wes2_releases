@@ -316,3 +316,53 @@ rule install_copynumber:
           ## Export rule env details
           conda env export --no-builds > info/sequenza.info
         '''
+
+## Retrieve the BED for use in the TcellExTRECT module
+rule retrieve_tcellextrect_bed:
+    output:
+        bed=paths.genome.tcellextrect_bed
+    benchmark:
+        'benchmark/retrieve_tcellextrect_bed.tab'
+    log:
+        'log/retrieve_tcellextrect_bed.log'
+    params:
+        bed_uri=TCELLEXTRECT_BED_URI
+    shell:
+        '''
+          echo "gsutil cp {params.bed_uri} {output.bed}" | tee {log}
+          gsutil cp {params.bed_uri} {output.bed} 2>> {log}
+        '''
+
+## Clone the TcellExTRECT repo, reset the repo to specified commit, and install TcellExTRECT in its respective conda environment
+rule install_tcellextrect:
+    output:
+        done='progress/install_tcellextrect.done'
+    benchmark:
+        'benchmark/install_tcellextrect.tab'
+    log:
+        'log/install_tcellextrect.log'
+    conda:
+        "../envs/tcellextrect.yaml"
+    params:
+        repo=PREDIR+"/repo/TcellExTRECT",
+        commit=config["commit"],
+        predir=PREDIR,
+        r=Path(SOURCEDIR) / "r/install-tcellextrect.r",
+        done=PREDIR+"/progress/install_tcellextrect.done"
+    shell:
+        '''
+          echo "git clone https://github.com/McGranahanLab/TcellExTRECT.git {params.repo} \
+          && cd {params.repo} \
+          && git reset {params.commit} --hard \
+          && cd {params.predir} \
+          && Rscript {params.r} {params.repo} {params.done}" | tee {log}
+
+          git clone https://github.com/McGranahanLab/TcellExTRECT.git {params.repo} \
+          && cd {params.repo} \
+          && git reset {params.commit} --hard \
+          && cd {params.predir} \
+          && Rscript {params.r} {params.repo} {params.done} 2>> {log}
+
+          ## Export rule env details
+          conda env export --no-builds > info/tcellextrect.info
+        '''

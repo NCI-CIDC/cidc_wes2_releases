@@ -54,8 +54,11 @@ hlahd:
 ## For the Germline module, the output VCF from HaplotypeCaller will be filtered based
 ## on the specified CIMAC Center's target BED.
 cimac: 'broad'
-   
+
 vep:
   release: 111
   species: "homo_sapiens"
   build: "GRCh38" #.p14 isn't specified in the filenames on the ensembl ftp server
+
+## Specified commit used for resetting the TcellExTRECT repository to a particular state 
+commit: 'b5e8b27'
