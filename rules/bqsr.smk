@@ -184,6 +184,6 @@ rule make_chr6_fastqs:
     threads: max(1,min(16,NCORES))
     shell:
         '''
-          echo "samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n" | tee {log}
-          samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -0 /dev/null -s /dev/null -n 2>> {log}
+          echo "samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -n" | tee {log}
+          samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -n 2>> {log}
         '''
