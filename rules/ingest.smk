@@ -60,10 +60,10 @@ rule bam2fastq:
     shell:
         '''
           echo "samtools collate -@ {threads} -u -O {input.bam} -T {params.tmp} | \
-          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n" | tee {log}
+          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -n" | tee {log}
 
           samtools collate -@ {threads} -u -O {input.bam} -T {params.tmp} | \
-          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -0 /dev/null -s /dev/null -n 2>> {log}
+          samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -n 2>> {log}
         '''
 
 ### Optionally trim adapters with cutadapt
