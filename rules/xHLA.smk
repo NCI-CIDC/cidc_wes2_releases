@@ -2,8 +2,8 @@
 rule xhla:
     """calculate hlatyping by xhla"""
     input:
-        bam = paths.bam.filtered_chr6_bam,
-        bai = paths.bam.filtered_chr6_bam_index,
+        bam = rules.extract_chr6.output.bam,
+        bai = rules.extract_chr6.output.bai,
 	hla_bed = paths.genome.hla_bed,
 	hla_tsv = paths.genome.hla_tsv,
 	hla_fna = paths.genome.hla_fna,	

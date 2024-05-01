@@ -75,6 +75,48 @@ rule dedup_bam:
           conda env export --no-builds > info/gatk.info
         '''
 
+## Extract reads from chromosome 6 for HLA typing
+rule extract_chr6:
+    input:
+        bam=rules.dedup_bam.output.dedup,
+        bai=rules.dedup_bam.output.bai
+    output:
+        bam=paths.bam.filtered_chr6_bam,
+        bai=paths.bam.filtered_chr6_bam_index
+    benchmark:
+        'benchmark/{sample}_extract_chr6.tab'
+    log:
+        'log/{sample}_extract_chr6.log'
+    conda:
+        "../envs/samtools.yaml"
+    threads: max(1,min(16,NCORES))
+    shell:
+        '''
+          echo "samtools view -@ {threads} {input.bam} chr6 -b -o {output.bam} && samtools index -@ {threads} {output.bam}" | tee {log}
+          samtools view -@ {threads} {input.bam} chr6 -b -o {output.bam} && samtools index -@ {threads} {output.bam} 2>> {log}
+        '''
+
+## Convert chromosome 6 bam to paired-end fastqs for HLA typing input
+rule make_chr6_fastqs:
+    input:
+        bam=rules.extract_chr6.output.bam,
+        bai=rules.extract_chr6.output.bai
+    output:
+        r1=paths.bam.chr6_fq_r1,
+        r2=paths.bam.chr6_fq_r2
+    benchmark:
+        'benchmark/{sample}_make_chr6_fastqs.tab'
+    log:
+        'log/{sample}_make_chr6_fastqs.log'
+    conda:
+        "../envs/samtools.yaml"
+    threads: max(1,min(16,NCORES))
+    shell:
+        '''
+          echo "samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -n" | tee {log}
+          samtools fastq -@ {threads} {input.bam} -1 {output.r1} -2 {output.r2} -n 2>> {log}
+        '''
+
 ## Run FASTQC
 rule fastqc:
     input:
