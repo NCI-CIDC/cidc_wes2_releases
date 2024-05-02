@@ -15,7 +15,7 @@ rule optitype:
         "../envs/optitype.yaml"
     params:
         predir=PREDIR+"/optitype"
-    threads: max(1,min(16,NCORES)) 
+    threads: 16 
     shell:
         '''
           echo "OptiTypePipeline.py -i {input.fq1} {input.fq2} --dna -v -o {params.predir} -p {wildcards.sample}" | tee {log}
