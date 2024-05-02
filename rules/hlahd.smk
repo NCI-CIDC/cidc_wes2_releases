@@ -1,8 +1,8 @@
 rule hlahd:
     """calculate hlatyping by hla-hd"""
     input:
-        chr6fastqfile1 = paths.bqsr.recal_chr6_fq_r1,
-        chr6fastqfile2 = paths.bqsr.recal_chr6_fq_r2,
+        chr6fastqfile1 = rules.make_chr6_fastqs.output.r1,
+        chr6fastqfile2 = rules.make_chr6_fastqs.output.r2,
 	split_file = paths.hlahd_references.split,
 	dict_file = paths.hlahd_references.dict_done,
 	freq_file = paths.hlahd_references.freq_done
