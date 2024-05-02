@@ -45,6 +45,8 @@ hlahd_references:
 ## INGEST
 input:
     input_fastq: "{{sample}}_{read}.fastq.gz"
+    input_fastq_1: "{sample}_1.fastq.gz"
+    input_fastq_2: "{sample}_2.fastq.gz"
     input_bam: "{sample}_input.bam"
 cutadapt:
     cutadapt_fastq: "{{sample}}_{read}"

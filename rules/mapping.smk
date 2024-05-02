@@ -2,7 +2,8 @@
 rule run_bwa:
     input:
         tch=rules.build_bwa_index.output,
-        fa=rules.qualityfilter.output
+        fa1=paths.input.input_fastq_1,
+        fa2=paths.input.input_fastq_2
     output:
         paths.bam.bam
     benchmark:
@@ -14,14 +15,13 @@ rule run_bwa:
     params:
         sample='{sample}',
         indexseq=paths.genome.fa,
-        in_fa_str=expand(paths.rqual_filter.qfilter_fastq_paired, read=ENDS, paired=['P','U'])[0] + ' ' + expand(paths.rqual_filter.qfilter_fastq_paired, read=ENDS, paired=['P','U'])[2] if len(ENDS) == 2 else expand(paths.rqual_filter.qfilter_fastq_single, read=ENDS)[0],
         read_group= lambda wildcards: "@RG\\tID:%s\\tSM:%s\\tPL:ILLUMINA" % (wildcards.sample, wildcards.sample)
     priority: 4
     threads: max(1,min(8,NCORES))
     shell:
         '''
-          echo "bwa mem -t {threads} -R "{params.read_group}" {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output}" | tee {log}
-          bwa mem -t {threads} -R \"{params.read_group}\" {params.indexseq} {params.in_fa_str} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output} 2>> {log}
+          echo "bwa mem -t {threads} -R "{params.read_group}" {params.indexseq} {input.fa1} {input.fa2} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output}" | tee {log}
+          bwa mem -t {threads} -R \"{params.read_group}\" {params.indexseq} {input.fa1} {input.fa2} | samtools view -@ {threads} -Sbh | samtools sort -@ {threads} > {output} 2>> {log}
         '''
 
 ## Index BAM
