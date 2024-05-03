@@ -10,3 +10,4 @@ dependencies:
     - r-seqinr==4.2_36
     - r-mgcv==1.9_1
     - r-ggplot2==3.5.0
+    - samtools==1.20
