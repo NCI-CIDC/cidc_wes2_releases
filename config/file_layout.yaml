@@ -31,6 +31,9 @@ genome:
     facets_tbi: "00-common_all.vcf.gz.tbi"
     wig: "genome_gc50.wig.gz"
     tcellextrect_bed: "twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed"
+    cnn_mda: "cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn"
+    cnn_broad: "cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn"
+    cnn_flat: "cidc_hg38_5k_cnvkitFlat_reference.cnn"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -161,3 +164,8 @@ copynumber:
 tcellextrect:
     txt: "{sample}_tcellextrect.txt"
     pdf: "{sample}_tcellplot.pdf"
+
+cnvkit:
+    cns: "{sample}/{sample}_recalibrated.cns"
+    call_cns: "{sample}/{sample}_recalibrated.call.cns"
+    scatter: "{sample}/{sample}_recalibrated-scatter.png"

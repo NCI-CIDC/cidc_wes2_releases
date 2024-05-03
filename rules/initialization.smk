@@ -366,3 +366,19 @@ rule install_tcellextrect:
           ## Export rule env details
           conda env export --no-builds > info/tcellextrect.info
         '''
+
+## Retrieve the specific .cnn file for use in the CNVkit module 
+rule retrieve_cnvkit_cnn:
+    output:
+        cnn=paths.genome.cnn_mda if config["cnn"]=='mda' else paths.genome.cnn_broad if config["cnn"]=='broad' else paths.genome.cnn_flat
+    benchmark:
+        'benchmark/retrieve_cnvkit_cnn.tab'
+    log:
+        'log/retrieve_cnvkit_cnn.log'
+    params:
+        cnn_uri=CNVKIT_CNN_URI
+    shell:
+        '''
+          echo "gsutil cp {params.cnn_uri} {output.cnn}" | tee {log}
+          gsutil cp {params.cnn_uri} {output.cnn} 2>> {log}
+        '''
