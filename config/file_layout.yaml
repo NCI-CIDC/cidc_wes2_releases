@@ -47,6 +47,8 @@ hlahd_references:
 ## INGEST
 input:
     input_fastq: "{{sample}}_{read}.fastq.gz"
+    input_fastq_1: "{sample}_1.fastq.gz"
+    input_fastq_2: "{sample}_2.fastq.gz"
     input_bam: "{sample}_input.bam"
 cutadapt:
     cutadapt_fastq: "{{sample}}_{read}"
@@ -74,6 +76,8 @@ bam:
     dedup_metrics: "{sample}_marked_duplicates_metrics.txt"
     filtered_chr6_bam: "{sample}_filtered.chr6.bam"
     filtered_chr6_bam_index: "{sample}_filtered.chr6.bam.bai"    
+    chr6_fq_r1: "{sample}.chr6.r1.fq"
+    chr6_fq_r2: "{sample}.chr6.r2.fq"
 
 rseqc:
     bamqc_txt: "{sample}_bam_qc.txt"
@@ -89,10 +93,6 @@ bqsr:
     recal_bam: "{sample}_recalibrated.bam"
     recal_index: "{sample}_recalibrated.bai"
     recal_table: "{sample}_recal.csv"
-    recal_chr6_bam: "{sample}_recalibrated.chr6.bam"
-    recal_chr6_index: "{sample}_recalibrated.chr6.bai"
-    recal_chr6_fq_r1: "{sample}_recalibrated.chr6.r1.fq"
-    recal_chr6_fq_r2: "{sample}_recalibrated.chr6.r2.fq"
     report: "{sample}_recal.pdf"
 
 xhla:
