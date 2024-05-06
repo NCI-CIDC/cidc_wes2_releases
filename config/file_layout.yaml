@@ -168,5 +168,5 @@ mutect2:
     normal_vcf: "{sample}.normal.vcf.gz"
     pon: "{sample}.pon.vcf.gz"
     pon_idx: "{sample}.pon.vcf.gz.tbi"
-    calls_vcf: "{sample}.mutect2.vcf.gz"
+    somatic_calls_vcf: "{sample}.mutect2.vcf.gz"
 

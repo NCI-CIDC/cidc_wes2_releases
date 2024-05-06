@@ -236,7 +236,8 @@ OUTPUT = [
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN),
           expand(paths.tcellextrect.pdf, sample=RUN),
-          expand(paths.mutect2.pon, sample=RUN)	  
+          expand(paths.mutect2.pon, sample=RUN),
+          expand(paths.mutect2.somatic_calls_vcf, sample=RUN)	  	  
 	  ]
 
 
