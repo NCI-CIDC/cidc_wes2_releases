@@ -169,4 +169,6 @@ mutect2:
     pon: "{sample}.pon.vcf.gz"
     pon_idx: "{sample}.pon.vcf.gz.tbi"
     somatic_calls_vcf: "{sample}.mutect2.vcf.gz"
+    filtered_somatic_calls_vcf: "{sample}.filtered.vcf.gz"
+
 
