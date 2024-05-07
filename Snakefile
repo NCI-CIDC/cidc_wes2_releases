@@ -229,16 +229,14 @@ OUTPUT = [
           expand(paths.germline.tbi, sample=SAMID),
           expand(paths.germline.txt, sample=TN),
           expand(paths.germline.pdf, sample=TN),
-          expand(paths.facets.opt, sample=TN),
-#          directory(Path(PREDIR) / "resources/vep/plugins"),
-#          directory(Path(PREDIR) / "resources/vep/cache"),		  
+          expand(paths.facets.opt, sample=TN), 
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN),
           expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.pon, sample=TN),
           expand(paths.mutect2.somatic_calls_vcf, sample=TN),
-          expand(paths.mutect2.filtered_somatic_calls_vcf, sample=TN) 	  
+          expand(paths.mutect2.filtered_somatic_calls_vcf, sample=TN)
 	  ]
 
 
