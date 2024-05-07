@@ -140,7 +140,11 @@ SEQUENZA_WIG_URI = grab_ref_URI(ref_df,"sequenza_wig")
 
 # Reference data for use in TcellExTRECT module
 TCELLEXTRECT_BED_URI = grab_ref_URI(ref_df,"tcellextrect_bed")
- 
+
+# Reference data for Mutect2
+AF_VCF_URI = grab_ref_URI(ref_df,"af_vcf")
+AF_INDEX_URI = grab_ref_URI(ref_df,"af_index")
+
 # Sample info
 ## List of samples to process
 SAMID = utils.toList(sample_metadata_df['samid'])
@@ -226,12 +230,15 @@ OUTPUT = [
           expand(paths.germline.txt, sample=TN),
           expand(paths.germline.pdf, sample=TN),
           expand(paths.facets.opt, sample=TN),
-          directory(Path(PREDIR) / "resources/vep/plugins"),
-          directory(Path(PREDIR) / "resources/vep/cache"),		  
+#          directory(Path(PREDIR) / "resources/vep/plugins"),
+#          directory(Path(PREDIR) / "resources/vep/cache"),		  
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN),
-          expand(paths.tcellextrect.pdf, sample=RUN)
+          expand(paths.tcellextrect.pdf, sample=RUN),
+          expand(paths.mutect2.pon, sample=TN),
+          expand(paths.mutect2.somatic_calls_vcf, sample=TN),
+          expand(paths.mutect2.filtered_somatic_calls_vcf, sample=TN) 	  
 	  ]
 
 
@@ -295,3 +302,4 @@ include: "./rules/sequenza.smk"
 include: "./rules/pyclone6.smk"
 include: "./rules/copynumber.smk"
 include: "./rules/tcellextrect.smk"
+include: "./rules/mutect2.smk"
