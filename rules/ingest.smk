@@ -66,7 +66,8 @@ rule bam2fastq:
           samtools fastq -@ {threads} -1 {output.fq1} -2 {output.fq2} -n 2>> {log}
         '''
 
-### Optionally trim adapters with cutadapt
+## Optionally trim adapters with cutadapt
+## THIS RULE IS CURRENTLY NOT IN USE FOR THE WES2 PIPELINE
 rule trimadapters:
     input:
         fa=expand(paths.input.input_fastq, read=ENDS)
@@ -107,6 +108,7 @@ rule trimadapters:
       '''
 
 ## Optionally quality-trim reads with Trimmomatic
+## THIS RULE IS CURRENTLY NOT IN USE FOR THE WES2 PIPELINE
 rule qualityfilter:
     input:
         rules.trimadapters.output if TRIM_FP or TRIM_TP else expand(paths.input.input_fastq, read=ENDS)
