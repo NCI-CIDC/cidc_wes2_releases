@@ -62,3 +62,28 @@ rule mutect2:
         '-I {input.tumor} -tumor {params.tumor_name} '
         '-pon {input.pon}  '
         '-O {output.vcf}'
+
+#this is a very simple filtering. An example of a more detailed filter
+#  which generates contamination tables for tumor and normal samples
+#  can be found here:
+#
+#      https://www.biostars.org/p/9591924/
+#
+#  we can implement these additional steps if the simple filter option
+#  seems insufficient
+#
+rule filter_mutect2:
+    input:
+       vcf = paths.mutect2.normal_vcf,
+       ref = paths.genome.fa
+    output:
+       vcf = paths.mutect2.filtered_somatic_calls_vcf,
+    conda:
+       "../envs/gatk.yaml"
+#    params:
+    log:
+       "log/{sample}_mutect2_filter.log"
+    benchmark:
+       "benchmark/{sample}_mutect2_filter.tab"
+    shell:
+       "gatk FilterMutectCalls -V {input.vcf} -R {input.ref} -O {output}"
