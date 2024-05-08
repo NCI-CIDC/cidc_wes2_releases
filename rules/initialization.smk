@@ -393,7 +393,7 @@ rule retrieve_1kg_pon_file:
     log:
         'log/retrieve_kg_pon.log'
     params:
-       pon_uri = KG_PON_UR
+       pon_uri = KG_PON_URI
     shell:
         '''
           echo "gsutil cp {params} annot " | tee {log}
