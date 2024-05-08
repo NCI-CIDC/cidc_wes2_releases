@@ -66,3 +66,6 @@ commit: 'b5e8b27'
 ### CNVkit copy number reference profile (.cnn).
 ### Options are 'mda', 'broad', or 'flat' (default).
 cnn: 'flat'
+
+mutect2:
+  max_mnp_distance: 0

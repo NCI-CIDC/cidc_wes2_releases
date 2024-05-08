@@ -382,3 +382,20 @@ rule retrieve_cnvkit_cnn:
           echo "gsutil cp {params.cnn_uri} {output.cnn}" | tee {log}
           gsutil cp {params.cnn_uri} {output.cnn} 2>> {log}
         '''
+
+## Retrieve the allele frequency and gnomad annotations for use with Mutect2
+rule retrieve_mutect2_ref:
+    output:
+        wig=paths.annot.af_vcf
+    benchmark:
+        'benchmark/retrieve_sequenza_wig.tab'
+    log:
+        'log/retrieve_sequenza_wig.log'
+    params:
+       vcf_uri = AF_VCF_URI,
+       idx_uri = AF_INDEX_URI       
+    shell:
+        '''
+          echo "gsutil cp {params} annot" | tee {log}
+          gsutil cp {params} annot 2>> {log}
+        '''
