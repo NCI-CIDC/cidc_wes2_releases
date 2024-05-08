@@ -1,5 +1,4 @@
 ## Calculates microsatellite instability (MSI) with MSIsensor2
-##  CHECK IF YOU WANT TO ADD .TXT AT THE END OF THE MSISENSOR FILE
 rule msisensor2:
     input:
         models=rules.retrieve_msisensor2_models.output.models,

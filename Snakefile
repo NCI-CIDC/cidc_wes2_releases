@@ -240,8 +240,10 @@ OUTPUT = [
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN),
+          expand(paths.copynumber.merged_gain, sample=TN),
+          expand(paths.copynumber.merged_loss, sample=TN),
 #          expand(paths.tcellextrect.pdf, sample=RUN),
-          expand(paths.cnvkit.call_cns, sample=RUN)
+          expand(paths.cnvkit.enhanced_cns, sample=RUN)
 	  ]
 
 

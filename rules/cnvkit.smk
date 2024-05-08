@@ -1,3 +1,14 @@
+## Extracts the purity value and generates the -m and --purity options in the CNVkit command
+def purity_checker(sample):
+    purity="" # Purity defaults to ''
+    file=PREDIR+"/facets/"+sample+"_optimalpurityvalue.txt"
+    if os.path.exists(file):
+        df=pd.read_csv(file, na_filter=False, delimiter="\t")
+        if df["purity"][0] != "NA": ## Valid purity value, set purity options in the command
+            purity="-m clonal --purity %s" % df["purity"][0]
+            print(purity)
+    return purity # Either "-m clonal --purity VAL" or ""
+
 ## Run CNVkit to call copy number variations for the tumor samples 
 rule cnvkit:
     input:
@@ -26,26 +37,28 @@ rule cnvkit:
           conda env export --no-builds > info/cnvkit.info
         '''
 
-## Run FACETS to estimate fraction and allele specific copy number from paired tumor/normal sequencing. As a result, also estimates purity and ploidy of a given tumor sample.
-## Produces cncf output for futher analysis in the Copy Number module
-#rule facets:
-#    input:
-#        txt=rules.snp_pileup_processing.output.postprocessed
-#    output:
-#        cncf=paths.facets.cncf,
-#        opt=paths.facets.opt,
-#        iter=paths.facets.iter
-#    benchmark:
-#        'benchmark/{sample}_facets.tab'
-#    log:
-#        'log/{sample}_facets.log'
-#    conda:
-#        "../envs/facets.yaml"
-#    params:
-#        r=Path(SOURCEDIR) / "r" / "facets.r",
-#        dir=PREDIR+"/facets/"
-#    shell:
-#        '''
-#          echo " Rscript --vanilla {params.r} {input.txt} {params.dir} {wildcards.sample} " | tee {log}
-#          Rscript --vanilla {params.r} {input.txt} {params.dir} {wildcards.sample} 2>> {log}
-#        '''
+## Add somatic SNP and purity information to CNVkit's refined call
+## INPUT VCF AND TBI PATHS WILL NEED TO CHANGE ONCE SOMATIC OUTPUT IS AVAILABLE
+rule cnvkit_enhance:
+    input:
+        cns=rules.cnvkit.output.call_cns,
+        vcf=paths.cnvkit.vcf,
+        tbi=paths.cnvkit.tbi,
+        purity=lambda wildcards: Path(PREDIR) / "facets" / f"{pairings_df.at[wildcards.sample, 'tumor']}_optimalpurityvalue.txt" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
+    output:
+        enhanced_cns=paths.cnvkit.enhanced_cns    
+    benchmark:
+        'benchmark/{sample}_cnvkit_enhance.tab'
+    log:
+        'log/{sample}_cnvkit_enhance.log'
+    conda:
+        "../envs/cnvkit.yaml"
+    params:
+        tumor="-i {sample}",
+        normal=lambda wildcards: f"-n {pairings_df.at[wildcards.sample, 'normal']}" if pairings_df.at[wildcards.sample,'type'] == "TN" else "",
+        purity=lambda wildcards: purity_checker(wildcards.sample)
+    shell:
+        '''
+          echo "cnvkit.py call {input.cns} -y -v {input.vcf} {params.tumor} {params.normal} {params.purity} -o {output.enhanced_cns}" | tee {log}
+          cnvkit.py call {input.cns} -y -v {input.vcf} {params.tumor} {params.normal} {params.purity} -o {output.enhanced_cns} 2>> {log}
+        '''

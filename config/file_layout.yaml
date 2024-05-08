@@ -160,6 +160,11 @@ copynumber:
     facets: "{sample}_facets_gainLoss.bed"
     cnvkit: "{sample}_cnvkit_gainLoss.bed"
     seq_fac: "{sample}_sequenza_facets.consensus.bed"
+    cnv_seq: "{sample}_cnvkit_sequenza.consensus.bed"
+    cnv_fac: "{sample}_cnvkit_facets.consensus.bed"
+    consensus: "{sample}_consensus.bed"
+    merged_gain: "{sample}_consensus_merged_GAIN.bed"
+    merged_loss: "{sample}_consensus_merged_LOSS.bed"
 
 tcellextrect:
     txt: "{sample}_tcellextrect.txt"
@@ -169,3 +174,6 @@ cnvkit:
     cns: "{sample}/{sample}_recalibrated.cns"
     call_cns: "{sample}/{sample}_recalibrated.call.cns"
     scatter: "{sample}/{sample}_recalibrated-scatter.png"
+    enhanced_cns: "{sample}/{sample}_recalibrated.call.enhanced.cns"
+    vcf: "{sample}/{sample}_tnscope.output.vcf.gz"
+    tbi: "{sample}/{sample}_tnscope.output.vcf.gz.tbi"
