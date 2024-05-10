@@ -42,8 +42,8 @@ rule cnvkit:
 rule cnvkit_enhance:
     input:
         cns=rules.cnvkit.output.call_cns,
-        vcf=paths.cnvkit.vcf,
-        tbi=paths.cnvkit.tbi,
+        vcf=paths.mutect2.filtered_somatic_calls_vcf if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.filtered_vcf,
+        tbi=paths.mutect2.tbi if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.tbi,
         purity=lambda wildcards: Path(PREDIR) / "facets" / f"{pairings_df.at[wildcards.sample, 'tumor']}_optimalpurityvalue.txt" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
     output:
         enhanced_cns=paths.cnvkit.enhanced_cns    

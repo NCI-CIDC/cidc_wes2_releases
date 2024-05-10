@@ -177,8 +177,6 @@ cnvkit:
     call_cns: "{sample}/{sample}_recalibrated.call.cns"
     scatter: "{sample}/{sample}_recalibrated-scatter.png"
     enhanced_cns: "{sample}/{sample}_recalibrated.call.enhanced.cns"
-    vcf: "{sample}/{sample}_tnscope.output.vcf.gz"
-    tbi: "{sample}/{sample}_tnscope.output.vcf.gz.tbi"
 
 mutect2:
     normal_vcf: "{sample}.normal.vcf.gz"
