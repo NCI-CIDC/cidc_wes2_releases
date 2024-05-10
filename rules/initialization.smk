@@ -383,3 +383,19 @@ rule retrieve_mutect2_ref:
           echo "gsutil cp {params} annot " | tee {log}
           gsutil cp {params} annot  2>> {log}
         '''
+
+## This is used in variant calling on tumor-only samples
+rule retrieve_1kg_pon_file:
+    output:
+        wig=paths.annot.kg_pon
+    benchmark:
+        'benchmark/retrieve_kg_pon.tab'
+    log:
+        'log/retrieve_kg_pon.log'
+    params:
+       pon_uri = KG_PON_URI
+    shell:
+        '''
+          echo "gsutil cp {params} annot " | tee {log}
+          gsutil cp {params} annot  2>> {log}
+        '''

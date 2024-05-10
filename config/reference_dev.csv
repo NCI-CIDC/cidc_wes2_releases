@@ -29,5 +29,6 @@ facets_vcf,gs://cidc-wes2-reference-v1/00-common_all.vcf.gz,https://ftp.ncbi.nih
 facets_tbi,gs://cidc-wes2-reference-v1/00-common_all.vcf.gz.tbi,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz.tbi,
 sequenza_wig,gs://cidc-wes2-reference-v1/genome_gc50.wig.gz,gs://cidc-wes2-reference-v1/genome_gc50.wig.gz_README.txt,
 tcellextrect_bed,gs://cidc-wes2-reference-v1/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,"DFCI reference files"
-af_vcf,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz,gs://gcp-public-data--broad-references
-af_index,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz.tbi,gs://gcp-public-data--broad-references
+af_vcf,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz,gs://gcp-public-data--broad-references,
+af_index,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz.tbi,gs://gcp-public-data--broad-references,
+kg_pon,gs://cidc-wes2-reference-v1/1000g_pon.hg38.vcf.gz,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz,
