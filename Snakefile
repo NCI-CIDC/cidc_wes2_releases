@@ -152,6 +152,7 @@ else:
 # Reference data for Mutect2
 AF_VCF_URI = grab_ref_URI(ref_df,"af_vcf")
 AF_INDEX_URI = grab_ref_URI(ref_df,"af_index")
+KG_PON_URI = grab_ref_URI(ref_df,"kg_pon")
 
 # Sample info
 ## List of samples to process
@@ -167,6 +168,7 @@ TP_ADAPTERS   = [x.strip() for x in utils.toList(sample_metadata_df['threep_adap
 RUN = utils.toList(pairings_df['run'])
 ## List of run names for each tumor normal pairing
 TN = utils.toList(tumor_normal_df['run'])
+TO = utils.toList(tumor_only_df['run'])
 
 # Set workflow working (output) dir
 workdir: PREDIR
@@ -250,6 +252,10 @@ OUTPUT = [
 	  ]
 
 
+OUTPUT_TUMOR_ONLY = [
+          expand(paths.mutect2_TO.vcf, sample= TO),
+	  ]
+
 #########################################
 #    Define any onstart or onsuccess    #
 #########################################
@@ -282,6 +288,12 @@ rule all:
     input:
         OUTPUT
 
+rule tumorOnly:
+    input:
+        OUTPUT_TUMOR_ONLY
+
+
+
 #just for testing ingestion of reference files
 rule references:
     input:
@@ -312,3 +324,4 @@ include: "./rules/copynumber.smk"
 include: "./rules/tcellextrect.smk"
 include: "./rules/cnvkit.smk"
 include: "./rules/mutect2.smk"
+include: "./rules/mutect2_TO.smk"

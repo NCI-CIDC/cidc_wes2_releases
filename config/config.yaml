@@ -30,7 +30,7 @@ quality_trim: '20'
 
 
 ## cloud program [gsutil, aws] and bucket location
-cloud_prog: 'gsutil'
+cloud_prog: 'gcloud transfer'
 archive_bucket: ''
 
 ## sentieon path

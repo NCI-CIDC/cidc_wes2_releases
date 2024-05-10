@@ -41,7 +41,8 @@ annot:
     bw: "hg38.phastCons100way.bw"
     af_vcf: "af-only-gnomad.hg38.vcf.gz"
     af_index: "af-only-gnomad.hg38.vcf.gz.tbi"
-
+    kg_pon: "1000g_pon.hg38.vcf.gz"
+    
 hlahd_references:
     dict_done: "dict.done"
     freq_done: "freq.done"
@@ -184,3 +185,7 @@ mutect2:
     pon_idx: "{sample}.pon.vcf.gz.tbi"
     somatic_calls_vcf: "{sample}.mutect2.vcf.gz"
     filtered_somatic_calls_vcf: "{sample}.filtered.vcf.gz"
+
+mutect2_TO:
+    vcf: "{sample}.TO.vcf.gz"
+    filtered_vcf: "{sample}.TO.filtered.vcf.gz"
