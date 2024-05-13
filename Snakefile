@@ -239,9 +239,7 @@ OUTPUT = [
           expand(paths.mutect2.pon, sample=TN),
           expand(paths.mutect2.somatic_vcf, sample=TN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
-          expand(paths.vep.vcf, sample = TN)	  ,
-#	  directory(Path(PREDIR) / "resources/vep/cache"),
-#	  directory(Path(PREDIR) / "resources/vep/plugins"),	  
+          expand(paths.vep.vcf, sample = TN),
 	  ]
 
 
