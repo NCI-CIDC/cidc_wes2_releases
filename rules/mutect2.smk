@@ -45,7 +45,7 @@ rule mutect2:
         normal=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bam",
         normal_bai=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bai"
     output:
-        vcf=paths.mutect2.somatic_calls_vcf
+        vcf=paths.mutect2.somatic_vcf
     benchmark:
         'benchmark/{sample}_mutect2.tab'
     log:
@@ -74,10 +74,10 @@ rule mutect2:
 #
 rule filter_mutect2:
     input:
-       vcf = paths.mutect2.normal_vcf,
+       vcf = paths.mutect2.somatic_vcf,
        ref = paths.genome.fa
     output:
-       vcf = paths.mutect2.filtered_somatic_calls_vcf,
+       vcf = paths.mutect2.filtered_somatic_vcf,
     conda:
        "../envs/gatk.yaml"
 #    params:
