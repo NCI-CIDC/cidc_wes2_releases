@@ -235,17 +235,19 @@ OUTPUT = [
           expand(paths.sequenza.segments, sample=TN),
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.seq_fac, sample=TN),
-          expand(paths.tcellextrect.pdf, sample=RUN),
+#          expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.pon, sample=TN),
-          expand(paths.mutect2.somatic_calls_vcf, sample=TN),
-          expand(paths.mutect2.filtered_somatic_calls_vcf, sample=TN)
+          expand(paths.mutect2.somatic_vcf, sample=TN),
+          expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
+          expand(paths.vep.vcf, sample = TN)	  ,
+	  directory(Path(PREDIR) / "resources/vep/cache"),
+	  directory(Path(PREDIR) / "resources/vep/plugins"),	  
 	  ]
 
 
 OUTPUT_TUMOR_ONLY = [
           expand(paths.mutect2_TO.vcf, sample= TO),
 	  ]
-
 #########################################
 #    Define any onstart or onsuccess    #
 #########################################
@@ -314,3 +316,4 @@ include: "./rules/copynumber.smk"
 include: "./rules/tcellextrect.smk"
 include: "./rules/mutect2.smk"
 include: "./rules/mutect2_TO.smk"
+include: "./rules/vep_annotate.smk"
