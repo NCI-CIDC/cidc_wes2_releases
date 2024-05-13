@@ -14,10 +14,11 @@ rule contamination_centrifuge_index:
     conda: "../envs/contamination.yaml"
     params:
        dest = Path(paths.centrifuge.tar).parent,
-       URI = CFUG_REF
+       URI = CFUG_REF,
+       cloud_prog = config["cloud_prog"]
     shell:
        # '''curl -o {output.tar} https://genome-idx.s3.amazonaws.com/centrifuge/p_compressed%2Bh%2Bv.tar.gz;'''
-        '''gsutil cp {params.URI} {params.dest} && '''
+        '''{params.cloud_prog} cp {params.URI} {params.dest} && '''
         '''tar -xvzf {output.tar} -C centrifuge'''
 
 rule contamination_centrifuge:
@@ -37,7 +38,7 @@ rule contamination_centrifuge:
      conda: "../envs/contamination.yaml"
      params:
         tar_file=(rules.contamination_centrifuge_index.output[0]).replace('.tar.gz','')
-
+   
 	#if len(ENDS) == 2 else expa\
         #nd(paths.rqual_filter.qfilter_fastq_single, read=ENDS)[0]
      shell:
