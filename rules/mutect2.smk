@@ -7,7 +7,7 @@ rule create_vcf_of_normals:
         bam = lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bam",
 #        bam = paths.bqsr.recal_bam
     output:
-        pon = paths.mutect2.normal_vcf,
+        pon = paths.mutect2.pon,
         #pon =lambda wildcards: Path(PREDIR) / "mutect2" / f"{tumor_normal_df.at[wildcards.sample,'normal']}.pon.vcf.gz", #
     params:
         max_mnp_distance = config["mutect2"]["max_mnp_distance"]
