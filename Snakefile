@@ -153,6 +153,7 @@ else:
 AF_VCF_URI = grab_ref_URI(ref_df,"af_vcf")
 AF_INDEX_URI = grab_ref_URI(ref_df,"af_index")
 KG_PON_URI = grab_ref_URI(ref_df,"kg_pon")
+KG_PON_TBI_URI = grab_ref_URI(ref_df,"kg_pon_tbi")
 
 # Sample info
 ## List of samples to process
@@ -246,14 +247,13 @@ OUTPUT = [
           expand(paths.copynumber.merged_gain, sample=TN),
           expand(paths.copynumber.merged_loss, sample=TN), 
 #          expand(paths.tcellextrect.pdf, sample=RUN),
-          expand(paths.mutect2.pon, sample=TN),
-          expand(paths.mutect2.somatic_calls_vcf, sample=TN),
-          expand(paths.mutect2.filtered_somatic_calls_vcf, sample=TN)
+          expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
+          expand(paths.mutect2_TO.filtered_vcf, sample=TO)
 	  ]
 
 
 OUTPUT_TUMOR_ONLY = [
-          expand(paths.mutect2_TO.vcf, sample= TO),
+          expand(paths.mutect2_TO.filtered_vcf, sample=TO),
 	  ]
 
 #########################################

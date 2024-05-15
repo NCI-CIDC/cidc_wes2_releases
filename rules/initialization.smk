@@ -403,15 +403,17 @@ rule retrieve_mutect2_ref:
 ## This is used in variant calling on tumor-only samples
 rule retrieve_1kg_pon_file:
     output:
-        wig=paths.annot.kg_pon
+        vcf=paths.annot.kg_pon,
+        tbi=paths.annot.kg_pon_tbi
     benchmark:
         'benchmark/retrieve_kg_pon.tab'
     log:
         'log/retrieve_kg_pon.log'
     params:
-       pon_uri = KG_PON_URI
+       pon_uri=KG_PON_URI,
+       tbi_uri=KG_PON_TBI_URI
     shell:
         '''
-          echo "gsutil cp {params} annot" | tee {log}
-          gsutil cp {params} annot 2>> {log}
+          echo "gsutil -m cp {params.pon_uri} {params.tbi_uri} annot" | tee {log}
+          gsutil -m cp {params.pon_uri} {params.tbi_uri} annot 2>> {log}
         '''

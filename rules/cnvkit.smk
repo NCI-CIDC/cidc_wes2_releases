@@ -6,7 +6,6 @@ def purity_checker(sample):
         df=pd.read_csv(file, na_filter=False, delimiter="\t")
         if df["purity"][0] != "NA": ## Valid purity value, set purity options in the command
             purity="-m clonal --purity %s" % df["purity"][0]
-            print(purity)
     return purity # Either "-m clonal --purity VAL" or ""
 
 ## Run CNVkit to call copy number variations for the tumor samples 
@@ -38,12 +37,11 @@ rule cnvkit:
         '''
 
 ## Add somatic SNP and purity information to CNVkit's refined call
-## INPUT VCF AND TBI PATHS WILL NEED TO CHANGE ONCE SOMATIC OUTPUT IS AVAILABLE
 rule cnvkit_enhance:
     input:
         cns=rules.cnvkit.output.call_cns,
-        vcf=paths.mutect2.filtered_somatic_calls_vcf if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.filtered_vcf,
-        tbi=paths.mutect2.tbi if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.tbi,
+        vcf=lambda wildcards: paths.mutect2.filtered_somatic_vcf if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.filtered_vcf,
+        tbi=lambda wildcards: paths.mutect2.filtered_somatic_tbi if pairings_df.at[wildcards.sample,'type'] == "TN" else paths.mutect2_TO.filtered_tbi,
         purity=lambda wildcards: Path(PREDIR) / "facets" / f"{pairings_df.at[wildcards.sample, 'tumor']}_optimalpurityvalue.txt" if pairings_df.at[wildcards.sample,'type'] == "TN" else []
     output:
         enhanced_cns=paths.cnvkit.enhanced_cns    

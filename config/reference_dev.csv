@@ -35,3 +35,4 @@ cnvkit_flat,gs://cidc-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_cnvkitFlat_refer
 af_vcf,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz,gs://gcp-public-data--broad-references,
 af_index,gs://cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz.tbi,gs://gcp-public-data--broad-references,
 kg_pon,gs://cidc-wes2-reference-v1/1000g_pon.hg38.vcf.gz,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz,
+kg_pon_tbi,gs://cidc-wes2-reference-v1/1000g_pon.hg38.vcf.gz.tbi,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz.tbi,
