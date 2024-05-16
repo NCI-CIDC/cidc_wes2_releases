@@ -141,10 +141,19 @@ SEQUENZA_WIG_URI = grab_ref_URI(ref_df,"sequenza_wig")
 # Reference data for use in TcellExTRECT module
 TCELLEXTRECT_BED_URI = grab_ref_URI(ref_df,"tcellextrect_bed")
 
+# Reference data for CNVkit module
+if config["cnn"] == "mda":
+    CNVKIT_CNN_URI = grab_ref_URI(ref_df,"cnvkit_mda")
+elif config["cnn"] == "broad":
+    CNVKIT_CNN_URI = grab_ref_URI(ref_df,"cnvkit_broad")
+else:
+    CNVKIT_CNN_URI = grab_ref_URI(ref_df,"cnvkit_flat")
+
 # Reference data for Mutect2
 AF_VCF_URI = grab_ref_URI(ref_df,"af_vcf")
 AF_INDEX_URI = grab_ref_URI(ref_df,"af_index")
 KG_PON_URI = grab_ref_URI(ref_df,"kg_pon")
+KG_PON_TBI_URI = grab_ref_URI(ref_df,"kg_pon_tbi")
 
 # Sample info
 ## List of samples to process
@@ -233,20 +242,19 @@ OUTPUT = [
           expand(paths.germline.pdf, sample=TN),
           expand(paths.facets.opt, sample=TN), 
           expand(paths.sequenza.segments, sample=TN),
+          expand(paths.cnvkit.enhanced_cns, sample=RUN),
           expand(paths.pyclone6.summary, sample=TN),
-          expand(paths.copynumber.seq_fac, sample=TN),
+          expand(paths.copynumber.merged_gain, sample=TN),
+          expand(paths.copynumber.merged_loss, sample=TN), 
 #          expand(paths.tcellextrect.pdf, sample=RUN),
-          expand(paths.mutect2.pon, sample=TN),
-          expand(paths.mutect2.somatic_vcf, sample=TN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
-          expand(paths.vep.vcf, sample = TN)	  ,
-          expand(paths.mutect2_TO.vcf, sample= TO),	  
-          expand(paths.vep.vcf, sample = TN),
+          expand(paths.mutect2_TO.filtered_vcf, sample=TO),
+          expand(paths.vep.vcf, sample=TN)
 	  ]
 
 
 OUTPUT_TUMOR_ONLY = [
-          expand(paths.mutect2_TO.vcf, sample= TO),
+          expand(paths.mutect2_TO.filtered_vcf, sample=TO),
 	  ]
 #########################################
 #    Define any onstart or onsuccess    #
@@ -314,6 +322,7 @@ include: "./rules/sequenza.smk"
 include: "./rules/pyclone6.smk"
 include: "./rules/copynumber.smk"
 include: "./rules/tcellextrect.smk"
+include: "./rules/cnvkit.smk"
 include: "./rules/mutect2.smk"
 include: "./rules/mutect2_TO.smk"
 include: "./rules/vep_annotate.smk"

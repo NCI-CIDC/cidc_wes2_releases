@@ -13,5 +13,5 @@
 ##
 type,run,normal,tumor
 TO,SAM02,,SAM02
-TN,DFCI-CIMAC-Control-110pct,GM12386-0110pct,DFCI-CIMAC-Control-110pct
+#TN,DFCI-CIMAC-Control-110pct,GM12386-0110pct,DFCI-CIMAC-Control-110pct
 TN,DFCI-CIMAC-Control-1,GM12386-01,DFCI-CIMAC-Control-1

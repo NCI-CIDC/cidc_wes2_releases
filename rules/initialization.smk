@@ -176,11 +176,17 @@ rule picard_dictionary:
         paths.genome.fa
     output:
         paths.genome.picard_dict
+    benchmark:
+        'benchmark/picard_dictionary.tab'
+    log:
+        'log/picard_dictionary.log'
     conda:
         "../envs/picard.yaml"
     shell:
-        "picard CreateSequenceDictionary -R {input} -O {output}"
-
+        '''
+          echo "picard CreateSequenceDictionary -R {input} -O {output}" | tee {log}
+          picard CreateSequenceDictionary -R {input} -O {output} 2>> {log}
+        '''
 
 ## Retrieve coverage target regions
 rule retrieve_coverage_targets_bed:
@@ -188,13 +194,16 @@ rule retrieve_coverage_targets_bed:
         paths.genome.coverage_targets
     benchmark:
         'benchmark/retrieve_coverage_targets_bed.tab'
+    log:
+        'log/retrieve_coverage_targets_bed.log'
     params:
         file_uri=GENOME_COVERAGE_TARGETS,
         cloud_prog = config["cloud_prog"]
     threads: 1
     shell:
-       '''
-         {params.cloud_prog} cp {params.file_uri} {output}
+        '''
+          echo "{params.cloud_prog} cp {params.file_uri} {output}" | tee {log}
+          {params.cloud_prog} cp {params.file_uri} {output} 2>> {log}
         '''
 
 ## Retrieve MSIsensor2 models:
@@ -378,7 +387,24 @@ rule install_tcellextrect:
           conda env export --no-builds > info/tcellextrect.info
         '''
 
-## Retrieve the allele frequency and gnomad annotations for use with mutect2
+## Retrieve the specific .cnn file for use in the CNVkit module 
+rule retrieve_cnvkit_cnn:
+    output:
+        cnn=paths.genome.cnn_mda if config["cnn"]=='mda' else paths.genome.cnn_broad if config["cnn"]=='broad' else paths.genome.cnn_flat
+    benchmark:
+        'benchmark/retrieve_cnvkit_cnn.tab'
+    log:
+        'log/retrieve_cnvkit_cnn.log'
+    params:
+        cnn_uri=CNVKIT_CNN_URI,
+        cloud_prog=config["cloud_prog"]
+    shell:
+        '''
+          echo "{params.cloud_prog} cp {params.cnn_uri} {output.cnn}" | tee {log}
+          {params.cloud_prog} cp {params.cnn_uri} {output.cnn} 2>> {log}
+        '''
+
+## Retrieve the allele frequency and gnomad annotations for use with Mutect2
 rule retrieve_mutect2_ref:
     output:
         wig=paths.annot.af_vcf
@@ -387,28 +413,30 @@ rule retrieve_mutect2_ref:
     log:
         'log/retrieve_sequenza_wig.log'
     params:
-        vcf_uri = AF_VCF_URI,
-        idx_uri = AF_INDEX_URI,
-        cloud_prog = config["cloud_prog"]
+        vcf_uri=AF_VCF_URI,
+        idx_uri=AF_INDEX_URI,
+        cloud_prog=config["cloud_prog"]
     shell:
         '''
-          echo "{params.cloud_prog} cp {params} annot " | tee {log}
-          {params.cloud_prog} cp {params} annot  2>> {log}
+          echo "{params.cloud_prog} cp {params.vcf_uri} {params.idx_uri} annot" | tee {log}
+          {params.cloud_prog} cp {params.vcf_uri} {params.idx_uri} annot 2>> {log}
         '''
 
 ## This is used in variant calling on tumor-only samples
 rule retrieve_1kg_pon_file:
     output:
-        wig=paths.annot.kg_pon
+        vcf=paths.annot.kg_pon,
+        tbi=paths.annot.kg_pon_tbi
     benchmark:
         'benchmark/retrieve_kg_pon.tab'
     log:
         'log/retrieve_kg_pon.log'
     params:
-        pon_uri = KG_PON_URI,
-        cloud_prog = config["cloud_prog"]
+       pon_uri=KG_PON_URI,
+       tbi_uri=KG_PON_TBI_URI,
+       cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "{params.cloud_prog} cp {params} annot " | tee {log}
-          {params.cloud_prog} cp {params} annot  2>> {log}
+          echo "{params.cloud_prog} cp {params.pon_uri} {params.tbi_uri} annot" | tee {log}
+          {params.cloud_prog} cp {params.pon_uri} {params.tbi_uri} annot 2>> {log}
         '''

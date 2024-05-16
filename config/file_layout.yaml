@@ -31,6 +31,9 @@ genome:
     facets_tbi: "00-common_all.vcf.gz.tbi"
     wig: "genome_gc50.wig.gz"
     tcellextrect_bed: "twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed"
+    cnn_mda: "cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn"
+    cnn_broad: "cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn"
+    cnn_flat: "cidc_hg38_5k_cnvkitFlat_reference.cnn"
 
 annot:
     gtf: "GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf"
@@ -39,6 +42,7 @@ annot:
     af_vcf: "af-only-gnomad.hg38.vcf.gz"
     af_index: "af-only-gnomad.hg38.vcf.gz.tbi"
     kg_pon: "1000g_pon.hg38.vcf.gz"
+    kg_pon_tbi: "1000g_pon.hg38.vcf.gz.tbi"
     
 hlahd_references:
     dict_done: "dict.done"
@@ -160,21 +164,37 @@ copynumber:
     facets: "{sample}_facets_gainLoss.bed"
     cnvkit: "{sample}_cnvkit_gainLoss.bed"
     seq_fac: "{sample}_sequenza_facets.consensus.bed"
+    cnv_seq: "{sample}_cnvkit_sequenza.consensus.bed"
+    cnv_fac: "{sample}_cnvkit_facets.consensus.bed"
+    consensus: "{sample}_consensus.bed"
+    merged_gain: "{sample}_consensus_merged_GAIN.bed"
+    merged_loss: "{sample}_consensus_merged_LOSS.bed"
 
 tcellextrect:
     txt: "{sample}_tcellextrect.txt"
     pdf: "{sample}_tcellplot.pdf"
 
+cnvkit:
+    cns: "{sample}/{sample}_recalibrated.cns"
+    call_cns: "{sample}/{sample}_recalibrated.call.cns"
+    scatter: "{sample}/{sample}_recalibrated-scatter.png"
+    enhanced_cns: "{sample}/{sample}_recalibrated.call.enhanced.cns"
+
 mutect2:
     normal_vcf: "{sample}.normal.vcf.gz"
+    normal_tbi: "{sample}.normal.vcf.gz.tbi"
     pon: "{sample}.pon.vcf.gz"
     pon_idx: "{sample}.pon.vcf.gz.tbi"
     somatic_vcf: "{sample}.mutect2.vcf.gz"
+    somatic_tbi: "{sample}.mutect2.vcf.gz.tbi"
     filtered_somatic_vcf: "{sample}.filtered.vcf.gz"
+    filtered_somatic_tbi: "{sample}.filtered.vcf.gz.tbi"
 
 mutect2_TO:
     vcf: "{sample}.TO.vcf.gz"
+    tbi: "{sample}.TO.vcf.gz.tbi"
     filtered_vcf: "{sample}.TO.filtered.vcf.gz"
+    filtered_tbi: "{sample}.TO.filtered.vcf.gz.tbi"
 
 vep:
     vcf: "{sample}.vep.vcf.gz"

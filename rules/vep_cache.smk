@@ -6,7 +6,7 @@ rule get_vep_cache:
         build=config["vep"]["build"],
         release=config["vep"]["release"]
     log:
-        "logs/vep/cache.log",
+        "log/vep/cache.log",
     cache: "omit-software"  # save space and time with between workflow caching (see docs)
     wrapper:
         "v3.7.0/bio/vep/cache"
