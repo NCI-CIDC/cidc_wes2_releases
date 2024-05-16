@@ -202,7 +202,7 @@ rule retrieve_coverage_targets_bed:
     threads: 1
     shell:
         '''
-          echo "{params.cloud_prog} cp {params.file_uri} {output}" | {log}
+          echo "{params.cloud_prog} cp {params.file_uri} {output}" | tee {log}
           {params.cloud_prog} cp {params.file_uri} {output} 2>> {log}
         '''
 
