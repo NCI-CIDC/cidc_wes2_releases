@@ -169,9 +169,13 @@ mutect2:
     normal_vcf: "{sample}.normal.vcf.gz"
     pon: "{sample}.pon.vcf.gz"
     pon_idx: "{sample}.pon.vcf.gz.tbi"
-    somatic_calls_vcf: "{sample}.mutect2.vcf.gz"
-    filtered_somatic_calls_vcf: "{sample}.filtered.vcf.gz"
+    somatic_vcf: "{sample}.mutect2.vcf.gz"
+    filtered_somatic_vcf: "{sample}.filtered.vcf.gz"
 
 mutect2_TO:
     vcf: "{sample}.TO.vcf.gz"
     filtered_vcf: "{sample}.TO.filtered.vcf.gz"
+
+vep:
+    vcf: "{sample}.vep.vcf.gz"
+    html: "{sample}.vep.html"

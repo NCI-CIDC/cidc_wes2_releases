@@ -26,16 +26,17 @@ rule retrieve_reference_genome:
         'log/retrieve_reference_genome.log'
     params:
         fa_uri=GENOME_FA_URI,
-        gtf_uri=GENOME_GTF_URI
+        gtf_uri=GENOME_GTF_URI,
+        cloud_prog = config["cloud_prog"]
     priority: 1000
     threads: 1
     shell:
         '''
-          echo " gsutil cp {params.fa_uri} {output.fa}" | tee {log}
-          gsutil cp {params.fa_uri} {output.fa} 2>> {log}
+          echo " {params.cloud_prog} cp {params.fa_uri} {output.fa}" | tee {log}
+          {params.cloud_prog} cp {params.fa_uri} {output.fa} 2>> {log}
 
-          echo "gsutil cp {params.gtf_uri} {output.gtf}" | tee {log}
-          gsutil cp {params.gtf_uri} {output.gtf} 2>> {log}
+          echo "{params.cloud_prog} cp {params.gtf_uri} {output.gtf}" | tee {log}
+          {params.cloud_prog} cp {params.gtf_uri} {output.gtf} 2>> {log}
         '''
 
 rule retrieve_hlahd_reference_data:
@@ -49,14 +50,15 @@ rule retrieve_hlahd_reference_data:
         HLAHD_FREQ_URI = HLAHD_FREQ_URI,
         HLAHD_SPLIT_URI = HLAHD_SPLIT_URI,
         dict_filename = Path(grab_field(ref_df, "hlahd_dict","google_bucket_URI")).name,
-        freq_filename = Path(grab_field(ref_df, "hlahd_freq","google_bucket_URI")).name
+        freq_filename = Path(grab_field(ref_df, "hlahd_freq","google_bucket_URI")).name,
+        cloud_prog = config["cloud_prog"]
     benchmark: "benchmark/retrieve_hlahd_refs.tab"
     log: "log/retrieve_hlahd_refs.log"
     shell:
        "echo {params.dict_filename};"
-       "gsutil cp {params.HLAHD_DICT_URI} hlahd_references && "
-       "gsutil cp {params.HLAHD_FREQ_URI} hlahd_references && "
-       "gsutil cp {params.HLAHD_SPLIT_URI} hlahd_references && "
+       "{params.cloud_prog} cp {params.HLAHD_DICT_URI} hlahd_references && "
+       "{params.cloud_prog} cp {params.HLAHD_FREQ_URI} hlahd_references && "
+       "{params.cloud_prog} cp {params.HLAHD_SPLIT_URI} hlahd_references && "
        "echo 'done copying files\n';"
        "tar zxvf {params.dest_folder}/{params.dict_filename} --directory {params.dest_folder} &&"
        "tar zxvf {params.dest_folder}/{params.freq_filename} --directory {params.dest_folder}  && "
@@ -75,15 +77,16 @@ rule retrieve_ref_indel_sets:
     params:
         mills_gcp_uri = GENOME_MILLS_URI,
         g1000_gcp_uri = GENOME_G1000_URI,
-        mills_index_gcp_url = GENOME_MILLS_INDEX_URI,
+        mills_index_gcp_uri = GENOME_MILLS_INDEX_URI,
         g1000_index_gcp_uri = GENOME_G1000_INDEX_URI,
         dbsnp = GENOME_DBSNP_URI,
         dbsnp_index = GENOME_DBSNP_INDEX_URI,
-	output_path = Path(PREDIR) / Path(paths.genome.dbsnp).parent
+	output_path = Path(PREDIR) / Path(paths.genome.dbsnp).parent,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
         echo "Downloading gold standard indel files G1000 and Mills, along with their respective indices..." | tee {log}
-        gsutil -m cp {params} 
+        {params.cloud_prog} cp {params.mills_gcp_uri} {params.g1000_gcp_uri} {params.mills_index_gcp_uri} {params.g1000_index_gcp_uri} {params.dbsnp} {params.dbsnp_index} {params.output_path}
         '''
 
 
@@ -104,11 +107,12 @@ rule retrieve_xHLA_ref_Data:
         hla_dmnd = HLA_DMND_URI,
         hla_faa = HLA_FAA_URI,
         hla_freq = HLA_FREQ_URI,	
-	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent
+	output_path = Path(PREDIR) / Path(paths.genome.hla_fna).parent,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
         echo "Downloading reference data for xHLA..." | tee {log}
-        gsutil -m cp {params} 
+        {params.cloud_prog} cp {params.hla_bed} {params.hla_tsv} {params.hla_fna} {params.hla_shift} {params.hla_dmnd} {params.hla_faa} {params.hla_freq} {params.output_path}
         '''
 
 ## Download built bwa_index files for the specified genome
@@ -127,13 +131,13 @@ rule build_bwa_index:
         "../envs/bwa.yaml"
     params:
         bwa_uri=GENOME_BWA_URI,
-
+        cloud_prog = config["cloud_prog"]
     priority: 1000
     threads: 1
     shell:
         '''
           echo "Downloading bwa_index files from ncbi ftp associated with genome for mapping reads to GRCh38 or hg38..." | tee {log}
-          gsutil cp {params.bwa_uri}/* genome &&
+          {params.cloud_prog} cp {params.bwa_uri}/* genome &&
           touch {output}
 	  
           ## export rule env details
@@ -185,11 +189,12 @@ rule retrieve_coverage_targets_bed:
     benchmark:
         'benchmark/retrieve_coverage_targets_bed.tab'
     params:
-        file_uri=GENOME_COVERAGE_TARGETS
+        file_uri=GENOME_COVERAGE_TARGETS,
+        cloud_prog = config["cloud_prog"]
     threads: 1
     shell:
        '''
-          gsutil cp {params.file_uri} {output}
+         {params.cloud_prog} cp {params.file_uri} {output}
         '''
 
 ## Retrieve MSIsensor2 models:
@@ -202,11 +207,12 @@ rule retrieve_msisensor2_models:
     log:
         'log/retrieve_msisensor2_models.log'
     params:
-        uri=MSISENSOR2_MODELS_URI
+        uri=MSISENSOR2_MODELS_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil -m cp -R {params.uri} genome && touch {output.tch}" | tee {log}
-          gsutil -m cp -R {params.uri} genome && touch {output.tch} 2>> {log}
+          echo "{params.cloud_prog} cp --recursive {params.uri} genome && touch {output.tch}" | tee {log}
+          {params.cloud_prog} cp --recursive {params.uri} genome && touch {output.tch} 2>> {log}
         '''
 
 ## Set OptiType config.init to not delete intermediate bam files produced by RazerS3
@@ -238,11 +244,12 @@ rule retrieve_dbsnp_vcf:
         'log/retrieve_dbsnp_vcf.log'
     params:
         vcf_uri=GERMLINE_DBSNP_URI,
-        idx_uri=GERMLINE_INDEX_URI
+        idx_uri=GERMLINE_INDEX_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params.vcf_uri} {params.idx_uri} genome" | tee {log}
-          gsutil cp {params.vcf_uri} {params.idx_uri} genome 2>> {log}
+          echo "{params.cloud_prog} cp {params.vcf_uri} {params.idx_uri} genome" | tee {log}
+          {params.cloud_prog} cp {params.vcf_uri} {params.idx_uri} genome 2>> {log}
         '''
 
 ## Retrieve the specific CIMAC Center's targets BED for use in the Germline module
@@ -254,11 +261,12 @@ rule retrieve_targets_bed:
     log:
         'log/retrieve_targets_bed.log'
     params:
-        bed_uri=TARGETS_BED_URI
+        bed_uri=TARGETS_BED_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params.bed_uri} {output.bed}" | tee {log}
-          gsutil cp {params.bed_uri} {output.bed} 2>> {log}
+          echo "{params.cloud_prog} cp {params.bed_uri} {output.bed}" | tee {log}
+          {params.cloud_prog} cp {params.bed_uri} {output.bed} 2>> {log}
         '''
 
 ## Retrieve the SNP VCF and its TBI for use with FACETS (Purity and Copy Number modules)
@@ -272,11 +280,12 @@ rule retrieve_facets_vcf:
         'log/retrieve_facets_vcf.log'
     params:
         vcf_uri=FACETS_VCF_URI,
-        tbi_uri=FACETS_TBI_URI
+        tbi_uri=FACETS_TBI_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome" | tee {log}
-          gsutil -m cp {params.vcf_uri} {params.tbi_uri} genome 2>> {log}
+          echo "{params.cloud_prog} cp {params.vcf_uri} {params.tbi_uri} genome" | tee {log}
+          {params.cloud_prog} cp {params.vcf_uri} {params.tbi_uri} genome 2>> {log}
         '''
 
 ## Retrieve the GC WIG for use with Sequenza (Clonality and Copy Number modules)
@@ -288,11 +297,12 @@ rule retrieve_sequenza_wig:
     log:
         'log/retrieve_sequenza_wig.log'
     params:
-        wig_uri=SEQUENZA_WIG_URI
+        wig_uri=SEQUENZA_WIG_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params.wig_uri} {output.wig}" | tee {log}
-          gsutil cp {params.wig_uri} {output.wig} 2>> {log}
+          echo "{params.cloud_prog} cp {params.wig_uri} {output.wig}" | tee {log}
+          {params.cloud_prog} cp {params.wig_uri} {output.wig} 2>> {log}
         '''
 
 ## Install copynumber module in the Sequenza conda environment
@@ -326,11 +336,12 @@ rule retrieve_tcellextrect_bed:
     log:
         'log/retrieve_tcellextrect_bed.log'
     params:
-        bed_uri=TCELLEXTRECT_BED_URI
+        bed_uri=TCELLEXTRECT_BED_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params.bed_uri} {output.bed}" | tee {log}
-          gsutil cp {params.bed_uri} {output.bed} 2>> {log}
+          echo "{params.cloud_prog} cp {params.bed_uri} {output.bed}" | tee {log}
+          {params.cloud_prog} cp {params.bed_uri} {output.bed} 2>> {log}
         '''
 
 ## Clone the TcellExTRECT repo, reset the repo to specified commit, and install TcellExTRECT in its respective conda environment
@@ -376,12 +387,13 @@ rule retrieve_mutect2_ref:
     log:
         'log/retrieve_sequenza_wig.log'
     params:
-       vcf_uri = AF_VCF_URI,
-       idx_uri = AF_INDEX_URI       
+        vcf_uri = AF_VCF_URI,
+        idx_uri = AF_INDEX_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params} annot " | tee {log}
-          gsutil cp {params} annot  2>> {log}
+          echo "{params.cloud_prog} cp {params} annot " | tee {log}
+          {params.cloud_prog} cp {params} annot  2>> {log}
         '''
 
 ## This is used in variant calling on tumor-only samples
@@ -393,9 +405,10 @@ rule retrieve_1kg_pon_file:
     log:
         'log/retrieve_kg_pon.log'
     params:
-       pon_uri = KG_PON_URI
+        pon_uri = KG_PON_URI,
+        cloud_prog = config["cloud_prog"]
     shell:
         '''
-          echo "gsutil cp {params} annot " | tee {log}
-          gsutil cp {params} annot  2>> {log}
+          echo "{params.cloud_prog} cp {params} annot " | tee {log}
+          {params.cloud_prog} cp {params} annot  2>> {log}
         '''

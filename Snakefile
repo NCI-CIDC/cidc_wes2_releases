@@ -239,6 +239,8 @@ OUTPUT = [
           expand(paths.mutect2.pon, sample=TN),
           expand(paths.mutect2.somatic_vcf, sample=TN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
+          expand(paths.vep.vcf, sample = TN)	  ,
+          expand(paths.mutect2_TO.vcf, sample= TO),	  
           expand(paths.vep.vcf, sample = TN),
 	  ]
 
