@@ -1,26 +1,27 @@
 rule annotate_variants:
     input:
-        calls="variants.bcf",  # .vcf, .vcf.gz or .bcf
-        cache=directory(Path(PREDIR) / "resources/vep/cache") 
-        plugins=directory(Path(PREDIR) / "resources/vep/pugins")
-        # optionally add reference genome fasta
-        # fasta="genome.fasta",
-        # fai="genome.fasta.fai", # fasta index
+        calls = paths.mutect2.filtered_somatic_vcf, 
+        cache=Path(PREDIR) / "resources/vep/cache" ,
+        plugins=Path(PREDIR) / "resources/vep/plugins",
+#        fasta = paths.genome.fa,
+#        fai = paths.genome.fai, 
         # gff="annotation.gff",
         # csi="annotation.gff.csi", # tabix index
         # add mandatory aux-files required by some plugins if not present in the VEP plugin directory specified above.
         # aux files must be defined as following: "<plugin> = /path/to/file" where plugin must be in lowercase
         # revel = path/to/revel_scores.tsv.gz
     output:
-        calls="variants.annotated.bcf",  # .vcf, .vcf.gz or .bcf
-        stats="variants.html",
+        calls=paths.vep.vcf, 
+        stats=paths.vep.html 
     params:
         # Pass a list of plugins to use, see https://www.ensembl.org/info/docs/tools/vep/script/vep_plugins.html
         # Plugin args can be added as well, e.g. via an entry "MyPlugin,1,FOO", see docs.
         plugins=["LoFtool"],
         extra="--everything",  # optional: extra arguments
     log:
-        "logs/vep/annotate.log",
+        "log/{sample}_vep_annotate.log",
+    benchmark:
+        "benchmark/{sample}_vep_annotate.tab",	
     threads: 4
     wrapper:
         "v3.7.0/bio/vep/annotate"

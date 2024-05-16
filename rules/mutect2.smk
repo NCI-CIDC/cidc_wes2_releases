@@ -6,7 +6,7 @@ rule create_vcf_of_normals:
         ref=paths.genome.fa,
         bam=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bam"
     output:
-        pon=paths.mutect2.normal_vcf,
+        vcf=paths.mutect2.normal_vcf,
         tbi=paths.mutect2.normal_tbi
     params:
         max_mnp_distance = config["mutect2"]["max_mnp_distance"]
@@ -21,8 +21,8 @@ rule create_vcf_of_normals:
         max_mnp_distance=config["mutect2"]["max_mnp_distance"]
     shell:
         '''
-          echo "Mutect2 -R {input.ref} -I {input.bam} -O {output.pon} --max-mnp-distance {params.max_mnp_distance}" | tee {log}
-          gatk Mutect2 -R {input.ref} -I {input.bam} -O {output.pon} --max-mnp-distance {params.max_mnp_distance} 2>> {log}
+          echo "Mutect2 -R {input.ref} -I {input.bam} -O {output.vcf} --max-mnp-distance {params.max_mnp_distance}" | tee {log}
+          gatk Mutect2 -R {input.ref} -I {input.bam} -O {output.vcf} --max-mnp-distance {params.max_mnp_distance} 2>> {log}
         '''
 
 rule copynumber_create_pon:

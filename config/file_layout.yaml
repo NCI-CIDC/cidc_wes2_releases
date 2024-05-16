@@ -195,3 +195,7 @@ mutect2_TO:
     tbi: "{sample}.TO.vcf.gz.tbi"
     filtered_vcf: "{sample}.TO.filtered.vcf.gz"
     filtered_tbi: "{sample}.TO.filtered.vcf.gz.tbi"
+
+vep:
+    vcf: "{sample}.vep.vcf.gz"
+    html: "{sample}.vep.html"
