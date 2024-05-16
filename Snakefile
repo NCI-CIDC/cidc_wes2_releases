@@ -248,7 +248,7 @@ OUTPUT = [
           expand(paths.copynumber.merged_loss, sample=TN), 
 #          expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
-          expand(paths.mutect2_TO.filtered_vcf, sample=TO)
+          expand(paths.mutect2_TO.filtered_vcf, sample=TO),
           expand(paths.vep.vcf, sample=TN)
 	  ]
 
