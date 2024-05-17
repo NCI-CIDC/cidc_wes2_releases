@@ -146,6 +146,8 @@ rule consensus_all_merge:
         'benchmark/{sample}_consensus_all_merge.tab'
     log:
         'log/{sample}_consensus_all_merge.log'
+    conda:
+        "../envs/bedtools.yaml"
     params:
         sh=Path(SOURCEDIR) / "shell/copynumber-merge.sh",
         prefix=PREDIR+"/copynumber/{sample}"
