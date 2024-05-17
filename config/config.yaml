@@ -1,12 +1,12 @@
 ## workflow set up
 # working output dir
-predir: '/media/scratch/wes2/wes2_output'
+predir: '/media/wes2/wes2_output'
 # source dir for supporting scripts
-srcdir: '/home/trivittge_nih_gov/cidc_wes2/source'
+srcdir: '/media/wes2/cidc_wes2/source'
 # file to write running log
-log_file: '/media/scratch/wes2/wes2_output/pipeline.log'
+log_file: '/media/wes2/wes2_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
-ncores: 30
+ncores: 60
 
 
 ## output file paths layout file
@@ -14,11 +14,11 @@ file_layout: 'config/file_layout.yaml'
 
 
 ## reference genome download locations file
-reference: 'config/reference_dev.csv'
+reference: 'config/reference.csv'
 
 
 ## sample metadata file
-sample_metadata: 'config/sample_metadata_dev.csv'
+sample_metadata: 'config/sample_metadata.csv'
 
 ## sample pairing data
 ## to be used in the future once we're building the tumor normal vs tumor only bits.
