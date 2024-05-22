@@ -48,7 +48,14 @@ hlahd_references:
     dict_done: "dict.done"
     freq_done: "freq.done"
     split: "HLA_gene.split.3.32.0.txt"
-    
+
+
+## github repositories
+git:
+    setup_lancet: "lancet.done"
+
+
+
 ## INGEST
 input:
     input_fastq: "{{sample}}_{read}.fastq.gz"
@@ -199,3 +206,6 @@ mutect2_TO:
 vep:
     vcf: "{sample}.vep.vcf.gz"
     html: "{sample}.vep.html"
+
+lancet:
+    vcf: "{sample}.lancet.vcf.gz"

@@ -1,0 +1,8 @@
+name: lancet
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bcftools
+  - samtools
+  

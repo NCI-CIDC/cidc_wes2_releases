@@ -69,3 +69,8 @@ cnn: 'flat'
 
 mutect2:
   max_mnp_distance: 0
+
+lancet:
+  name: "lancet"
+  url: "git://github.com/nygenome/lancet.git"
+   
