@@ -65,11 +65,11 @@ rule dedup_bam:
         tmp=Path(PREDIR) / "bam"
     resources:
         mem_mb=config["mem"]
-    threads: max(1,min(16,NCORES))
+    threads: 12
     shell:
         '''
-          echo "gatk MarkDuplicatesSpark -I {input.bam} -O {output.dedup} -M {output.metrics} --remove-all-duplicates true --tmp-dir {params.tmp} --conf 'spark.executor.cores={threads}'" | tee {log}
-          gatk MarkDuplicatesSpark -I {input.bam} -O {output.dedup} -M {output.metrics} --remove-all-duplicates true --tmp-dir {params.tmp} --conf 'spark.executor.cores={threads}' 2>> {log}
+          echo "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp}" | tee {log}
+          gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp} 2>> {log}
 
           ## Export rule env details
           conda env export --no-builds > info/gatk.info
