@@ -68,8 +68,8 @@ rule dedup_bam:
     threads: 12
     shell:
         '''
-          echo "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp}" | tee {log}
-          gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp} 2>> {log}
+          echo "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp} && samtools index -@ 8 {output.dedup}" | tee {log}
+          gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics} --REMOVE_DUPLICATES true --TMP_DIR {params.tmp} && samtools index -@ 8 {output.dedup} 2>> {log}
 
           ## Export rule env details
           conda env export --no-builds > info/gatk.info
