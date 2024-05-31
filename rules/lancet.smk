@@ -1,29 +1,8 @@
-rule setup_lancet:
-    input:
-        paths.conda.setup_lancet
-    output:
-        paths.git.lancet
-    conda:
-        "../envs/lancet_build.yaml"
-    params:
-        lancet_url = config["lancet"] ,
-	path = PREDIR
-    shell:
-        """
-        cd {params.path}/git
-        gh repo clone {params.lancet_url}
-        cd lancet/
-        sudo apt-get update && sudo apt-get install libssl-dev libcurl3-dev liblzma-dev libbz2-dev
-        make
-        touch {output}
-        """
-
-
-rule lancet:
+rule run_lancet:
     input:
         genome_size = paths.genome.size,
         fa = paths.genome.fa,
-	make_check = papths.git.setup_lancet,
+        fai = paths.genome.fai,
         tumor=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'tumor']}_recalibrated.bam",
         tumor_bai=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'tumor']}_recalibrated.bam",
         normal=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bam",
@@ -33,12 +12,27 @@ rule lancet:
     params:
         sample = "{sample}",
 	predir = PREDIR,
-    conda: "../envs/lancet.yaml"
-    shell:
-        "for chrom in cut -f 1 {input.genome.size} | paste -sd ' '; "
-        "do lancet --tumor {input.tumor} --normal {input.normal} --ref {input.fa} --reg $chrom --num-threads 8 | bgzip > {params.predir}/lancet/{params.sample}/${chrom}.vcf.gz; "
-	"done"
-	"bcftools concat {params.predir}/lancet/{params.sample}/*vcf.gz -o {output}"
+	sourcedir = SOURCEDIR
+    log:
+        "log/{sample}_lancet.log"
+    benchmark:
+        "benchmark/{sample}_lancet.tab"
+    threads: 55
+    conda:
+        "../envs/lancet.yaml"
+    shell: """
+counter=0
+
+while read -r line; do
+  chrom=$(echo "$line" | cut -f1)
+  echo "{params.sourcedir}/bin/lancet  --num-threads {threads} --tumor {input.tumor} --normal {input.normal} --ref {input.fa} --reg "$chrom" | bgzip | bcftools reheader --fai {input.fai} > {params.predir}/lancet/{params.sample}_"$counter".vcf.gz"| tee {log}
+
+  {params.sourcedir}/bin/lancet  --num-threads {threads} --tumor {input.tumor} --normal {input.normal} --ref {input.fa} --reg "$chrom" | bgzip | bcftools reheader --fai {input.fai} > {params.predir}/lancet/{params.sample}_"$counter".vcf.gz 2>> {log}
+  counter=$((counter + 1))
+done < {input.genome_size} &&
+
+bcftools concat {params.predir}/lancet/{params.sample}_*vcf.gz -o {output} 2>> {log}
+"""
 
 
     

@@ -1,10 +1,10 @@
 ## workflow set up
 # working output dir
-predir: '/media/wes2/wes2_output'
+predir: '/media/storage/wes2_output/'
 # source dir for supporting scripts
-srcdir: '/media/wes2/cidc_wes2/source'
+srcdir: '/home/pendletonmr_nih_gov/p/cidc_wes2/source'
 # file to write running log
-log_file: '/media/wes2/wes2_output/pipeline.log'
+log_file: '/media/storage/wes2_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
 ncores: 60
 
@@ -18,11 +18,11 @@ reference: 'config/reference.csv'
 
 
 ## sample metadata file
-sample_metadata: 'config/sample_metadata.csv'
+sample_metadata: 'config/sample_metadata_dev.csv'
 
 ## sample pairing data
 ## to be used in the future once we're building the tumor normal vs tumor only bits.
-pairings: "config/pairings.csv"
+pairings: "config/pairings_dev.csv"
 
 
 ## preprocess options
@@ -73,4 +73,5 @@ mutect2:
 lancet:
   name: "lancet"
   url: "git://github.com/nygenome/lancet.git"
-   
+  version: "1.1.0"
+  commit_hash: "b6c90672edb181a39687d9f4d31f3b9a09364655"
