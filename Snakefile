@@ -249,7 +249,8 @@ OUTPUT = [
           expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
           expand(paths.mutect2_TO.filtered_vcf, sample=TO),
-          expand(paths.vep.vcf, sample=TN)
+          expand(paths.vep.vcf, sample=TN),
+	  expand(paths.lancet.vcf, sample=TN)
 	  ]
 
 
@@ -326,3 +327,4 @@ include: "./rules/cnvkit.smk"
 include: "./rules/mutect2.smk"
 include: "./rules/mutect2_TO.smk"
 include: "./rules/vep_annotate.smk"
+include: "./rules/lancet.smk"

@@ -5,7 +5,6 @@ genome:
     size: "genome.size"
     fai: "GCA_000001405.15_GRCh38_full_analysis_set.fna.fai"
     bed: "GCA_000001405.15_GRCh38_no_alt_analysis_set_filtered.bed"
-
     mills: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz"
     mills_index: "Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz.tbi"
     g1000: "1000G_phase1.snps.high_confidence.hg38.vcf.bgz"
@@ -48,7 +47,7 @@ hlahd_references:
     dict_done: "dict.done"
     freq_done: "freq.done"
     split: "HLA_gene.split.3.32.0.txt"
-    
+
 ## INGEST
 input:
     input_fastq: "{{sample}}_{read}.fastq.gz"
@@ -199,3 +198,6 @@ mutect2_TO:
 vep:
     vcf: "{sample}.vep.vcf.gz"
     html: "{sample}.vep.html"
+
+lancet:
+    vcf: "{sample}.lancet.vcf.gz"
