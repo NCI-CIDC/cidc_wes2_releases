@@ -31,7 +31,13 @@ while read -r line; do
   counter=$((counter + 1))
 done < {input.genome_size} &&
 
+#MP 2024-05-31
+#this line threw an error bc lancet once generated a completely empty vcf (ie sans header)
+# an error here would prevent the rm cleanup operation, so would preserve any evidence
+# of this bug for future troubleshooting.
 bcftools concat {params.predir}/lancet/{params.sample}_*vcf.gz -o {output} 2>> {log}
+
+rm {params.predir}/lancet/{params.sample}_*.vcf.gz #clean up single chromosome files
 """
 
 
