@@ -201,3 +201,10 @@ vep:
 
 lancet:
     vcf: "{sample}.lancet.vcf.gz"
+
+manta:
+    vcf: "{sample}.manta.vcf.gz"
+
+strelka:
+    vcf: "{sample}.strelka.vcf.gz"
+

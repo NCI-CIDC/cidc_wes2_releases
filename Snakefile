@@ -246,17 +246,20 @@ OUTPUT = [
           expand(paths.pyclone6.summary, sample=TN),
           expand(paths.copynumber.merged_gain, sample=TN),
           expand(paths.copynumber.merged_loss, sample=TN), 
-          expand(paths.tcellextrect.pdf, sample=RUN),
+#          expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
           expand(paths.mutect2_TO.filtered_vcf, sample=TO),
           expand(paths.vep.vcf, sample=TN),
-	  expand(paths.lancet.vcf, sample=TN)
+	  expand(paths.lancet.vcf, sample=TN),
+	  expand(paths.strelka.vcf, sample=TN),
 	  ]
 
-
+#TODO: add tumor-only strelka (there is no tumor-only lancet)
 OUTPUT_TUMOR_ONLY = [
           expand(paths.mutect2_TO.filtered_vcf, sample=TO),
 	  ]
+
+
 #########################################
 #    Define any onstart or onsuccess    #
 #########################################
@@ -328,3 +331,4 @@ include: "./rules/mutect2.smk"
 include: "./rules/mutect2_TO.smk"
 include: "./rules/vep_annotate.smk"
 include: "./rules/lancet.smk"
+include: "./rules/strelka.smk"
