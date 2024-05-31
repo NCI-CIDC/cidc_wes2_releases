@@ -42,7 +42,7 @@ archive_bucket: ''
 sentieon_path: "/media/storage/sentieon/sentieon-genomics-202112.06/bin/"
 
 ## GATK Picard MarkDuplicatesSpark
-mem: 64000 ## Amount of memory in megabytes that needs to be available in order for the job to initiate
+mem: 35840 ## Amount of memory in megabytes that needs to be available in order for the job to initiate
 
 ## HLA-HD
 hlahd:
