@@ -206,5 +206,12 @@ manta:
     vcf: "{sample}.manta.vcf.gz"
 
 strelka:
-    vcf: "{sample}.strelka.vcf.gz"
+    indels_vcf: "{sample}_somatic.indels.vcf.gz"
+    indels_idx: "{sample}_somatic.indels.vcf.gz.tbi"
+    snvs_vcf: "{sample}_somatic.snvs.vcf.gz"
+    snvs_idx: "{sample}_somatic.snvs.vcf.gz.tbi"
+    runstats_xml: "{sample}_runStats.xml"
+    runstats_tsv: "{sample}_runStats.tsv"
+
+
 
