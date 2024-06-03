@@ -62,5 +62,5 @@ rule config_strelka:
         "{params.predir}/strelka/{params.sample}/runWorkflow.py -m local -j {threads} && "
         "cp {params.predir}/strelka/{params.sample}/results/stats/runStats.xml {output.runstats_xml}; "
         "cp {params.predir}/strelka/{params.sample}/results/stats/runStats.tsv {output.runstats_tsv}; "
-        "bcftools concat {params.predir}/strelka/{params.sample}/results/variants/*vcf.gz -o {output.vcf} && "
-        "bcftools index -t {output.vcf} "
+        "bcftools concat -a {params.predir}/strelka/{params.sample}/results/variants/*vcf.gz -o {output.vcf} --write-index=tbi "
+
