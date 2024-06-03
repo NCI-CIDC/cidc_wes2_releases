@@ -206,10 +206,10 @@ manta:
     vcf: "{sample}.manta.vcf.gz"
 
 strelka:
-    vcf: "{sample}_somatic.vcf.gz"
-    tbi: "{sample}_somatic.vcf.gz.tbi"
-    runstats_xml: "{sample}_runStats.xml"
-    runstats_tsv: "{sample}_runStats.tsv"
+    vcf: "{sample}_strelka.vcf.gz"
+    tbi: "{sample}_strelka.vcf.gz.tbi"
+    runstats_xml: "{sample}_strelka.runStats.xml"
+    runstats_tsv: "{sample}_strelka.runStats.tsv"
 
 
 
