@@ -36,7 +36,12 @@ rule config_strelka:
         normal_bai=lambda wildcards: Path(PREDIR) / "bqsr" / f"{tumor_normal_df.at[wildcards.sample,'normal']}_recalibrated.bai",
 #        candidates = paths.manta.vcf
     output:
-        vcf = paths.strelka.vcf
+        paths.strelka.indels_vcf,
+        paths.strelka.indels_idx,
+        paths.strelka.snvs_vcf,
+        paths.strelka.snvs_idx,
+        paths.strelka.runstats_xml,
+        paths.strelka.runstats_tsv,
     params:
         sample = "{sample}",
 	predir = PREDIR,
@@ -57,9 +62,9 @@ rule config_strelka:
        #"--indelCandidates {input.candidates} " #this optional line relies on manta, which cannot be run bc of a python2 dependency
         "--runDir {params.predir}/strelka/{params.sample}/ && "
         "{params.predir}/strelka/{params.sample}/runWorkflow.py -m local -j {threads} && "
-        cp {params.predir}/strelka/{params.sample}/results/stats/runStats.xml {params.predir}/strelka/{params.sample}_runStats.xml;"
-        cp {params.predir}/strelka/{params.sample}/results/stats/runStats.tsv {params.predir}/strelka/{params.sample}_runStats.tsv;"
-        cp {params.predir}/strelka/{params.sample}/results/variants/somatic.indels.vcf.gz {params.predir}/strelka/{params.sample}_somatic.indels.vcf.gz;"
-        cp {params.predir}/strelka/{params.sample}/results/variants/somatic.indels.vcf.gz.tbi {params.predir}/strelka/{params.sample}_somatic.indels.vcf.gz.tbi;"
-        cp {params.predir}/strelka/{params.sample}/results/variants/somatic.snvs.vcf.gz {params.predir}/strelka/{params.sample}_somatic.snvs.vcf.gz;"
-        cp {params.predir}/strelka/{params.sample}/results/variants/somatic.snvs.vcf.gz.tbi {params.predir}/strelka/{params.sample}_somatic.snvs.vcf.gz.tbi;
+        "cp {params.predir}/strelka/{params.sample}/results/stats/runStats.xml {params.predir}/strelka/{params.sample}_runStats.xml;"
+        "cp {params.predir}/strelka/{params.sample}/results/stats/runStats.tsv {params.predir}/strelka/{params.sample}_runStats.tsv;"
+        "cp {params.predir}/strelka/{params.sample}/results/variants/somatic.indels.vcf.gz {params.predir}/strelka/{params.sample}_somatic.indels.vcf.gz;"
+        "cp {params.predir}/strelka/{params.sample}/results/variants/somatic.indels.vcf.gz.tbi {params.predir}/strelka/{params.sample}_somatic.indels.vcf.gz.tbi;"
+        "cp {params.predir}/strelka/{params.sample}/results/variants/somatic.snvs.vcf.gz {params.predir}/strelka/{params.sample}_somatic.snvs.vcf.gz;"
+        "cp {params.predir}/strelka/{params.sample}/results/variants/somatic.snvs.vcf.gz.tbi {params.predir}/strelka/{params.sample}_somatic.snvs.vcf.gz.tbi;"
