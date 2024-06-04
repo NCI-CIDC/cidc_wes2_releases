@@ -201,3 +201,15 @@ vep:
 
 lancet:
     vcf: "{sample}.lancet.vcf.gz"
+
+manta:
+    vcf: "{sample}.manta.vcf.gz"
+
+strelka:
+    vcf: "{sample}_strelka.vcf.gz"
+    tbi: "{sample}_strelka.vcf.gz.tbi"
+    runstats_xml: "{sample}_strelka.runStats.xml"
+    runstats_tsv: "{sample}_strelka.runStats.tsv"
+
+
+
