@@ -5,3 +5,4 @@ channels:
 dependencies:
     - sequenza-utils==3.0.0
     - gawk==5.1.0
+    - python==3.10
