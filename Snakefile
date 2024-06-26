@@ -250,7 +250,7 @@ OUTPUT = [
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
           expand(paths.mutect2_TO.filtered_vcf, sample=TO),
           expand(paths.vep.vcf, sample=TN),
-	  expand(paths.lancet.vcf, sample=TN),
+	 # expand(paths.lancet.vcf, sample=TN),
 	  expand(paths.strelka.vcf, sample=TN),
 	  ]
 
