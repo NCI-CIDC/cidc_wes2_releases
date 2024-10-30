@@ -1,38 +1,38 @@
 ﻿ref_file_name,google_bucket_URI,original_URL,comment
-genome_fa, gs://prod-cidc-wes2-reference-v1/GCA_000001405.15_GRCh38_full_analysis_set.fna,https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.fna.gz,"This file was gunzipped, then bgzipped in order to enable indexing."
-genome_bwa_index, gs://prod-cidc-wes2-reference-v1/GCA-000001405-15-GRCh38-full-analysis-set-fna-bwa_index, https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.fna.bwa_index.tar.gz,
-genome_gtf,gs://prod-cidc-wes2-reference-v1/GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf.gz,https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf.gz,
-mills_ref,gs://prod-cidc-wes2-reference-v1/Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz,
-mills_index,gs://prod-cidc-wes2-reference-v1/Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz.tbi,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz.tbi,
-g1000_ref,gs://prod-cidc-wes2-reference-v1/1000G_phase1.snps.high_confidence.hg38.vcf.bgz,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz,
-g1000_index,gs://prod-cidc-wes2-reference-v1/1000G_phase1.snps.high_confidence.hg38.vcf.bgz.tbi,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz.tbi,
-dbsnp,gs://prod-cidc-wes2-reference-v1/00-All_fixed.vcf.bgz, https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.bgz,
-dbsnp_index,gs://prod-cidc-wes2-reference-v1/00-All_fixed.vcf.bgz.tbi, https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.bgz.tbi,
-hla_bed,gs://prod-cidc-wes2-reference-v1/hla.bed,"xHLA package",
-hla_tsv,gs://prod-cidc-wes2-reference-v1/hla.tsv,"xHLA package",
-hla_fna,gs://prod-cidc-wes2-reference-v1/hla.fna,"xHLA package",
-hla_faa,gs://prod-cidc-wes2-reference-v1/hla.faa,"xHLA package",
-hla_freq,gs://prod-cidc-wes2-reference-v1/hla.freq,"xHLA package",
-hla_shift,gs://prod-cidc-wes2-reference-v1/hla.shift,"xHLA package",
-hla_dmnd,gs://prod-cidc-wes2-reference-v1/hla.dmnd,"xHLA package",
-coverage_targets,gs://prod-cidc-wes2-reference-v1/gencode27.canonical.bed,DFCI,
-hlahd_dict,gs://prod-cidc-wes2-reference-v1/dictionary_1.7.0_20240301.tar.gz,"HLAHD_v1.7.0_20240301",
-hlahd_freq,gs://prod-cidc-wes2-reference-v1/hlahd_1.7.0_freq_data.tar.gz,"HLAHD_v1.7.0",
-hlahd_split,gs://prod-cidc-wes2-reference-v1/HLA_gene.split.3.32.0.txt,"HLAHD_v1.7.0",
-msisensor2_ref,gs://prod-cidc-wes2-reference-v1/models_hg38,https://github.com/niu-lab/msisensor2/tree/master/models_hg38,"Commit for models_hg38 directory was e0798c7"
-germline_dbsnp,gs://prod-cidc-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf,"GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)"
-germline_index,gs://prod-cidc-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf.idx,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf.idx,"GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)"
-targets_mocha,gs://prod-cidc-wes2-reference-v1/germline_vcf/mocha.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/mocha.liftover.hg38.noContigs.bed,"DFCI reference files"
-targets_mda,gs://prod-cidc-wes2-reference-v1/germline_vcf/MDA.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/MDA.liftover.hg38.noContigs.bed,"DFCI reference files"
-targets_broad,gs://prod-cidc-wes2-reference-v1/germline_vcf/broad.liftover.hg38.bed,dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/broad.liftover.hg38.bed,"DFCI reference files"
-facets_vcf,gs://prod-cidc-wes2-reference-v1/00-common_all.vcf.gz,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz,
-facets_tbi,gs://prod-cidc-wes2-reference-v1/00-common_all.vcf.gz.tbi,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz.tbi,
-sequenza_wig,gs://prod-cidc-wes2-reference-v1/genome_gc50.wig.gz,gs://cidc-wes2-reference-v1/genome_gc50.wig.gz_README.txt,
-tcellextrect_bed,gs://prod-cidc-wes2-reference-v1/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,"DFCI reference files"
-cnvkit_mda,gs://prod-cidc-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn,"DFCI reference files"
-cnvkit_broad,gs://prod-cidc-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn,"DFCI reference files"
-cnvkit_flat,gs://prod-cidc-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_cnvkitFlat_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_cnvkitFlat_reference.cnn,"DFCI reference files"
-af_vcf,gs://prod-cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz,gs://gcp-public-data--broad-references,
-af_index,gs://prod-cidc-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz.tbi,gs://gcp-public-data--broad-references,
-kg_pon,gs://prod-cidc-wes2-reference-v1/1000g_pon.hg38.vcf.gz,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz,
-kg_pon_tbi,gs://prod-cidc-wes2-reference-v1/1000g_pon.hg38.vcf.gz.tbi,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz.tbi,
+genome_fa, gs://cidc-prod2-wes2-reference-v1/GCA_000001405.15_GRCh38_full_analysis_set.fna,https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.fna.gz,"This file was gunzipped, then bgzipped in order to enable indexing."
+genome_bwa_index, gs://cidc-prod2-wes2-reference-v1/GCA-000001405-15-GRCh38-full-analysis-set-fna-bwa_index, https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.fna.bwa_index.tar.gz,
+genome_gtf,gs://cidc-prod2-wes2-reference-v1/GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf.gz,https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_full_analysis_set.refseq_annotation.gtf.gz,
+mills_ref,gs://cidc-prod2-wes2-reference-v1/Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz,
+mills_index,gs://cidc-prod2-wes2-reference-v1/Mills_and_1000G_gold_standard.indels.hg38.vcf.bgz.tbi,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz.tbi,
+g1000_ref,gs://cidc-prod2-wes2-reference-v1/1000G_phase1.snps.high_confidence.hg38.vcf.bgz,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz,
+g1000_index,gs://cidc-prod2-wes2-reference-v1/1000G_phase1.snps.high_confidence.hg38.vcf.bgz.tbi,ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz.tbi,
+dbsnp,gs://cidc-prod2-wes2-reference-v1/00-All_fixed.vcf.bgz, https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.bgz,
+dbsnp_index,gs://cidc-prod2-wes2-reference-v1/00-All_fixed.vcf.bgz.tbi, https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-All.vcf.bgz.tbi,
+hla_bed,gs://cidc-prod2-wes2-reference-v1/hla.bed,xHLA package,
+hla_tsv,gs://cidc-prod2-wes2-reference-v1/hla.tsv,xHLA package,
+hla_fna,gs://cidc-prod2-wes2-reference-v1/hla.fna,xHLA package,
+hla_faa,gs://cidc-prod2-wes2-reference-v1/hla.faa,xHLA package,
+hla_freq,gs://cidc-prod2-wes2-reference-v1/hla.freq,xHLA package,
+hla_shift,gs://cidc-prod2-wes2-reference-v1/hla.shift,xHLA package,
+hla_dmnd,gs://cidc-prod2-wes2-reference-v1/hla.dmnd,xHLA package,
+coverage_targets,gs://cidc-prod2-wes2-reference-v1/gencode27.canonical.bed,DFCI,
+hlahd_dict,gs://cidc-prod2-wes2-reference-v1/dictionary_1.7.0_20240301.tar.gz,HLAHD_v1.7.0_20240301,
+hlahd_freq,gs://cidc-prod2-wes2-reference-v1/hlahd_1.7.0_freq_data.tar.gz,HLAHD_v1.7.0,
+hlahd_split,gs://cidc-prod2-wes2-reference-v1/HLA_gene.split.3.32.0.txt,HLAHD_v1.7.0,
+msisensor2_ref,gs://cidc-prod2-wes2-reference-v1/models_hg38,https://github.com/niu-lab/msisensor2/tree/master/models_hg38,Commit for models_hg38 directory was e0798c7
+germline_dbsnp,gs://cidc-prod2-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf,GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
+germline_index,gs://cidc-prod2-wes2-reference-v1/Homo_sapiens_assembly38.dbsnp138.vcf.idx,gs://genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.dbsnp138.vcf.idx,GATK resource bundle (https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle)
+targets_mocha,gs://cidc-prod2-wes2-reference-v1/germline_vcf/mocha.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/mocha.liftover.hg38.noContigs.bed,DFCI reference files
+targets_mda,gs://cidc-prod2-wes2-reference-v1/germline_vcf/MDA.liftover.hg38.noContigs.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/MDA.liftover.hg38.noContigs.bed,DFCI reference files
+targets_broad,gs://cidc-prod2-wes2-reference-v1/germline_vcf/broad.liftover.hg38.bed,dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/broad.liftover.hg38.bed,DFCI reference files
+facets_vcf,gs://cidc-prod2-wes2-reference-v1/00-common_all.vcf.gz,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz,
+facets_tbi,gs://cidc-prod2-wes2-reference-v1/00-common_all.vcf.gz.tbi,https://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz.tbi,
+sequenza_wig,gs://cidc-prod2-wes2-reference-v1/genome_gc50.wig.gz,gs://cidc-wes2-reference-v1/genome_gc50.wig.gz_README.txt,
+tcellextrect_bed,gs://cidc-prod2-wes2-reference-v1/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/target_beds/twist.broad.mdacc.mocha.liftover.hg38.sorted.merged.canonical.bed,DFCI reference files
+cnvkit_mda,gs://cidc-prod2-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_mdaS1400i_S1609_cnvkit_reference.cnn,DFCI reference files
+cnvkit_broad,gs://cidc-prod2-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_broad10021_10026ArmB_cnvkit_reference.cnn,DFCI reference files
+cnvkit_flat,gs://cidc-prod2-wes2-reference-v1/cnvkit_cnn/cidc_hg38_5k_cnvkitFlat_reference.cnn,gs://dfci-reference-data-1/wes_refs_for_essex/wes/ref_files/hg38/cnvkit/cidc_hg38_5k_cnvkitFlat_reference.cnn,DFCI reference files
+af_vcf,gs://cidc-prod2-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz,gs://gcp-public-data--broad-references,
+af_index,gs://cidc-prod2-wes2-reference-v1/af-only-gnomad.hg38.vcf.gz.tbi,gs://gcp-public-data--broad-references,
+kg_pon,gs://cidc-prod2-wes2-reference-v1/1000g_pon.hg38.vcf.gz,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz,
+kg_pon_tbi,gs://cidc-prod2-wes2-reference-v1/1000g_pon.hg38.vcf.gz.tbi,gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz.tbi,
