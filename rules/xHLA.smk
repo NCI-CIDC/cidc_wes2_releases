@@ -12,7 +12,7 @@ rule xhla:
 #	hla_freq = paths.genome.hla_freq,	
     output:
         paths.xhla.report
-    threads: 4 #_xhla_threads
+    threads: config["xhla_threads"]
     group: "xhla"
     params:
         sample = "{sample}",
