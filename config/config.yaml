@@ -2,7 +2,7 @@
 # working output dir
 predir: '/media/storage/wes2_output/'
 # source dir for supporting scripts
-srcdir: '/home/pendletonmr_nih_gov/p/cidc_wes2/source'
+srcdir: '/home/pipeline/cidc_wes2/source'
 # file to write running log
 log_file: '/media/storage/wes2_output/pipeline.log'
 # number of CPU cores dedicated to entire workflow
@@ -51,6 +51,12 @@ hlahd:
   path: "hlahd.1.7.0/bin/"
   min_length: 50 #hla-hd param -m which sets the min read length- fixed b/c we don't expect any libraries with shorter than 50bp
   cut_percent: 0.95 #hla-hd param -c, if mistmatch how much to cut back
+
+## xHLA
+## Amount of threads to use for rule xhla. This is a memory-intensive process that
+## can use ~50-90 GB of RAM. It is recommended to set the threads of this rule to the max
+## amount of cores for the VM instance, so only one sample can process at a time.
+xhla_threads: 60
 
 ## CIMAC Center target variants BED. Options are 'mocha', 'mda', or 'broad' (default).
 ## For the Germline module, the output VCF from HaplotypeCaller will be filtered based
