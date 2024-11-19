@@ -1,0 +1,21 @@
+Source	Target	Modifications
+/media/storage/wes2_output/msisensor2/{run}_msisensor2	/media/storage/wes2_output/upload/analysis/msisensor2/{run}/{run}_msisensor2.txt	
+/media/storage/wes2_output/vep/{run}.vep.vcf.gz	/media/storage/wes2_output/upload/analysis/neoantigen/{run}/combined/{run}.filtered.tsv	gunzip vcf.gz file to create .vcf file
+/home/pipeline/cidc_wes2/version.tsv	/media/storage/wes2_output/upload/analysis/report/WES_Meta/02_WES_Run_Version.tsv	"echo ""Version 2.0 Enhanced Pipeline - Docker Version a0041d20aa0e5"" > /media/storage/wes2_output/upload/analysis/report/WES_Meta/02_WES_Run_Version.tsv"
+/home/pipeline/cidc_wes2/config/config.yaml	/media/storage/wes2_output/upload/analysis/report/config.yaml	
+/home/pipeline/cidc_wes2/config/sample_metadata.csv	/media/storage/wes2_output/upload/analysis/report/metasheet.csv	
+/media/storage/wes2_output/mutect2/{run}.mutect2.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/mutect2/{run}.filtered.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/tcellextrect/{run}_tcellextrect.txt	/media/storage/wes2_output/upload/analysis/tcellextrect/{run}/{run}_tcellextrect.txt	
+/media/storage/wes2_output/bam/{tumor_id}_dedup.bam	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}.sorted.dedup.bam	
+/media/storage/wes2_output/bam/{tumor_id}_dedup.bam.bai	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}.sorted.dedup.bam.bai	
+/media/storage/wes2_output/bqsr/{tumor_id}_recalibrated.bam	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}_recalibrated.bam	
+/media/storage/wes2_output/bqsr/{tumor_id}_recalibrated.bai	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}_recalibrated.bam.bai	
+/media/storage/wes2_output/optitype/{tumor_id}_result.tsv	/media/storage/wes2_output/upload/analysis/optitype/{tumor_id}/{tumor_id}_result.tsv	
+/media/storage/wes2_output/xhla/{tumor_id}_hla.json	/media/storage/wes2_output/upload/analysis/xhla/{tumor_id}/report-{tumor_id}-hla.json	
+TOUCH	/media/storage/wes2_output/upload/analysis/{run}_error.yaml	TOUCH
+TOUCH	/media/storage/wes2_output/upload/analysis/report.tar.gz	TOUCH
+maf.vcf.dummy.{run}.file1.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.vcf.gz	
+maf.vcf.dummy.{run}.file2.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.maf	
+maf.vcf.dummy.{run}.file3.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.maf	
+TOUCH	/media/storage/wes2_output/upload/analysis/report/json/{run}.wes.json	TOUCH

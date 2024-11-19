@@ -1,0 +1,53 @@
+Source	Target	Modifications
+/media/storage/wes2_output/bam/{normal_id}_dedup.bam	/media/storage/wes2_output/upload/analysis/align/{normal_id}/{normal_id}.sorted.dedup.bam	
+/media/storage/wes2_output/bam/{normal_id}_dedup.bam.bai	/media/storage/wes2_output/upload/analysis/align/{normal_id}/{normal_id}.sorted.dedup.bam.bai	
+/media/storage/wes2_output/bqsr/{normal_id}_recalibrated.bam	/media/storage/wes2_output/upload/analysis/align/{normal_id}/{normal_id}_recalibrated.bam	
+/media/storage/wes2_output/bqsr/{normal_id}_recalibrated.bai	/media/storage/wes2_output/upload/analysis/align/{normal_id}/{normal_id}_recalibrated.bam.bai	
+/media/storage/wes2_output/germline/{normal_id}_haplotypecaller.output.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{normal_id}/{normal_id}_haplotyper.output.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/germline/{normal_id}_haplotypecaller.targets.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{normal_id}/{normal_id}_haplotyper.targets.vcf.gz	
+/media/storage/wes2_output/hlahd/{normal_id}/result/{normal_id}_final.result.txt	/media/storage/wes2_output/upload/analysis/hlahd/{normal_id}/result/{normal_id}_final.result.txt	
+/media/storage/wes2_output/optitype/{normal_id}_result.tsv	/media/storage/wes2_output/upload/analysis/optitype/{normal_id}/{normal_id}_result.tsv	
+/media/storage/wes2_output/xhla/{normal_id}_hla.json	/media/storage/wes2_output/upload/analysis/xhla/{normal_id}/report-{normal_id}-hla.json	
+/media/storage/wes2_output/sequenza/{run}/{run}_segments.txt	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_segments.txt	
+/media/storage/wes2_output/sequenza/{run}/{run}_genome_view.pdf	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_genome_view.pdf	
+/media/storage/wes2_output/sequenza/{run}/{run}_chromosome_view.pdf	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_chromosome_view.pdf	
+/media/storage/wes2_output/copynumber/{run}_sequenza_gainLoss.bed	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_sequenza_gainLoss.bed	
+/media/storage/wes2_output/sequenza/{run}/{run}.bin50.final.seqz.txt.gz	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}.bin50.final.seqz.txt.gz	
+/media/storage/wes2_output/sequenza/{run}/{run}_alternative_solutions.txt	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_alternative_solutions.txt	
+/media/storage/wes2_output/sequenza/{run}/{run}_CP_contours.pdf	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_CP_contours.pdf	
+/media/storage/wes2_output/pyclone6/{run}_pyclone6.input.tsv	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_pyclone6.input.tsv	
+/media/storage/wes2_output/pyclone6/{run}_pyclone6.results.tsv	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_pyclone6.results.tsv	
+/media/storage/wes2_output/pyclone6/{run}_pyclone6.results.summary.tsv	/media/storage/wes2_output/upload/analysis/clonality/{run}/{run}_pyclone6.results.summary.tsv	
+/media/storage/wes2_output/cnvkit/{run}/{run}_recalibrated.call.cns	/media/storage/wes2_output/upload/analysis/cnvkit/{run}/{run}.call.cns	
+/media/storage/wes2_output/cnvkit/{run}/{run}_recalibrated.call.enhanced.cns	/media/storage/wes2_output/upload/analysis/cnvkit/{run}/{run}.call.enhanced.cns	
+/media/storage/wes2_output/cnvkit/{run}/{run}_recalibrated-scatter.png	/media/storage/wes2_output/upload/analysis/cnvkit/{run}/{run}.scatter.png	
+/media/storage/wes2_output/copynumber/{run}_cnvkit_gainLoss.bed	/media/storage/wes2_output/upload/analysis/cnvkit/{run}/{run}_cnvkit_gainLoss.bed	
+/media/storage/wes2_output/copynumber/{run}_consensus.bed	/media/storage/wes2_output/upload/analysis/copynumber/{run}/{run}_consensus.bed	
+/media/storage/wes2_output/copynumber/{run}_consensus_merged_GAIN.bed	/media/storage/wes2_output/upload/analysis/copynumber/{run}/{run}_consensus_merged_GAIN.bed	
+/media/storage/wes2_output/copynumber/{run}_consensus_merged_LOSS.bed	/media/storage/wes2_output/upload/analysis/copynumber/{run}/{run}_consensus_merged_LOSS.bed	
+/media/storage/wes2_output/msisensor2/{run}_msisensor2	/media/storage/wes2_output/upload/analysis/msisensor2/{run}/{run}_msisensor2.txt	
+/media/storage/wes2_output/vep/{run}.vep.vcf.gz	/media/storage/wes2_output/upload/analysis/neoantigen/{run}/combined/{run}.filtered.tsv	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/facets/{run}_optimalpurityvalue.txt	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}.optimalpurityvalue.txt	
+/media/storage/wes2_output/facets/{run}.cncf	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}.cncf	
+/media/storage/wes2_output/copynumber/{run}_facets_gainLoss.bed	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}_facets_gainLoss.bed	
+/media/storage/wes2_output/germline/{run}_plot_vcfstats/overlap_by_af.snps.dat	/media/storage/wes2_output/upload/analysis/report/somatic_variants/05_tumor_germline_overlap.tsv	
+/home/pipeline/cidc_wes2/version.tsv	/media/storage/wes2_output/upload/analysis/report/WES_Meta/02_WES_Run_Version.tsv	"echo ""Version 2.0 Enhanced Pipeline - Docker Version a0041d20aa0e5"" > /media/storage/wes2_output/upload/analysis/report/WES_Meta/02_WES_Run_Version.tsv"
+/home/pipeline/cidc_wes2/config/config.yaml	/media/storage/wes2_output/upload/analysis/report/config.yaml	
+/home/pipeline/cidc_wes2/config/sample_metadata.csv	/media/storage/wes2_output/upload/analysis/report/metasheet.csv	
+/media/storage/wes2_output/mutect2/{run}.mutect2.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/mutect2/{run}.filtered.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/tcellextrect/{run}_tcellextrect.txt	/media/storage/wes2_output/upload/analysis/tcellextrect/{run}/{run}_tcellextrect.txt	
+/media/storage/wes2_output/bam/{tumor_id}_dedup.bam	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}.sorted.dedup.bam	
+/media/storage/wes2_output/bam/{tumor_id}_dedup.bam.bai	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}.sorted.dedup.bam.bai	
+/media/storage/wes2_output/bqsr/{tumor_id}_recalibrated.bam	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}_recalibrated.bam	
+/media/storage/wes2_output/bqsr/{tumor_id}_recalibrated.bai	/media/storage/wes2_output/upload/analysis/align/{tumor_id}/{tumor_id}_recalibrated.bam.bai	
+/media/storage/wes2_output/germline/{tumor_id}_haplotypecaller.output.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{tumor_id}/{tumor_id}_haplotyper.output.vcf	
+/media/storage/wes2_output/germline/{tumor_id}_haplotypecaller.targets.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{tumor_id}/{tumor_id}_haplotyper.targets.vcf.gz	
+/media/storage/wes2_output/hlahd/{tumor_id}/result/{tumor_id}_final.result.txt	/media/storage/wes2_output/upload/analysis/hlahd/{tumor_id}/result/{tumor_id}_final.result.txt	
+/media/storage/wes2_output/optitype/{tumor_id}_result.tsv	/media/storage/wes2_output/upload/analysis/optitype/{tumor_id}/{tumor_id}_result.tsv	
+/media/storage/wes2_output/xhla/{tumor_id}_hla.json	/media/storage/wes2_output/upload/analysis/xhla/{tumor_id}/report-{tumor_id}-hla.json	
+TOUCH	/media/storage/wes2_output/upload/analysis/{run}_error.yaml	TOUCH
+maf.vcf.dummy.{run}.file1.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.vcf.gz	
+maf.vcf.dummy.{run}.file2.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.maf	
+maf.vcf.dummy.{run}.file3.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.maf	
+TOUCH	/media/storage/wes2_output/upload/analysis/report/json/{run}.wes.json	TOUCH
