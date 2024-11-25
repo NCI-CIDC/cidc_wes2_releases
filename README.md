@@ -108,3 +108,4 @@ This workflow skips the following modules: HLA-HD, xHLA, and TcellExTRECT
 snakemake --use-conda --cores <ncores> lowcov
 ```
 ## Please reach out to CIDC Bioinformatics (CIDCBioinformatics@mail.nih.gov) with any questions or to report any issues concerning this framework.
+## For test data and expected results, please see: CIDC Bioinformatic Pipelines Validation Report - WES v2.pdf
