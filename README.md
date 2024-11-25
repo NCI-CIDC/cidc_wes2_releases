@@ -107,4 +107,4 @@ This workflow skips the following modules: HLA-HD, xHLA, and TcellExTRECT
 ## Execute lowcov workflow (<ncores> the number of cores for entire workflow):
 snakemake --use-conda --cores <ncores> lowcov
 ```
-## Please reach out to Sami Cherikh (cherikhsr@nih.gov) with any questions or to report any issues concerning this framework.
+## Please reach out to CIDC Bioinformatics (CIDCBioinformatics@mail.nih.gov) with any questions or to report any issues concerning this framework.
