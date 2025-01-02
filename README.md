@@ -56,12 +56,11 @@ conda install -n base -c conda-forge mamba
 mamba init
 ```
 
-Add conda channels and set priorities.
+Add conda channels.
 ```
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
-conda config --set channel_priority strict
 ```
 
 ## Pipeline setup and execution:
