@@ -3,7 +3,8 @@ rule run_bwa:
     input:
         tch=rules.build_bwa_index.output,
         fa1=paths.input.input_fastq_1,
-        fa2=paths.input.input_fastq_2
+        fa2=paths.input.input_fastq_2,
+        fai=paths.genome.fai
     output:
         paths.bam.bam
     benchmark:

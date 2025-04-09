@@ -4,6 +4,7 @@ rule base_recalibrator:
         bam=rules.dedup_bam.output.dedup,
         bai=rules.dedup_bam.output.bai,
         fa=paths.genome.fa,
+        fai=paths.genome.fai,
         dict=paths.genome.picard_dict,
         dbsnp=paths.genome.dbsnp,
         mills=paths.genome.mills,
@@ -45,6 +46,7 @@ rule apply_bqsr:
         bai=rules.dedup_bam.output.bai,
         precaltable=rules.base_recalibrator.output.prerecaltable,
         ref_fa=paths.genome.fa,
+        fai=paths.genome.fai
     output:
         bam=paths.bqsr.recal_bam,
         bai=paths.bqsr.recal_index
@@ -82,6 +84,7 @@ rule base_recalibrator_post:
         bam=rules.apply_bqsr.output.bam,
         bai=rules.apply_bqsr.output.bai,
         fa=paths.genome.fa,
+        fai=paths.genome.fai,
         dict=paths.genome.picard_dict,
         dbsnp=paths.genome.dbsnp,
         mills=paths.genome.mills,
@@ -121,7 +124,8 @@ rule analyze_covariates:
     input:
         prerecal=rules.base_recalibrator.output.prerecaltable,
         postrecal=rules.base_recalibrator_post.output.postrecaltable,
-        index=paths.genome.fa
+        index=paths.genome.fa,
+        fai=paths.genome.fai
     output:
         recalfile=paths.bqsr.recal_table,
         report=paths.bqsr.report

@@ -64,11 +64,13 @@ def main():
             end_i = 'end'
             tcn_i = 'cn'
 
+
         ## Read the file
         for l in f:
             tmp = dict(zip(hdr, l.strip().split("\t")))
-            copyNum = int(tmp[tcn_i])
-
+            if tmp[tcn_i] in ["NA", ""]:  
+              continue  
+            copyNum = int(float(tmp[tcn_i]))
             ## Check cutoffs
             if copyNum >= gain_cut or copyNum <= loss_cut:
                 ## Handle chrom name oddities

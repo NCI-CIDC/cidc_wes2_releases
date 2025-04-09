@@ -180,24 +180,44 @@ cnvkit:
     enhanced_cns: "{sample}/{sample}_recalibrated.call.enhanced.cns"
 
 mutect2:
-    normal_vcf: "{sample}.normal.vcf.gz"
-    normal_tbi: "{sample}.normal.vcf.gz.tbi"
-    pon: "{sample}.pon.vcf.gz"
-    pon_idx: "{sample}.pon.vcf.gz.tbi"
     somatic_vcf: "{sample}.mutect2.vcf.gz"
     somatic_tbi: "{sample}.mutect2.vcf.gz.tbi"
     filtered_somatic_vcf: "{sample}.filtered.vcf.gz"
     filtered_somatic_tbi: "{sample}.filtered.vcf.gz.tbi"
+    unfiltered_somatic_vcf: "{sample}.unfiltered.vcf.gz"
+    unfiltered_somatic_tbi: "{sample}.unfiltered.vcf.gz.tbi"
 
 mutect2_TO:
     vcf: "{sample}.TO.vcf.gz"
     tbi: "{sample}.TO.vcf.gz.tbi"
     filtered_vcf: "{sample}.TO.filtered.vcf.gz"
     filtered_tbi: "{sample}.TO.filtered.vcf.gz.tbi"
+    unfiltered_vcf: "{sample}.TO.unfiltered.vcf.gz"
+    unfiltered_tbi: "{sample}.TO.unfiltered.vcf.gz.tbi"
+
+twist:
+    filtered_vcf: "{sample}.filtered.twist.vcf.gz"
+
+twist_TO:
+    filtered_vcf: "{sample}.TO.filtered.twist.vcf.gz"
+
+vcf2maf:
+   maf: "{sample}.filtered.variants.maf"
+   uncompress: "{sample}.filtered.vcf"
+
+vcf2maf_TO:
+   maf: "{sample}.TO.filtered.variants.maf"
+   uncompress: "{sample}.TO.filtered.vcf"
 
 vep:
-    vcf: "{sample}.vep.vcf.gz"
-    html: "{sample}.vep.html"
+   vcf: "{sample}.vep.vcf.gz"
+   html: "{sample}.vep.html"
+
+tmb:
+   tmb_Results: "{sample}.tmb_results.txt"
+
+tmb_TO:
+   tmb_Results: "{sample}.tmb_results.txt"
 
 lancet:
     vcf: "{sample}.lancet.vcf.gz"
@@ -210,6 +230,3 @@ strelka:
     tbi: "{sample}_strelka.vcf.gz.tbi"
     runstats_xml: "{sample}_strelka.runStats.xml"
     runstats_tsv: "{sample}_strelka.runStats.tsv"
-
-
-

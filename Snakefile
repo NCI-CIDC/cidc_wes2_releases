@@ -87,7 +87,6 @@ tumor_normal_df = pairings_df.query("type == 'TN'")
 print(pairings_df)
 print(tumor_normal_df)
 
-
 #todo: wrap these in a function in rules/common.smk
 GENOME_FA_URI = grab_ref_URI(ref_df, "genome_fa")
 GENOME_GTF_URI = grab_ref_URI(ref_df,"genome_gtf")
@@ -249,9 +248,15 @@ OUTPUT = [
           expand(paths.tcellextrect.pdf, sample=RUN),
           expand(paths.mutect2.filtered_somatic_vcf, sample=TN),
           expand(paths.mutect2_TO.filtered_vcf, sample=TO),
+          expand(paths.twist.filtered_vcf, sample=TN),
+          expand(paths.twist_TO.filtered_vcf, sample=TO),
+          expand(paths.vcf2maf.maf, sample=TN),
+          expand(paths.vcf2maf_TO.maf, sample=TO),
           expand(paths.vep.vcf, sample=TN),
+          expand(paths.tmb.tmb_Results, sample=TN),
+          expand(paths.tmb_TO.tmb_Results, sample=TO),
 	 # expand(paths.lancet.vcf, sample=TN),
-	  expand(paths.strelka.vcf, sample=TN),
+	 # expand(paths.strelka.vcf, sample=TN),
 	  ]
 
 #TODO: add tumor-only strelka (there is no tumor-only lancet)
@@ -329,6 +334,12 @@ include: "./rules/tcellextrect.smk"
 include: "./rules/cnvkit.smk"
 include: "./rules/mutect2.smk"
 include: "./rules/mutect2_TO.smk"
+include: "./rules/somatic_twist.smk"
+include: "./rules/somatic_twist_TO.smk"
+include: "./rules/vcf2maf.smk"
+include: "./rules/vcf2maf_TO.smk"
 include: "./rules/vep_annotate.smk"
+include: "./rules/calctmb.smk"
+include: "./rules/calctmb_TO.smk"
 include: "./rules/lancet.smk"
 include: "./rules/strelka.smk"

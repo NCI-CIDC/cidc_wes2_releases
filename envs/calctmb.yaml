@@ -1,0 +1,7 @@
+name: calctmb
+channels:
+   - conda-forge
+   - bioconda
+dependencies:
+   - bioconductor-maftools==2.16.0
+   - r-base==4.3.1

@@ -101,4 +101,3 @@ snakemake --use-conda --cores <ncores> --rerun-incomplete
 ```
 
 ## Please reach out to CIDC Bioinformatics (CIDCBioinformatics@mail.nih.gov) with any questions or to report any issues concerning this framework.
-

@@ -16,7 +16,7 @@ rule annotate_variants:
     params:
         # Pass a list of plugins to use, see https://www.ensembl.org/info/docs/tools/vep/script/vep_plugins.html
         # Plugin args can be added as well, e.g. via an entry "MyPlugin,1,FOO", see docs.
-        plugins=["LoFtool"],
+        plugins=["LoFtool","Frameshift","Wildtype"],
         extra="--everything",  # optional: extra arguments
     log:
         "log/{sample}_vep_annotate.log",

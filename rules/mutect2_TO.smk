@@ -3,6 +3,7 @@ rule mutect2_TO:
         pon=rules.retrieve_1kg_pon_file.output.vcf,
         tbi=rules.retrieve_1kg_pon_file.output.tbi,
         ref=paths.genome.fa,
+        fai=paths.genome.fai,
         tumor=paths.bqsr.recal_bam
     output:
         vcf=paths.mutect2_TO.vcf,
@@ -37,8 +38,11 @@ rule filter_mutect2_TO:
     input:
         vcf=paths.mutect2_TO.vcf,
         tbi=paths.mutect2_TO.tbi,
-        ref=paths.genome.fa
+        ref=paths.genome.fa,
+        fai=paths.genome.fai
     output:
+        unfiltered_vcf=paths.mutect2_TO.unfiltered_vcf,
+        unfiltered_tbi=paths.mutect2_TO.unfiltered_tbi,
         vcf=paths.mutect2_TO.filtered_vcf,
         tbi=paths.mutect2_TO.filtered_tbi
     benchmark:
@@ -49,6 +53,17 @@ rule filter_mutect2_TO:
         "../envs/gatk.yaml"
     shell:
         '''
-          echo "gatk FilterMutectCalls -V {input.vcf} -R {input.ref} -O {output.vcf}" | tee {log}
-          gatk FilterMutectCalls -V {input.vcf} -R {input.ref} -O {output.vcf} 2>> {log}
+          echo "gatk FilterMutectCalls -V {input.vcf} -R {input.ref} -O {output.unfiltered_vcf}" | tee {log}
+          gatk FilterMutectCalls -V {input.vcf} -R {input.ref} -O {output.unfiltered_vcf} 2>> {log}
+
+          echo "vcftools --gzvcf {output.unfiltered_vcf} --remove-filtered-all --recode --stdout > {output.vcf}.tmp" | tee -a {log}
+          vcftools --gzvcf {output.unfiltered_vcf} --remove-filtered-all --recode --stdout > {output.vcf}.tmp 2>> {log}
+
+          # Recompress the temporary VCF file with bgzip
+          echo "bgzip -c {output.vcf}.tmp > {output.vcf}" | tee -a {log}
+          bgzip -c {output.vcf}.tmp > {output.vcf} 2>> {log}
+
+          # Index the compressed VCF using tabix
+          echo "tabix -f -p vcf {output.vcf}" | tee -a {log}
+          tabix -f -p vcf {output.vcf} 2>> {log}
         '''

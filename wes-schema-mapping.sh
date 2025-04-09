@@ -10,6 +10,8 @@ mkdir -p analysis/report
 report_file="analysis/report/report.txt"
 : > "$report_file"
 
+mkdir -p /media/storage/wes2_output/upload/analysis/report/WES_Meta/
+
 # Load mapping files into associative arrays
 declare -A TN_MAPPING
 declare -A TO_MAPPING
@@ -63,9 +65,10 @@ while IFS=',' read -r type run_id normal_id tumor_id; do
     case "$type" in
         "TN")
             echo "Processing Tumor-Normal Pair: Run=$run_id, Normal=$normal_id, Tumor=$tumor_id" | tee -a "$report_file"
-            touch maf.vcf.dummy.$run_id.file1.txt
-            touch maf.vcf.dummy.$run_id.file2.txt
-            touch maf.vcf.dummy.$run_id.file3.txt
+			touch $run_id.report.tar.gz
+			echo "File Intentionally Left Blank - Please see twist.filtered.maf for Filtered MAF results" > maf.vcf.dummy.$run_id.file2.txt
+			echo "Version 2.1 Enhanced Pipeline - Docker Version be668c0ea124" > /media/storage/wes2_output/upload/analysis/report/WES_Meta/$run_id.02_WES_Run_Version.tsv
+			
             echo 'Dummy tnscope files created'
 
             for source_path in "${!TN_MAPPING[@]}"; do
@@ -95,9 +98,11 @@ while IFS=',' read -r type run_id normal_id tumor_id; do
             ;;
         "TO")
             echo "Processing Tumor-Only Data: Run=$run_id, Tumor=$tumor_id" | tee -a "$report_file"
-            touch maf.vcf.dummy.$run_id.file1.txt
-            touch maf.vcf.dummy.$run_id.file2.txt
-            touch maf.vcf.dummy.$run_id.file3.txt
+			touch $run_id.filtered.tsv
+			touch $run_id.report.tar.gz
+			echo "File Intentionally Left Blank - Please see twist.filtered.maf for Filtered MAF results" > maf.vcf.dummy.$run_id.file2.txt
+			echo "Version 2.1 Enhanced Pipeline - Docker Version be668c0ea124" > /media/storage/wes2_output/upload/analysis/report/WES_Meta/$run_id.02_WES_Run_Version.tsv
+			
             echo 'Dummy tnscope files created'
 
             for source_path in "${!TO_MAPPING[@]}"; do
@@ -133,7 +138,3 @@ done < /home/pipeline/cidc_wes2/config/pairings.csv
 tar -czf /media/storage/wes2_output/upload/analysis/report.tar.gz -C analysis report
 echo "Report generated at analysis/report.tar.gz and printed to screen:" | tee -a "$report_file"
 cat "$report_file"
-
-mkdir -p /media/storage/wes2_output/upload/analysis/report/WES_Meta/
-echo "Version 2.0 Enhanced Pipeline - Docker Version a0041d20aa0e5" > /media/storage/wes2_output/upload/analysis/report/WES_Meta/02_WES_Run_Version.tsv
-echo 'Run Version File Created'
