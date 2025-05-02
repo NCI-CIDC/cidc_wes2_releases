@@ -3,7 +3,7 @@ Source	Target	Modifications
 /media/storage/wes2_output/bam/{normal_id}_dedup.bam.bai	/media/storage/wes2_output/upload/analysis/align/{run}/{normal_id}.sorted.dedup.bam.bai	
 /media/storage/wes2_output/bqsr/{normal_id}_recalibrated.bam	/media/storage/wes2_output/upload/analysis/align/{run}/{normal_id}_recalibrated.bam	
 /media/storage/wes2_output/bqsr/{normal_id}_recalibrated.bai	/media/storage/wes2_output/upload/analysis/align/{run}/{normal_id}_recalibrated.bam.bai	
-/media/storage/wes2_output/germline/{normal_id}_haplotypecaller.output.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{run}/{normal_id}_haplotyper.output.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/germline/{normal_id}_haplotypecaller.output.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{run}/{normal_id}_haplotyper.output.vcf	#gunzip vcf.gz file to create .vcf file
 /media/storage/wes2_output/germline/{normal_id}_haplotypecaller.targets.vcf.gz	/media/storage/wes2_output/upload/analysis/germline/{run}/{normal_id}_haplotyper.targets.vcf.gz	
 /media/storage/wes2_output/hlahd/{normal_id}/result/{normal_id}_final.result.txt	/media/storage/wes2_output/upload/analysis/hlahd/{run}/result/{normal_id}_final.result.txt	
 /media/storage/wes2_output/optitype/{normal_id}_result.tsv	/media/storage/wes2_output/upload/analysis/optitype/{run}/{normal_id}_result.tsv	
@@ -26,7 +26,7 @@ Source	Target	Modifications
 /media/storage/wes2_output/copynumber/{run}_consensus_merged_GAIN.bed	/media/storage/wes2_output/upload/analysis/copynumber/{run}/{run}_consensus_merged_GAIN.bed	
 /media/storage/wes2_output/copynumber/{run}_consensus_merged_LOSS.bed	/media/storage/wes2_output/upload/analysis/copynumber/{run}/{run}_consensus_merged_LOSS.bed	
 /media/storage/wes2_output/msisensor2/{run}_msisensor2	/media/storage/wes2_output/upload/analysis/msisensor2/{run}/{run}_msisensor2.txt	
-/media/storage/wes2_output/vep/{run}.vep.vcf.gz	/media/storage/wes2_output/upload/analysis/neoantigen/{run}/combined/{run}.filtered.tsv	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/vep/{run}.vep.vcf.gz	/media/storage/wes2_output/upload/analysis/neoantigen/{run}/combined/{run}.filtered.tsv	#gunzip vcf.gz file to create .vcf file
 /media/storage/wes2_output/facets/{run}_optimalpurityvalue.txt	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}.optimalpurityvalue.txt	
 /media/storage/wes2_output/facets/{run}.cncf	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}.cncf	
 /media/storage/wes2_output/copynumber/{run}_facets_gainLoss.bed	/media/storage/wes2_output/upload/analysis/purity/{run}/{run}_facets_gainLoss.bed	
@@ -44,10 +44,10 @@ Source	Target	Modifications
 /media/storage/wes2_output/optitype/{tumor_id}_result.tsv	/media/storage/wes2_output/upload/analysis/optitype/{tumor_id}/{tumor_id}_result.tsv	
 /media/storage/wes2_output/xhla/{tumor_id}_hla.json	/media/storage/wes2_output/upload/analysis/xhla/{tumor_id}/report-{tumor_id}-hla.json	
 TOUCH	/media/storage/wes2_output/upload/analysis/{run}_error.yaml	TOUCH
-/media/storage/wes2_output/mutect2/{run}.filtered.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.vcf	gunzip vcf.gz file to create .vcf file
-/media/storage/wes2_output/twist/{run}.filtered.twist.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.vcf	gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/mutect2/{run}.filtered.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.vcf	#gunzip vcf.gz file to create .vcf file
+/media/storage/wes2_output/twist/{run}.filtered.twist.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.vcf	#gunzip vcf.gz file to create .vcf file
 /media/storage/wes2_output/mutect2/{run}.unfiltered.vcf.gz	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.vcf.gz	
 maf.vcf.dummy.{run}.file2.txt	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.maf	
-/media/storage/wes2_output/wes2_output/vcf2maf/{run}.filtered.variants.maf	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.maf	
+/media/storage/wes2_output/vcf2maf/{run}.filtered.variants.maf	/media/storage/wes2_output/upload/analysis/somatic/{run}/{run}_tnscope.output.twist.filtered.maf	
 /media/storage/wes2_output/tmb/{run}.tmb_results.txt	/media/storage/wes2_output/upload/analysis/report/json/{run}.wes.json	TOUCH
 TOUCH	/media/storage/wes2_output/upload/analysis/{run}.report.tar.gz	TOUCH
